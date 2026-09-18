@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Nöbetçi Eczaneler - Hayatın İçinden</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h2>Nöbetçi Eczane Arama</h2>
+  <div class="search-box">
+    <input type="text" id="sehir" placeholder="Şehir">
+    <input type="text" id="ilce" placeholder="İlçe">
+    <button onclick="eczaneAra()">Eczane ve Harita Ara</button>
+  </div>
+  <div id="mapArea"></div>
+
+  <script>
+    function eczaneAra() {
+      const sehir = document.getElementById('sehir').value;
+      const ilce = document.getElementById('ilce').value;
+      const query = `${sehir} ${ilce} nöbetçi eczane`;
+      window.open(`https://www.google.com/maps/search/${encodeURIComponent(query)}`, '_blank');
+    }
+  </script>
+</body>
+</html>

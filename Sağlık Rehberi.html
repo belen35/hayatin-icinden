@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hayatın İçinden - Osman BELEN</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); color: #333; min-height: 100vh; }
+    
+    /* Header & Navigation */
+    header { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(8px); color: white; text-align: center; padding: 2rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    header h1 { font-size: 2.2rem; background: linear-gradient(to right, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    header p { color: #94a3b8; font-size: 1rem; margin-top: 0.3rem; }
+    
+    nav { background: #0f172a; overflow-x: auto; white-space: nowrap; padding: 0.75rem; text-align: center; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    nav a { color: #cbd5e1; text-decoration: none; padding: 0.6rem 1.2rem; display: inline-block; font-weight: 600; border-radius: 20px; transition: all 0.3s ease; }
+    nav a:hover { background: #3b82f6; color: #fff; transform: translateY(-2px); }
+    
+    /* Main Layout */
+    .container { max-width: 1050px; margin: 2rem auto; padding: 0 1rem; }
+    .card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); padding: 1.8rem; margin-bottom: 2rem; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(0,0,0,0.3); }
+    .card h2 { color: #0f172a; margin-bottom: 1.2rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.5rem; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    
+    /* Hakkımda Bölümü Stili */
+    .about-card { background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%); border: 2px solid #3b82f6; }
+    .about-table { width: 100%; border-collapse: collapse; margin-top: 0.5rem; font-size: 1.05rem; }
+    .about-table td { padding: 0.75rem 0.5rem; border-bottom: 1px solid #e2e8f0; }
+    .about-table td.label { font-weight: bold; color: #1e293b; width: 180px; }
+    .about-table td.val { color: #334155; }
+    .about-table td.val a { color: #2563eb; text-decoration: none; font-weight: 600; }
+    .about-table td.val a:hover { text-decoration: underline; }
+
+    /* Sağlık Bölümü Özel Stilleri */
+    .health-card { border: 2px solid #10b981; }
+    .health-tabs { display: flex; gap: 8px; margin-bottom: 1.2rem; flex-wrap: wrap; }
+    .health-tab-btn { background: #e2e8f0; border: none; padding: 0.7rem 1.2rem; border-radius: 10px; cursor: pointer; font-weight: bold; color: #334155; transition: all 0.3s; }
+    .health-tab-btn.active { background: #10b981; color: white; }
+    .health-content { display: none; }
+    .health-content.active { display: block; }
+    
+    .health-warning { background: #fef2f2; border: 1px solid #fecaca; color: #991b1b; padding: 0.8rem; border-radius: 8px; font-size: 0.88rem; margin-bottom: 1rem; }
+
+    /* Grid & Tables */
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+    .btn { display: block; background: #2563eb; color: white; text-align: center; padding: 0.85rem; text-decoration: none; border-radius: 10px; font-weight: bold; transition: background 0.3s ease, transform 0.2s; }
+    .btn:hover { background: #1d4ed8; transform: scale(1.02); }
+
+    .eco-table { width: 100%; border-collapse: collapse; margin-top: 0.8rem; font-size: 0.95rem; }
+    .eco-table th, .eco-table td { padding: 0.75rem; text-align: left; border-bottom: 1px solid #e2e8f0; }
+    .eco-table th { background: #f1f5f9; color: #1e293b; font-weight: bold; }
+    .eco-table tr:nth-child(even) { background: #f8fafc; }
+    
+    /* Pratik Çözümler Cards */
+    .fix-item { background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid #0284c7; border-radius: 10px; padding: 1.2rem; margin-bottom: 1rem; }
+    .fix-item h3 { color: #0369a1; font-size: 1.15rem; margin-bottom: 0.6rem; display: flex; align-items: center; gap: 8px; }
+    .fix-item ul { margin-left: 1.2rem; color: #334155; line-height: 1.6; font-size: 0.95rem; }
+    .fix-item ul li { margin-bottom: 0.4rem; }
+
+    /* Karaoke Kartları */
+    .karaoke-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
+    .karaoke-card { background: #fdf4ff; border: 1px solid #f5d0fe; border-radius: 12px; padding: 1.2rem; }
+    .karaoke-card h3 { color: #86198f; margin-bottom: 0.5rem; font-size: 1.1rem; display: flex; justify-content: space-between; align-items: center; }
+    .karaoke-card p { color: #701a75; font-size: 0.9rem; margin-bottom: 0.8rem; }
+    .karaoke-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+    .k-btn { flex: 1; min-width: 120px; font-size: 0.85rem; padding: 0.5rem; text-decoration: none; border-radius: 6px; text-align: center; font-weight: bold; color: white; }
+
+    /* Yemek Kartları */
+    .recipe-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
+    .recipe-card { background: #fff7ed; border: 1px solid #ffedd5; border-radius: 12px; padding: 1.2rem; }
+    .recipe-card h3 { color: #c2410c; margin-bottom: 0.5rem; display: flex; justify-content: space-between; font-size: 1.1rem; }
+    .recipe-card p { color: #431407; font-size: 0.9rem; margin-bottom: 0.8rem; line-height: 1.5; }
+    .recipe-meta { font-size: 0.8rem; color: #ea580c; font-weight: bold; background: #ffebd5; padding: 4px 8px; border-radius: 6px; display: inline-block; }
+
+    /* Emergency / Acil Numaralar Kart Yapısı */
+    .emergency-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+    .emergency-card { background: #fef2f2; border: 1px solid #fecaca; border-radius: 12px; padding: 1rem; text-align: center; }
+    .emergency-card h3 { color: #dc2626; font-size: 1.1rem; margin-bottom: 0.3rem; }
+    .emergency-card p { color: #7f1d1d; font-size: 0.85rem; margin-bottom: 0.8rem; }
+    .call-btn { display: inline-block; background: #dc2626; color: white; text-decoration: none; padding: 0.6rem 1.2rem; border-radius: 8px; font-weight: bold; width: 100%; transition: background 0.2s; }
+    .call-btn:hover { background: #b91c1c; }
+
+    /* Şiir Köşesi */
+    .poem-box { background: #f8fafc; border-left: 4px solid #818cf8; padding: 1.2rem; border-radius: 8px; font-style: italic; line-height: 1.8; color: #334155; margin-bottom: 1.5rem; }
+    .poem-author { text-align: right; font-weight: bold; font-style: normal; margin-top: 0.5rem; color: #4f46e5; }
+    
+    /* Sizden Gelenler Formu */
+    .user-submission { background: #faf5ff; border: 1px dashed #a855f7; padding: 1.5rem; border-radius: 12px; margin-top: 1.5rem; }
+    .user-submission h3 { color: #6b21a8; margin-bottom: 0.3rem; }
+    .user-submission p.subtitle { color: #7e22ce; font-style: italic; font-size: 0.95rem; margin-bottom: 1rem; }
+    .form-group { margin-bottom: 0.8rem; }
+    .form-group input, .form-group textarea { width: 100%; padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem; outline: none; }
+    .form-group textarea { resize: vertical; height: 100px; }
+    .submit-btn { background: #9333ea; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: bold; cursor: pointer; transition: background 0.3s; }
+    .submit-btn:hover { background: #7e22ce; }
+
+    /* Manzara Galerisi */
+    .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; }
+    .gallery-item { overflow: hidden; border-radius: 12px; height: 180px; position: relative; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; border-radius: 12px; }
+    .gallery-item:hover img { transform: scale(1.1); }
+    .gallery-caption { position: absolute; bottom: 0; background: rgba(0,0,0,0.6); color: white; width: 100%; padding: 6px; text-align: center; font-size: 0.85rem; }
+
+    /* Sub-titles */
+    .sub-title { font-size: 1.1rem; color: #475569; margin: 1.2rem 0 0.6rem 0; font-weight: 600; border-left: 3px solid #3b82f6; padding-left: 8px; }
+
+    /* Spor Sekme Yapısı */
+    .sports-nav { display: flex; gap: 10px; margin-bottom: 1rem; flex-wrap: wrap; }
+    .tab-btn { background: #e2e8f0; border: none; padding: 0.6rem 1.2rem; cursor: pointer; border-radius: 8px; font-weight: bold; transition: all 0.2s; }
+    .tab-btn.active { background: #2563eb; color: white; }
+    .sport-content { display: none; }
+    .sport-content.active { display: block; }
+
+    footer { text-align: center; padding: 1.5rem; background: #0f172a; color: #94a3b8; font-size: 0.9rem; margin-top: 3rem; border-top: 1px solid rgba(255,255,255,0.05); }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Hayatın İçinden</h1>
+    <p>Duygu, Eğlence, Sağlık, Karaoke & Yaşam Portalı</p>
+  </header>
+
+  <!-- Ana Menü -->
+  <nav>
+    <a href="#hakkimda">👤 Hakkımda</a>
+    <a href="#saglik">🏥 Sağlık Portalı</a>
+    <a href="#karaoke">🎤 Türkçe Karaoke & Yarışma</a>
+    <a href="#ekonomi-sosyal">Vergiler & Maaşlar</a>
+    <a href="#yemek-tarifleri">Yemek Tarifleri</a>
+    <a href="#pratik-cozumler">Pratik Çözümler</a>
+    <a href="#acil-numaralar">Önemli Numaralar</a>
+    <a href="#ne-izlesem">Ne İzlesem?</a>
+    <a href="#siir">Günün Şiiri</a>
+    <a href="#manzara">Manzaralar</a>
+    <a href="#gazeteler">Gazeteler</a>
+    <a href="#oyunlar">Oyunlar</a>
+    <a href="#burclar">Burçlar</a>
+    <a href="#muzik">Müzik & Canlı Radyo</a>
+    <a href="#eczaneler">Eczaneler</a>
+    <a href="#spor">Spor</a>
+  </nav>
+
+  <div class="container">
+
+    <!-- 1. HAKKIMDA BÖLÜMÜ -->
+    <section id="hakkimda" class="card about-card">
+      <h2>👤 Hakkımda</h2>
+      <table class="about-table">
+        <tbody>
+          <tr>
+            <td class="label">Adı Soyadı</td>
+            <td class="val"><strong>Osman BELEN</strong></td>
+          </tr>
+          <tr>
+            <td class="label">Telefon numarası</td>
+            <td class="val"><a href="tel:5362187770">5362187770</a></td>
+          </tr>
+          <tr>
+            <td class="label">Lokasyon</td>
+            <td class="val">İzmir Karabağlar <br><a href="mailto:belen26esk35izm@gmail.com">belen26esk35izm@gmail.com</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 2. SAĞLIK PORTALI SAYFASI -->
+    <section id="saglik" class="card health-card">
+      <h2>🏥 Sağlık Rehberi & Tıbbi Bilgilendirme</h2>
+      
+      <div class="health-warning">
+        ⚠️ <strong>Yasal Bilgilendirme:</strong> Bu bölümdeki bilgiler sadece bilgilendirme amaçlıdır. Herhangi bir rahatsızlık durumunda mutlaka uzman bir hekime veya en yakın sağlık kuruluşuna başvurunuz. Doktorunuza danışmadan ilaç kullanmayınız.
+      </div>
+
+      <div class="health-tabs">
+        <button class="health-tab-btn active" onclick="openHealthTab('poliklinik')">🏥 Hangi Poliklinik / Doktor?</button>
+        <button class="health-tab-btn" onclick="openHealthTab('ilaclar')">💊 İlaç Grupları ve Etkileri</button>
+        <button class="health-tab-btn" onclick="openHealthTab('agrilar')">🩺 Vücut Ağrıları ve Tedavisi</button>
+      </div>
+
+      <!-- TAB 1: POLİKLİNİK REHBERİ -->
+      <div id="poliklinik" class="health-content active">
+        <div class="sub-title">Hangi Hastalıkta Hangi Bölüme (Polikliniğe) Gidilmeli?</div>
+        <table class="eco-table">
+          <thead>
+            <tr>
+              <th>Şikayet / Hastalık</th>
+              <th>Gidilmesi Gereken Poliklinik</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Mide ağrısı, reflü, şişkinlik, bulantı, diyabet, yüksek tansiyon</td>
+              <td><strong>Dahiliye (İç Hastalıkları)</strong></td>
+            </tr>
+            <tr>
+              <td>Göğüs ağrısı, çarpıntı, nefes darlığı, bacaklarda varis</td>
+              <td><strong>Kardiyoloji</strong></td>
+            </tr>
+            <tr>
+              <td>Baş ağrısı, migren, felç, unutkanlık, ellerde titreme, sara (epilepsi)</td>
+              <td><strong>Nöroloji</strong></td>
+            </tr>
+            <tr>
+              <td>Kemik, eklem, kas ağrıları, kırık, çıkık, menisküs, bağ yaralanmaları</td>
+              <td><strong>Ortopedi ve Travmatoloji</strong></td>
+            </tr>
+            <tr>
+              <td>Boğaz ağrısı, kulak çınlaması, işitme kaybı, burun tıkanıklığı, sinüzit</td>
+              <td><strong>Kulak Burun Boğaz (KBB)</strong></td>
+            </tr>
+            <tr>
+              <td>Sivilce, egzama, mantar, döküntü, nasır, saç dökülmesi, kaşıntı</td>
+              <td><strong>Dermatoloji (Cildiye)</strong></td>
+            </tr>
+            <tr>
+              <td>Gözde kızarıklık, görme bozukluğu, arpacık, göz tansiyonu (glokom)</td>
+              <td><strong>Göz Hastalıkları</strong></td>
+            </tr>
+            <tr>
+              <td>Böbrek taşı, idrar yaparken yanma, idrar kaçırma, prostat</td>
+              <td><strong>Üroloji</strong></td>
+            </tr>
+            <tr>
+              <td>Öksürük, hırıltılı solunum, KOAH, astım, bronşit, zatürre</td>
+              <td><strong>Göğüs Hastalıkları</strong></td>
+            </tr>
+            <tr>
+              <td>Depresyon, kaygı bozukluğu, panik atak, uyku bozuklukları</td>
+              <td><strong>Psikiyatri</strong></td>
+            </tr>
+            <tr>
+              <td>Fıtık ameliyatı, apandisit, safra kesesi taşları, kıl dönmesi</td>
+              <td><strong>Genel Cerrahi</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- TAB 2: İLAÇ GRUPLARI REHBERİ -->
+      <div id="ilaclar" class="health-content">
+        <div class="sub-title">Hangi İlaç Grubu Hangi Hastalıklara İyi Gelir?</div>
+        <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px;">
+          <div class="fix-item" style="border-left-color: #2563eb; margin: 0;">
+            <h3 style="color:#1d4ed8;">💊 Analjezikler (Ağrı Kesiciler)</h3>
+            <p style="font-size: 0.9rem; color: #475569; margin-bottom: 0.5rem;"><strong>Örnekler:</strong> Parasetamol, İbuprofen, Naproksen</p>
+            <ul>
+              <li>Baş, diş, kas ve eklem ağrılarını hafifletir.</li>
+              <li>Ateş düşürücü özellikleri bulunur.</li>
+              <li>Hafif ve orta şiddetli ağrılarda ilk tercihtir.</li>
+            </ul>
+          </div>
+
+          <div class="fix-item" style="border-left-color: #dc2626; margin: 0;">
+            <h3 style="color:#b91c1c;">🦠 Antibiyotikler</h3>
+            <p style="font-size: 0.9rem; color: #475569; margin-bottom: 0.5rem;"><strong>Örnekler:</strong> Amoksisilin, Sefalosporin, Azitromisin</p>
+            <ul>
+              <li>Sadece <strong>bakteriyel enfeksiyonlara</strong> etki eder.</li>
+              <li>Grip ve nezle gibi viral hastalıklara fayda sağlamaz.</li>
+              <li>Reçetesiz ve eksik dozda kullanılmamalıdır.</li>
+            </ul>
+          </div>
+
+          <div class="fix-item" style="border-left-color: #16a34a; margin: 0;">
+            <h3 style="color:#15803d;">🧪 Antasit ve Mide İlaçları</h3>
+            <p style="font-size: 0.9rem; color: #475569; margin-bottom: 0.5rem;"><strong>Örnekler:</strong> Omeprazol, Lansoprazol, Gaviscon</p>
+            <ul>
+              <li>Mide yanması, ekşimesi ve reflüyü önler.</li>
+              <li>Gastrit ve mide ülseri tedavisinde kullanılır.</li>
+              <li>Mide asidini dengeleyerek rahatlama sağlar.</li>
+            </ul>
+          </div>
+
+          <div class="fix-item" style="border-left-color: #d97706; margin: 0;">
+            <h3 style="color:#b45309;">🌸 Antihistaminikler (Alerji İlaçları)</h3>
+            <p style="font-size: 0.9rem; color: #475569; margin-bottom: 0.5rem;"><strong>Örnekler:</strong> Setirizin, Loratadin</p>
+            <ul>
+              <li>Saman nezlesi, hapşırma ve burun akıntısına iyi gelir.</li>
+              <li>Ciltteki kaşıntı, kurdeşen ve döküntüyü yatıştırır.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3: VÜCUT AĞRILARI VE TEDAVİSİ -->
+      <div id="agrilar" class="health-content">
+        <div class="sub-title">Vücut Ağrıları ve Pratik Tedavi / Rahatlama Yöntemleri</div>
+        
+        <div class="fix-item">
+          <h3>🧠 Baş Ağrısı ve Migren</h3>
+          <ul>
+            <li><strong>Nedenleri:</strong> Stres, susuzluk, uykusuzluk, uzun süre ekrana bakma.</li>
+            <li><strong>Evde Rahatlama:</strong> Karanlık ve sessiz bir odada dinlenin. Şakaklara hafif dairesel masaj yapın veya nane yağı sürün. Bol su tüketin.</li>
+            <li><strong>Ne Zaman Doktora Gidilmeli?</strong> Şiddetli, aniden başlayan ve kusma eşlik eden ağrılarda Nörolojiye başvurun.</li>
+          </ul>
+        </div>
+
+        <div class="fix-item" style="border-left-color: #ea580c;">
+          <h3 style="color:#c2410c;">🦴 Bel ve Boyun Ağrıları</h3>
+          <ul>
+            <li><strong>Nedenleri:</strong> Yanlış duruş, ağır kaldırma, uzun süre hareketsiz oturma, fıtık.</li>
+            <li><strong>Evde Rahatlama:</strong> İlk 48 saat hafif soğuk kompres, ardından kasları gevşetmek için ılık havlu veya sıcak duş uygulayın. Düz zeminde yatın.</li>
+            <li><strong>Egzersiz:</strong> Hafif esneme hareketleri ve düzenli yürüyüş kasları güçlendirir.</li>
+          </ul>
+        </div>
+
+        <div class="fix-item" style="border-left-color: #16a34a;">
+          <h3 style="color:#15803d;">💪 Kas ve Eklem Ağrıları (Kulunç / Yorgunluk)</h3>
+          <ul>
+            <li><strong>Nedenleri:</strong> Ağır egzersiz, cereyanda kalma, Magnezyum veya D vitamini eksikliği.</li>
+            <li><strong>Evde Rahatlama:</strong> Ilık tuz banyosu veya sıcak duş alın. Kas gevşetici merhemlerle hafif masaj yapın.</li>
+            <li><strong>Takviye:</strong> Magnezyum ve bol sıvı alımı kas kramplarını engellemeye yardımcı olur.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- KARAOKE & YARIŞMA SAYFASI -->
+    <section id="karaoke" class="card" style="border: 2px solid #c084fc;">
+      <h2>🎤 Türkçe Karaoke & Ses Yarışması</h2>
+      <p style="color: #64748b; margin-bottom: 1.2rem;">En sevilen Türkçe şarkıların altyapılarıyla şarkını söyle, yarışmaya katıl ve büyük ödülü kazan!</p>
+
+      <div style="background: linear-gradient(135deg, #f3e8ff 0%, #fae8ff 100%); border: 2px dashed #a855f7; padding: 1.5rem; border-radius: 12px; margin-bottom: 1.8rem;">
+        <h3 style="color: #7e22ce; margin-bottom: 0.6rem; font-size: 1.3rem;">🏆 Ayın Karaoke Yıldızı Yarışması & İndirme Ödülü!</h3>
+        <p style="color: #581c87; line-height: 1.6; font-size: 0.98rem; margin-bottom: 0.8rem;">
+          Şarkını söyle, performans kaydını bize gönder! Jüri ve ziyaretçi oylarıyla <strong>1. seçilen ses stüdyo kalitesinde işlenecektir.</strong>
+        </p>
+        <div style="background: #ffffff; padding: 1rem; border-radius: 8px; border-left: 4px solid #9333ea; color: #3b0764; font-size: 0.95rem;">
+          <strong>🎁 BİRİNCİLİK ÖDÜLÜ:</strong><br>
+          Karaoke yarışmasında 1. olan şarkıcımıza özel profesyonel kapaklı Master MP3/Video kayıt hediye edilir!
+          Birinci olan ses hem <strong>sitemizde baş köşede yayınlanır</strong> hem de şampiyona <strong>kendi web sayfasında, Instagram/TikTok hesabında veya dilediği her yerde paylaşabilmesi için Özel İndirme Bağlantısı (İndirme Ödülü)</strong> verilmektedir!
+        </div>
+      </div>
+
+      <div class="sub-title">🎶 Popüler Türkçe Karaoke Şarkıları</div>
+      <div class="karaoke-grid">
+        <div class="karaoke-card">
+          <h3><span>🎵 Gözlerinin Doğduğu Yer</span> <span style="font-size:0.75rem; background:#f3e8ff; padding:2px 6px; border-rad

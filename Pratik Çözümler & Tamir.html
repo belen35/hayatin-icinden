@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hayatın İçinden</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); color: #333; min-height: 100vh; }
+    
+    /* Header & Navigation */
+    header { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(8px); color: white; text-align: center; padding: 2rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    header h1 { font-size: 2.2rem; background: linear-gradient(to right, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    header p { color: #94a3b8; font-size: 1rem; margin-top: 0.3rem; }
+    
+    nav { background: #0f172a; overflow-x: auto; white-space: nowrap; padding: 0.75rem; text-align: center; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    nav a { color: #cbd5e1; text-decoration: none; padding: 0.6rem 1.2rem; display: inline-block; font-weight: 600; border-radius: 20px; transition: all 0.3s ease; }
+    nav a:hover { background: #3b82f6; color: #fff; transform: translateY(-2px); }
+    
+    /* Main Layout */
+    .container { max-width: 1050px; margin: 2rem auto; padding: 0 1rem; }
+    .card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); padding: 1.8rem; margin-bottom: 2rem; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(0,0,0,0.3); }
+    .card h2 { color: #0f172a; margin-bottom: 1.2rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.5rem; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    
+    /* Grid Helpers */
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+    .btn { display: block; background: #2563eb; color: white; text-align: center; padding: 0.85rem; text-decoration: none; border-radius: 10px; font-weight: bold; transition: background 0.3s ease, transform 0.2s; }
+    .btn:hover { background: #1d4ed8; transform: scale(1.02); }
+    
+    /* Pratik Çözümler Accordion & Cards */
+    .fix-item { background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid #0284c7; border-radius: 10px; padding: 1.2rem; margin-bottom: 1rem; }
+    .fix-item h3 { color: #0369a1; font-size: 1.15rem; margin-bottom: 0.6rem; display: flex; align-items: center; gap: 8px; }
+    .fix-item ul { margin-left: 1.2rem; color: #334155; line-height: 1.6; font-size: 0.95rem; }
+    .fix-item ul li { margin-bottom: 0.4rem; }
+    .fix-item ul li strong { color: #0f172a; }
+
+    /* Emergency / Acil Numaralar Kart Yapısı */
+    .emergency-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+    .emergency-card { background: #fef2f2; border: 1px solid #fecaca; border-radius: 12px; padding: 1rem; text-align: center; }
+    .emergency-card h3 { color: #dc2626; font-size: 1.1rem; margin-bottom: 0.3rem; }
+    .emergency-card p { color: #7f1d1d; font-size: 0.85rem; margin-bottom: 0.8rem; }
+    .call-btn { display: inline-block; background: #dc2626; color: white; text-decoration: none; padding: 0.6rem 1.2rem; border-radius: 8px; font-weight: bold; width: 100%; transition: background 0.2s; }
+    .call-btn:hover { background: #b91c1c; }
+
+    /* Şiir & Edebiyat Köşesi */
+    .poem-box { background: #f8fafc; border-left: 4px solid #818cf8; padding: 1.2rem; border-radius: 8px; font-style: italic; line-height: 1.8; color: #334155; margin-bottom: 1.5rem; }
+    .poem-author { text-align: right; font-weight: bold; font-style: normal; margin-top: 0.5rem; color: #4f46e5; }
+    
+    /* Şair/Ozan Anatomisi */
+    .author-card { background: #f1f5f9; padding: 1.2rem; border-radius: 12px; margin-top: 1rem; border: 1px solid #e2e8f0; }
+    .author-card h3 { color: #1e293b; margin-bottom: 0.5rem; }
+    .timeline { margin-top: 0.8rem; padding-left: 1rem; border-left: 2px solid #3b82f6; }
+    .timeline-item { margin-bottom: 0.6rem; position: relative; font-size: 0.95rem; }
+    .timeline-item strong { color: #2563eb; }
+    
+    /* Sizden Gelenler Formu */
+    .user-submission { background: #faf5ff; border: 1px dashed #a855f7; padding: 1.5rem; border-radius: 12px; margin-top: 1.5rem; }
+    .user-submission h3 { color: #6b21a8; margin-bottom: 0.3rem; }
+    .user-submission p.subtitle { color: #7e22ce; font-style: italic; font-size: 0.95rem; margin-bottom: 1rem; }
+    .form-group { margin-bottom: 0.8rem; }
+    .form-group input, .form-group textarea { width: 100%; padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem; outline: none; }
+    .form-group textarea { resize: vertical; height: 100px; }
+    .submit-btn { background: #9333ea; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: bold; cursor: pointer; transition: background 0.3s; }
+    .submit-btn:hover { background: #7e22ce; }
+
+    /* Manzara Galerisi */
+    .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; }
+    .gallery-item { overflow: hidden; border-radius: 12px; height: 180px; position: relative; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; border-radius: 12px; }
+    .gallery-item:hover img { transform: scale(1.1); }
+    .gallery-caption { position: absolute; bottom: 0; background: rgba(0,0,0,0.6); color: white; width: 100%; padding: 6px; text-align: center; font-size: 0.85rem; }
+
+    /* Sub-titles */
+    .sub-title { font-size: 1.1rem; color: #475569; margin: 1.2rem 0 0.6rem 0; font-weight: 600; border-left: 3px solid #3b82f6; padding-left: 8px; }
+
+    /* Spor Sekme Yapısı */
+    .sports-nav { display: flex; gap: 10px; margin-bottom: 1rem; flex-wrap: wrap; }
+    .tab-btn { background: #e2e8f0; border: none; padding: 0.6rem 1.2rem; cursor: pointer; border-radius: 8px; font-weight: bold; transition: all 0.2s; }
+    .tab-btn.active { background: #2563eb; color: white; }
+    .sport-content { display: none; }
+    .sport-content.active { display: block; }
+
+    footer { text-align: center; padding: 1.5rem; background: #0f172a; color: #94a3b8; font-size: 0.9rem; margin-top: 3rem; border-top: 1px solid rgba(255,255,255,0.05); }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Hayatın İçinden</h1>
+    <p>Duygu, Haber, Eğlence, Müzik ve Yaşam Portalı</p>
+  </header>
+
+  <!-- Ana Menü -->
+  <nav>
+    <a href="#pratik-cozumler">Pratik Çözümler</a>
+    <a href="#acil-numaralar">Önemli Numaralar</a>
+    <a href="#ne-izlesem">Ne İzlesem?</a>
+    <a href="#siir">Günün Şiiri & Anatomisi</a>
+    <a href="#manzara">Manzaralar</a>
+    <a href="#gazeteler">Gazeteler</a>
+    <a href="#oyunlar">Oyunlar</a>
+    <a href="#burclar">Burçlar</a>
+    <a href="#muzik">Müzik & Canlı Radyo</a>
+    <a href="#eczaneler">Eczaneler</a>
+    <a href="#spor">Spor</a>
+  </nav>
+
+  <div class="container">
+
+    <!-- PRATİK ÇÖZÜMLER SAYFASI / BÖLÜMÜ -->
+    <section id="pratik-cozumler" class="card">
+      <h2>🛠️ Pratik Çözümler <span style="font-size: 1rem; color: #64748b; font-weight: normal;">(ben bitti demeden bitmez 😉😉)</span></h2>
+      <p style="color: #64748b; margin-bottom: 1.5rem;">Evde, yolda veya günlük yaşamda karşılaştığınız cihaz ve eşya arızalarını ustaya gitmeden önce kendiniz çözün:</p>
+
+      <!-- 1. Cep Telefonu Arıza Giderme -->
+      <div class="fix-item">
+        <h3>📱 Cep Telefonu Arıza Giderme</h3>
+        <ul>
+          <li><strong>Telefon Şarj Olmuyor:</strong> Şarj soketinin içinde toz/pamuk birikmiş olabilir. İğne veya kurdan yardımıyla narince temizleyin. Farklı kablo/adaptör deneyin.</li>
+          <li><strong>Ekranda Donma / Yanıt Vermeme:</strong> Güç düğmesi ile Ses Kısma düğmesine 10-15 saniye basılı tutarak "Zorla Yeniden Başlatma" (Force Restart) yapın.</li>
+          <li><strong>Ses Karşıya Gitmiyor veya Ahize Kısık:</strong> Alt mikrofondaki ve üst ahizedeki gözenekleri yumuşak bir diş fırçasıyla izopropil alkol/kolonya ile temizleyin.</li>
+          <li><strong>Telefon Aşırı Isınıyor:</strong> Arka planda çalışan uygulamaları kapatın, şarjdayken yüksek grafikli oyun oynamayın ve kılıfı çıkarıp soğumasını bekleyin.</li>
+        </ul>
+      </div>
+
+      <!-- 2. Araba Arızaları ve Tamir Yolları -->
+      <div class="fix-item" style="border-left-color: #ea580c;">
+        <h3 style="color: #c2410c;">🚗 Araba Arızaları ve Pratik Tamir Yolları</h3>
+        <ul>
+          <li><strong>Araba Marş Basıyor Ama Çalışmıyor:</strong> Yakıt pompası sigortasını veya akü kutup başlarını kontrol edin. Kutup başları oksitlenmişse sıcak su ve karbonat ile temizleyip sıkın.</li>
+          <li><strong>Akü Bitti / Marş Basmıyor:</strong> Takviye kablosu ile başka araçtan (+) (+) 'ya, (-) (-) 'ye bağlayarak takviye yapın veya manuel vites ise vurdurarak çalıştırın.</li>
+          <li><strong>Motor Hararet Yapıyor (Yükseliyor):</strong> Aracı hemen güvenli yere çekip rölantide çalıştırın, kaloriferi en sıcak ayarda son kademede açın (sıcaklığı tahliye eder). Motor soğumadan radyatör kapağını ASLA açmayın!</li>
+          <li><strong>Frenlerden Ötme / Gıcırtı Sesi Geliyor:</strong> Disk arasına taş kaçmış olabilir. Güvenli alanda birkaç kez sert fren yapın veya balata temizleyici sprey sıkın.</li>
+          <li><strong>Yağ Lambası Yandı:</strong> Aracı derhal stop edin. Yağ çubuğunu çekip seviyeyi kontrol edin, eksikse uygun motor yağı ekleyin.</li>
+        </ul>
+      </div>
+
+      <!-- 3. Bulaşık Makinesi Arızaları -->
+      <div class="fix-item" style="border-left-color: #2563eb;">
+        <h3 style="color: #1d4ed8;">🍽️ Bulaşık Makinesi Arızaları</h3>
+        <ul>
+          <li><strong>Suyu Boşaltmıyor:</strong> Makinenin tabanındaki filtreyi çıkarıp biriken yiyeçek artıklarını temizleyin. Tahliye hortumunun bükülmediğinden emin olun.</li>
+          <li><strong>Su Almıyor:</strong> Su giriş musluğunun açık olduğunu kontrol edin. Su giriş hortumunun filtre kapağını söküp kireç ve tortuyu temizleyin.</li>
+          <li><strong>Bulaşıkları Kirli / Lekeli Çıkarıyor:</strong> Döner pervanelerin (fıskiye) deliklerinin tıkalı olup olmadığını kontrol edin, kütkürdanla açın. Bulaşık tuzu ve parlatıcısını tamamlayın.</li>
+          <li><strong>Kötü Koku Yapıyor:</strong> Filtreyi yıkayın. Makine boşken tabanına 1 bardak beyaz sirke ve 1 yemek kaşığı karbonat döküp yüksek sıcaklıkta çalıştırın.</li>
+        </ul>
+      </div>
+
+      <!-- 4. Çamaşır Makinesi Arızaları -->
+      <div class="fix-item" style="border-left-color: #16a34a;">
+        <h3 style="color: #15803d;">🧺 Çamaşır Makinesi Arızaları</h3>
+        <ul>
+          <li><strong>Sıkma Yapmıyor / Çok Sallanıyor:</strong> İçindeki çamaşır yükü dengesiz olabilir (tek büyük bornoz veya havlu gibi). Çamaşırları elle dağıtıp tekrar sıkmaya alın. Alt ayakların yere tam oturduğunu kontrol edin.</li>
+          <li><strong>Suyu Tahliye Etmiyor:</strong> Ön alt kapaktaki pompa filtresini açın (önüne kap koyun su akar), içindeki bozuk para, toka veya havları temizleyin.</li>
+          <li><strong>Deterjan Çekmecesinden Köpük Taşıyor:</strong> Fazla deterjan veya elde yıkama deterjanı konulmuştur. Çekmeceyi çıkarıp sıcak suyla yıkayın, makineye su aldırıp boşaltın.</li>
+          <li><strong>Alttan Su Kaçırıyor:</strong> Kapak lastiğinde (körük) yırtık veya yıpranma var mı bakın. Su giriş ve gider hortumu kelepçelerini sıkın.</li>
+        </ul>
+      </div>
+
+      <!-- 5. Buzdolabı Arızaları -->
+      <div class="fix-item" style="border-left-color: #0891b2;">
+        <h3 style="color: #0e7490;">🧊 Buzdolabı Arızaları</h3>
+        <ul>
+          <li><strong>Soğutmuyor / Alt Taraf Isınıyor:</strong> Buzdolabının arkasındaki ızgara ve kompresör tozlanmıştır. Fişi çekip arkadaki tozları elektrik süpürgesiyle çekin. Duvarla arasında en az 10 cm mesafe bırakın.</li>
+          <li><strong>Buzlanma / Karlanma Yapıyor:</strong> Kapı fitilleri (mıknatıs) hava kaçırıyor olabilir. Fitilleri sıcak su ve bezle temizleyin. Şeritlerin yapıştığından emin olun.</li>
+          <li><strong>Çok Sesli Çalışıyor:</strong> Buzdolabı düz bir zeminde olmayabilir. Alt ön ayakları çevirerek terazisini ayarlayın. İçindeki kapların birbirine değmediğinden emin olun.</li>
+        </ul>
+      </div>
+
+      <!-- 6. Saç Kurutma Makinesi Arızaları -->
+      <div class="fix-item" style="border-left-color: #9333ea;">
+        <h3 style="color: #7e22ce;">💨 Saç Kurutma Makinesi Arızaları</h3>
+        <ul>
+          <li><strong>Aniden Kapanıyor ve Çalışmıyor:</strong> Termik koruma (aşırı ısınma emniyeti) devreye girmiştir. Arka hava emiş ızgarasında biriken saç ve tozları temizleyin. 15-20 dakika soğumasını bekleyin, tekrar çalışacaktır.</li>
+          <li><strong>Sadece Soğuk Üflüyor (Sıcak Vermiyor):</strong> Sıcaklık kademe anahtarı arızalı olabilir veya rezistans teli kopmuş olabilir. Düğmeyi birkaç kez açıp kapatın.</li>
+          <li><strong>Yanık Kokusu veya Cızırtı Geliyor:</strong> Motor pervanesine saç dolanmış olabilir. Fişten çekip arka kapağı sökerek dolanan saçları temizleyin.</li>
+        </ul>
+      </div>
+
+    </section>
+
+    <!-- ÖNEMLİ TELEFON HATLAR / ACİL NUMARALAR -->
+    <section id="acil-numaralar" class="card">
+      <h2>🚨 Önemli Telefon Hatları & Acil Numaralar</h2>
+      <p style="color: #64748b; margin-bottom: 1rem;">İhtiyaç anında doğrudan arayabileceğiniz acil ve resmi telefon hatları:</p>
+
+      <div class="emergency-grid">
+        <div class="emergency-card" style="background:#fee2e2; border-color:#fca5a5; grid-column: 1 / -1;">
+          <h3>🔴 112 - Tek Acil Çağrı Merkezi</h3>
+          <p>Ambulans, Polis, İtfaiye, Jandarma, AFAD ve Orman Yangını için tek numara.</p>
+          <a href="tel:112" class="call-btn" style="font-size:1.1rem;">📞 112'yi Ara</a>
+        </div>
+
+        <div class="emergency-card">
+          <h3>🚑 112 Sağlık & Ambulans</h3>
+          <p>Acil Tıbbi Müdahale</p>
+          <a href="tel:112" class="call-btn">Ara (112)</a>
+        </div>
+
+        <div class="emergency-card">
+          <h3>Police 155 / 112 Polis İmdat</h3>
+          <p>Emniyet & Asayiş</p>
+          <a href="tel:112" class="call-btn">Ara (112)</a>
+        </div>
+
+        <div class="emergency-card">
+          <h3>🚒 110 İtfaiye</h3>
+          <p>Yangın & Kurtarma</p>
+          <a href="tel:112" class="call-btn">Ara (112)</a>
+        </div>
+
+        <div class="emergency-card">
+          <h3>👨‍✈️ 156 Jandarma</h3>
+          <p>Kırsal Bölge Asayiş</p>
+          <a href="tel:112" class="call-btn">Ara (112)</a>
+        </div>
+
+        <div class="emergency-card" style="background:#f0fdf4; border-color:#bbf7d0;">
+          <h3 style="color:#166534;">🏥 182 MHRS Hastane</h3>
+          <p style="color:#14532d;">MHRS Randevu Hattı</p>
+          <a href="tel:182" class="call-btn" style="background:#16a34a;">Ara (182)</a>
+        </div>
+
+        <div class="emergency-card" style="background:#fefce8; border-color:#fef08a;">
+          <h3 style="color:#854d0e;">💜 183 Kadın & Çocuk</h3>
+          <p style="color:#713f12;">Sosyal Destek Hatları</p>
+          <a href="tel:183" class="call-btn" style="background:#ca8a04;">Ara (183)</a>
+        </div>
+
+        <div class="emergency-card">
+          <h3>⚡ 186 Elektrik Arıza</h3>
+          <p>Elektrik Kesintileri</p>
+          <a href="tel:186" class="call-btn" style="background:#4b5563;">Ara (186)</a>
+        </div>
+
+        <div class="emergency-card">
+          <h3>🔥 187 Doğalgaz Arıza</h3>
+          <p>Acil Gaz İhbarı</p>
+          <a href="tel:187" class="call-btn" style="background:#ea580c;">Ara (187)</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- NE İZLESEM? -->
+    <section id="ne-izlesem" class="card">
+      <h2>🎬 Ne İzlesem?</h2>
+      <p style="color: #64748b;">Güncel dizi fragmanları, son bölümler ve izlenme rekoru kırmış başyapıt filmler:</p>
+
+      <div class="sub-title">📺 Güncel Dizi Fragmanları & Son Bölümler</div>
+      <div class="grid">
+        <a href="https://www.youtube.com/feed/trending?bp=4gINGgt5dE1hY2hpbmVz" target="_blank" class="btn" style="background:#dc2626;">🎬 YouTube Trend Fragmanlar</a>
+        <a href="https://puhutv.com" target="_blank" class="btn" style="background:#0284c7;">📺 PuhuTV Ücretsiz Diziler</a>
+        <a href="https://www.youtube.com/@DiziFragmanlari/videos" target="_blank" class="btn" style="background:#e11d48;">🔥 Yerli Dizi Fragmanları</a>
+      </div>
+
+      <div class="sub-title">🏆 Rekor Kıran Efsane Filmler (Tavsiyeler)</div>
+      <div class="grid">
+        <a href="https://www.imdb.com/chart/top/" target="_blank" class="btn" style="background:#d97706;">⭐ IMDb Top 250 Film Listesi</a>
+        <a href="https://www.google.com/search?q=Avatar+1" target="_blank" class="btn" style="background:#059669;">🌊 Avatar (Tüm Zamanlar #1)</a>
+        <a href="https://www.google.com/search?q=Avengers+Endgame" target="_blank" class="btn" style="background:#7c3aed;">🛡️ Avengers: Endgame</a>
+        <a href="https://www.google.com/search?q=Titanic+film" target="_blank" class="btn" style="background:#4f46e5;">🚢 Titanic</a>
+        <a href="https://www.google.com/search?q=Interstellar+film" target="_blank" class="btn" style="background:#2563eb;">🚀 Yıldızlararası (Interstellar)</a>
+      </div>
+    </section>
+
+    <!-- Günün Şiiri, Yazar Anatomisi ve Sizden Gelenler -->
+    <section id="siir" class="card">
+      <h2>📜 Günün Duygusal Şiiri & Edebiyat Köşesi</h2>
+      
+      <div class="poem-box">
+        <p>"Ayrılık da sevdaya dahil,<br>
+        Çünkü ayrılanlar hala sevgili...<br>
+        Bitebilir bir aşk, ama bitmez sızısı,<br>
+        Gözlerinin buğusunda kalır anısı."</p>
+        <div class="poem-author">— Attilâ İlhan</div>
+      </div>
+
+      <!-- Şair / Ozan Anatomisi Bölümü -->
+      <h2>✒️ Usta Şair & Ozan Anatomisi</h2>
+      
+      <div class="author-card">
+        <h3>Attilâ İlhan (1925 - 2005)</h3>
+        <p>Türk edebiyatının toplumcu gerçekçi ve romantik akımının en önemli temsilcilerindendir. Şiirlerinde yalnızlık, sevda, varoluş ve kent yaşamının hüzünlü dokusu derinlemesine işlenir.</p>
+        
+        <h4 style="margin-top:0.8rem; color:#1e293b;">Tarih Bazlı Önemli Eserleri:</h4>
+        <div class="timeline">
+          <div class="timeline-item"><strong>1948:</strong> Duvar <i>(İlk Şiir Kitabı)</i></div>
+          <div class="timeline-item"><strong>1954:</strong> Sisler Bulvarı</div>
+          <div class="timeline-item"><strong>1959:</strong> Yağmur Kaçağı</div>
+          <div class="timeline-item"><strong>1968:</strong> Yasak Sevişmek</div>
+          <div class="timeline-item"><strong>1973:</strong> Tutuklunun Günlüğü</div>
+          <div class="timeline-item"><strong>1982:</strong> Elde Var Hüzün</div>
+        </div>
+      </div>
+
+      <div class="author-card" style="margin-top:1rem;">
+        <h3>Aşık Veysel Şatıroğlu (1894 - 1973)</h3>
+        <p>Anadolu halk ozanlığı geleneğinin en büyük üstatlarındandır. Küçük yaşta gözlerini kaybetmesine rağmen sazıyla doğaya, insana, aşka ve toprağa dair en derin felsefeleri dile getirmiştir.</p>
+        
+        <h4 style="margin-top:0.8rem; color:#1e293b;">Öne Çıkan Eserleri ve Tarihçesi:</h4>
+        <div class="timeline">
+          <div class="timeline-item"><strong>1933:</strong> "Atatürk'e Ağıt" <i>(Tanınmasını sağlayan ilk şiir)</i></div>
+          <div class="timeline-item"><strong>1944:</strong> Deyişler <i>(İlk Derleme Kitabı)</i></div>
+          <div class="timeline-item"><strong>1950:</strong> Sazımdan Sesler</div>
+          <div class="timeline-item"><strong>1970:</strong> Dostlar Beni Hatırlasın <i>(Tüm Eserlerinin Toplandığı Kült Eser)</i></div>
+        </div>
+      </div>
+
+      <!-- Sizden Gelenler Bölümü -->
+      <div class="user-submission">
+        <h3>✍️ Sizden Gelenler</h3>
+        <p clas

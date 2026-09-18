@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hayatın İçinden</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
+    body { background-color: #f4f6f9; color: #333; }
+    
+    /* Header & Navigation */
+    header { background: #1e293b; color: white; text-align: center; padding: 1rem 0; }
+    header h1 { margin-bottom: 0.5rem; font-size: 1.8rem; }
+    
+    nav { background: #0f172a; overflow-x: auto; white-space: nowrap; padding: 0.5rem; text-align: center; }
+    nav a { color: #e2e8f0; text-decoration: none; padding: 0.5rem 1rem; display: inline-block; font-weight: bold; }
+    nav a:hover { background: #334155; border-radius: 4px; color: #fff; }
+    
+    /* Main Layout */
+    .container { max-width: 1000px; margin: 1.5rem auto; padding: 0 1rem; }
+    .card { background: white; padding: 1.5rem; margin-bottom: 1.5rem; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+    .card h2 { color: #0f172a; margin-bottom: 1rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.5rem; }
+    
+    /* Grid Helpers */
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+    .btn { display: block; background: #2563eb; color: white; text-align: center; padding: 0.75rem; text-decoration: none; border-radius: 6px; font-weight: bold; }
+    .btn:hover { background: #1d4ed8; }
+    
+    /* Spor Sekme (Tab) Yapısı */
+    .sports-nav { display: flex; gap: 10px; margin-bottom: 1rem; flex-wrap: wrap; }
+    .tab-btn { background: #e2e8f0; border: none; padding: 0.5rem 1rem; cursor: pointer; border-radius: 6px; font-weight: bold; }
+    .tab-btn.active { background: #2563eb; color: white; }
+    .sport-content { display: none; }
+    .sport-content.active { display: block; }
+
+    footer { text-align: center; padding: 1rem; background: #1e293b; color: #94a3b8; font-size: 0.9rem; margin-top: 2rem; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Hayatın İçinden</h1>
+    <p>Günlük İhtiyacınız Olan Her Şey Tek Bir Yerde</p>
+  </header>
+
+  <!-- Ana Menü -->
+  <nav>
+    <a href="#gazeteler">Gazeteler</a>
+    <a href="#oyunlar">Oyunlar</a>
+    <a href="#burclar">Burç Yorumları</a>
+    <a href="#muzik">Güncel Müzikler</a>
+    <a href="#eczaneler">Nöbetçi Eczaneler</a>
+    <a href="#spor">Spor</a>
+  </nav>
+
+  <div class="container">
+    
+    <!-- Gazeteler -->
+    <section id="gazeteler" class="card">
+      <h2>Gazeteler & Haber Portalları</h2>
+      <div class="grid">
+        <a href="https://www.hurriyet.com.tr" target="_blank" class="btn">Hürriyet</a>
+        <a href="https://www.sozcu.com.tr" target="_blank" class="btn">Sözcü</a>
+        <a href="https://www.milliyet.com.tr" target="_blank" class="btn">Milliyet</a>
+        <a href="https://www.sabah.com.tr" target="_blank" class="btn">Sabah</a>
+        <a href="https://www.mynet.com" target="_blank" class="btn">Mynet</a>
+        <a href="https://www.ensonhaber.com" target="_blank" class="btn">En Son Haber</a>
+        <a href="https://www.haberler.com" target="_blank" class="btn">Haberler.com</a>
+        <a href="https://www.yeniasir.com.tr" target="_blank" class="btn">Yeni Asır</a>
+      </div>
+    </section>
+
+    <!-- Oyunlar -->
+    <section id="oyunlar" class="card">
+      <h2>Oyunlar</h2>
+      <div class="grid">
+        <a href="https://www.mynet.com/oyun/tavla" target="_blank" class="btn" style="background:#059669;">🎲 Online Tavla</a>
+        <a href="https://www.okeyy.net" target="_blank" class="btn" style="background:#d97706;">🀄 Online Okey</a>
+        <a href="https://www.oyunskor.com/pisti.html" target="_blank" class="btn" style="background:#7c3aed;">🃏 Pişti</a>
+        <a href="https://www.oyunkolu.com/zeka-oyunlari/adam-asmaca.html" target="_blank" class="btn" style="background:#dc2626;">✏️ Adam Asmaca</a>
+        <a href="https://www.oyunskor.com/bil-bakalim.html" target="_blank" class="btn" style="background:#2563eb;">❓ Bil Bakalım</a>
+      </div>
+    </section>
+
+    <!-- Burç Yorumları -->
+    <section id="burclar" class="card">
+      <h2>Günlük Burç Yorumları</h2>
+      <p>Günlük burç yorumlarınızı öğrenmek için astroloji sayfamızı ziyaret edin.</p>
+      <br>
+      <a href="https://www.elele.com.tr/astroloji/burclar" target="_blank" class="btn" style="display:inline-block;">Burçları Oku</a>
+    </section>
+
+    <!-- Güncel Müzikler -->
+    <section id="muzik" class="card">
+      <h2>Güncel Müzikler</h2>
+      <p>En çok dinlenen listelere göz atın:</p>
+      <br>
+      <a href="https://open.spotify.com/playlist/37i9dQZF1DXarR24o2yoqM" target="_blank" class="btn" style="display:inline-block; background:#1db954;">Spotify Türkçe Pop Top 50</a>
+    </section>
+
+    <!-- Nöbetçi Eczaneler -->
+    <section id="eczaneler" class="card">
+      <h2>Nöbetçi Eczaneler</h2>
+      <p>Bulunduğunuz şehirdeki nöbetçi eczaneleri sorgulayın:</p>
+      <br>
+      <a href="https://www.eczaneler.gen.tr" target="_blank" class="btn" style="display:inline-block; background:#dc2626;">Nöbetçi Eczane Sorgula</a>
+    </section>
+
+    <!-- SPOR SAYFASI / BÖLÜMÜ -->
+    <section id="spor" class="card">
+      <h2>Spor Dünyası</h2>
+      
+      <!-- Spor Dalları Geçiş Menüsü -->
+      <div class="sports-nav">
+        <button class="tab-btn active" onclick="openSport('futbol')">⚽ Futbol</button>
+        <button class="tab-btn" onclick="openSport('basketbol')">🏀 Basketbol</button>
+        <button class="tab-btn" onclick="openSport('voleybol')">🏐 Voleybol</button>
+      </div>
+
+      <!-- Futbol İçeriği -->
+      <div id="futbol" class="sport-content active">
+        <h3 style="margin-bottom:0.8rem;">Futbol</h3>
+        <div class="grid">
+          <a href="https://beinsports.com.tr/mac-ozetleri" target="_blank" class="btn">Maç Özetleri</a>
+          <a href="https://www.tff.org/default.aspx?pageID=198" target="_blank" class="btn">Fikstür & Maç Programı</a>
+          <a href="https://www.mackolik.com/puan-durumu" target="_blank" class="btn">Puan Durumu</a>
+        </div>
+      </div>
+
+      <!-- Basketbol İçeriği -->
+      <div id="basketbol" class="sport-content">
+        <h3 style="margin-bottom:0.8rem;">Basketbol</h3>
+        <div class="grid">
+          <a href="https://www.tbf.org.tr/ligler/bsl-2025-2026/puan-durumu" target="_blank" class="btn">Basketbol Süper Ligi Puan Durumu</a>
+          <a href="https://www.tbf.org.tr/ligler/bsl-2025-2026/fikstur-maclar" target="_blank" class="btn">Fikstür & Sonuçlar</a>
+          <a href="https://www.euroleague.net" target="_blank" class="btn">EuroLeague Haberleri</a>
+        </div>
+      </div>
+
+      <!-- Voleybol İçeriği -->
+      <div id="voleybol" class="sport-content">
+        <h3 style="margin-bottom:0.8rem;">Voleybol</h3>
+        <div class="grid">
+          <a href="https://tvf.org.tr" target="_blank" class="btn">Sultanlar / Efeler Ligi Puan Durumu</a>
+          <a href="https://www.tvf.org.tr/mac-merkezi/" target="_blank" class="btn">Fikstür & Canlı Skorlar</a>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Hayatın İçinden - Tüm Hakları Saklıdır.</p>
+  </footer>
+
+  <script>
+    function openSport(sportName) {
+      const contents = document.querySelectorAll('.sport-content');
+      contents.forEach(content => content.classList.remove('active'));
+      
+      const buttons = document.querySelectorAll('.tab-btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      
+      document.getElementById(sportName).classList.add('active');
+      event.currentTarget.classList.add('active');
+    }
+  </script>
+
+</body>
+</html>

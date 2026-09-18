@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nereyi Gezsem?</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: #0f172a;
+      color: #f8fafc;
+      padding: 16px;
+    }
+
+    /* Üst Başlık ve Geri Butonu */
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .back-btn {
+      color: #38bdf8;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .header h1 {
+      font-size: 1.5rem;
+      color: #38bdf8;
+      margin-bottom: 6px;
+    }
+
+    .header p {
+      font-size: 0.85rem;
+      color: #94a3b8;
+    }
+
+    /* Toplu Taşıma Saatleri Kutusu */
+    .transport-box {
+      background-color: #1e293b;
+      border: 1.5px solid #0284c7;
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 20px;
+    }
+
+    .transport-title {
+      font-size: 1rem;
+      font-weight: bold;
+      color: #38bdf8;
+      margin-bottom: 10px;
+    }
+
+    .input-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    .city-input {
+      flex: 1;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #334155;
+      background-color: #0f172a;
+      color: #ffffff;
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    .btn-search {
+      background-color: #0284c7;
+      color: #ffffff;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* Gezilecek Yer Arama Kutusu */
+    .search-input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #334155;
+      background-color: #1e293b;
+      color: #ffffff;
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+      outline: none;
+    }
+
+    /* Gezi Kartları */
+    .place-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .place-card {
+      background-color: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .place-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .place-tag {
+      color: #38bdf8;
+      font-size: 0.88rem;
+      font-weight: bold;
+    }
+
+    .place-info {
+      font-size: 0.85rem;
+      color: #94a3b8;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 8px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-align: center;
+      color: #ffffff;
+    }
+
+    .btn-map { background-color: #10b981; }
+    .btn-guide { background-color: #0284c7; }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">
+    <a href="index.html" class="back-btn">&larr; Ana Sayfa</a>
+  </div>
+
+  <div class="header">
+    <h1>🧭 Nereyi Gezsem?</h1>
+    <p>Gezilecek yerler ve Toplu Taşıma Saatleri</p>
+  </div>
+
+  <!-- TOPLU TAŞIMA SAATLERİ KUTUSU -->
+  <div class="transport-box">
+    <div class="transport-title">🚌 Toplu Taşıma Hareket Saatleri</div>
+    <div class="input-group">
+      <input type="text" id="cityInput" class="city-input" placeholder="Şehir adı yazın (Örn: İzmir, İstanbul)...">
+      <button class="btn-search" onclick="searchTransport()">Saatleri Bul</button>
+    </div>
+  </div>
+
+  <!-- GEZİLECEK YER ARAMA KUTUSU -->
+  <input type="text" id="searchInput" class="search-input" placeholder="Gezilecek mekan veya şehir ara..." onkeyup="filterPlaces()">
+
+  <!-- GEZİ KARTLARI -->
+  <div class="place-grid">
+
+    <div class="place-card" data-title="izmir efes antik kenti selcuk">
+      <span class="place-tag">İzmir / Selçuk</span>
+      <div class="place-title">Efes Antik Kenti</div>
+      <div class="place-info">UNESCO Dünya Mirası, Celsus Kütüphanesi ve Antik Tiyatro.</div>
+      <div class="btn-group">
+        <a href="https://www.google.com/maps/search/Efes+Antik+Kenti+Selcuk+Izmir" target="_blank" class="btn btn-map">📍 Harita</a>
+        <a href="https://www.google.com/search?q=efes+antik+kenti+gezilecek+yerler+rehberi" target="_blank" class="btn btn-guide">📖 Rehber</a>
+      </div>
+    </div>
+
+    <div class="place-card" data-title="eskisehir odunpazari evleri">
+      <span class="place-tag">Eskişehir</span>
+      <div class="place-title">Tarihi Odunpazarı Evleri</div>
+      <div class="place-info">Renkli Osmanlı evleri, müzeler ve Porsuk Çayı.</div>
+      <div class="btn-group">
+        <a href="https://www.google.com/maps/search/Odunpazari+Eskisehir" target="_blank" class="btn btn-map">📍 Harita</a>
+        <a href="https://www.google.com/search?q=eskisehir+odunpazari+gezi+rehberi" target="_blank" class="btn btn-guide">📖 Rehber</a>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // Şehir Toplu Taşıma Saatleri Arama Fonksiyonu
+    function searchTransport() {
+      const city = document.getElementById('cityInput').value.trim();
+      if (city === "") {
+        alert("Lütfen bir şehir adı yazın.");
+        return;
+      }
+      const url = "https://www.google.com/search?q=" + encodeURIComponent(city + " toplu tasima otobus metro hareket saatleri");
+      window.open(url, '_blank');
+    }
+
+    // Gezilecek Yer Filtreleme Fonksiyonu
+    function filterPlaces() {
+      const input = document.getElementById('searchInput').value.toLowerCase();
+      const cards = document.getElementsByClassName('place-card');
+
+      for (let i = 0; i < cards.length; i++) {
+        const title = cards[i].getAttribute('data-title');
+        if (title.includes(input)) {
+          cards[i].style.display = 'flex';
+        } else {
+          cards[i].style.display = 'none';
+        }
+      }
+    }
+  </script>
+
+</body>
+</html>

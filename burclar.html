@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Burçlar - Hayatın İçinden</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h2>Günlük Burç Yorumları</h2>
+  <div class="search-box">
+    <input type="text" id="burcInput" placeholder="Burcunuzu girin (ör: Koç, Boğa)...">
+    <button onclick="burcAra()">Ara</button>
+  </div>
+  <div id="burcSonuc" class="result-area"></div>
+
+  <script>
+    function burcAra() {
+      const input = document.getElementById('burcInput').value;
+      if (input) {
+        window.open(`https://www.google.com/search?q=${encodeURIComponent(input + ' burcu günlük yorumu')}`, '_blank');
+      }
+    }
+  </script>
+</body>
+</html>

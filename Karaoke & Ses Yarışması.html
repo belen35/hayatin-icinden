@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hayatın İçinden</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); color: #333; min-height: 100vh; }
+    
+    /* Header & Navigation */
+    header { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(8px); color: white; text-align: center; padding: 2rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    header h1 { font-size: 2.2rem; background: linear-gradient(to right, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    header p { color: #94a3b8; font-size: 1rem; margin-top: 0.3rem; }
+    
+    nav { background: #0f172a; overflow-x: auto; white-space: nowrap; padding: 0.75rem; text-align: center; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    nav a { color: #cbd5e1; text-decoration: none; padding: 0.6rem 1.2rem; display: inline-block; font-weight: 600; border-radius: 20px; transition: all 0.3s ease; }
+    nav a:hover { background: #3b82f6; color: #fff; transform: translateY(-2px); }
+    
+    /* Main Layout */
+    .container { max-width: 1050px; margin: 2rem auto; padding: 0 1rem; }
+    .card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); padding: 1.8rem; margin-bottom: 2rem; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(0,0,0,0.3); }
+    .card h2 { color: #0f172a; margin-bottom: 1.2rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.5rem; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    
+    /* Grid & Tables */
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+    .btn { display: block; background: #2563eb; color: white; text-align: center; padding: 0.85rem; text-decoration: none; border-radius: 10px; font-weight: bold; transition: background 0.3s ease, transform 0.2s; }
+    .btn:hover { background: #1d4ed8; transform: scale(1.02); }
+
+    .eco-table { width: 100%; border-collapse: collapse; margin-top: 0.8rem; font-size: 0.95rem; }
+    .eco-table th, .eco-table td { padding: 0.75rem; text-align: left; border-bottom: 1px solid #e2e8f0; }
+    .eco-table th { background: #f1f5f9; color: #1e293b; font-weight: bold; }
+    .eco-table tr:nth-child(even) { background: #f8fafc; }
+    
+    /* Pratik Çözümler Accordion & Cards */
+    .fix-item { background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid #0284c7; border-radius: 10px; padding: 1.2rem; margin-bottom: 1rem; }
+    .fix-item h3 { color: #0369a1; font-size: 1.15rem; margin-bottom: 0.6rem; display: flex; align-items: center; gap: 8px; }
+    .fix-item ul { margin-left: 1.2rem; color: #334155; line-height: 1.6; font-size: 0.95rem; }
+    .fix-item ul li { margin-bottom: 0.4rem; }
+
+    /* Karaoke Kartları */
+    .karaoke-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
+    .karaoke-card { background: #fdf4ff; border: 1px solid #f5d0fe; border-radius: 12px; padding: 1.2rem; }
+    .karaoke-card h3 { color: #86198f; margin-bottom: 0.5rem; font-size: 1.1rem; display: flex; justify-content: space-between; align-items: center; }
+    .karaoke-card p { color: #701a75; font-size: 0.9rem; margin-bottom: 0.8rem; }
+    .karaoke-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+    .k-btn { flex: 1; min-width: 120px; font-size: 0.85rem; padding: 0.5rem; text-decoration: none; border-radius: 6px; text-align: center; font-weight: bold; color: white; }
+
+    /* Yemek Kartları */
+    .recipe-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
+    .recipe-card { background: #fff7ed; border: 1px solid #ffedd5; border-radius: 12px; padding: 1.2rem; }
+    .recipe-card h3 { color: #c2410c; margin-bottom: 0.5rem; display: flex; justify-content: space-between; font-size: 1.1rem; }
+    .recipe-card p { color: #431407; font-size: 0.9rem; margin-bottom: 0.8rem; line-height: 1.5; }
+    .recipe-meta { font-size: 0.8rem; color: #ea580c; font-weight: bold; background: #ffebd5; padding: 4px 8px; border-radius: 6px; display: inline-block; }
+
+    /* Emergency / Acil Numaralar Kart Yapısı */
+    .emergency-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; }
+    .emergency-card { background: #fef2f2; border: 1px solid #fecaca; border-radius: 12px; padding: 1rem; text-align: center; }
+    .emergency-card h3 { color: #dc2626; font-size: 1.1rem; margin-bottom: 0.3rem; }
+    .emergency-card p { color: #7f1d1d; font-size: 0.85rem; margin-bottom: 0.8rem; }
+    .call-btn { display: inline-block; background: #dc2626; color: white; text-decoration: none; padding: 0.6rem 1.2rem; border-radius: 8px; font-weight: bold; width: 100%; transition: background 0.2s; }
+    .call-btn:hover { background: #b91c1c; }
+
+    /* Şiir & Edebiyat Köşesi */
+    .poem-box { background: #f8fafc; border-left: 4px solid #818cf8; padding: 1.2rem; border-radius: 8px; font-style: italic; line-height: 1.8; color: #334155; margin-bottom: 1.5rem; }
+    .poem-author { text-align: right; font-weight: bold; font-style: normal; margin-top: 0.5rem; color: #4f46e5; }
+    
+    /* Şair/Ozan Anatomisi */
+    .author-card { background: #f1f5f9; padding: 1.2rem; border-radius: 12px; margin-top: 1rem; border: 1px solid #e2e8f0; }
+    .author-card h3 { color: #1e293b; margin-bottom: 0.5rem; }
+    .timeline { margin-top: 0.8rem; padding-left: 1rem; border-left: 2px solid #3b82f6; }
+    .timeline-item { margin-bottom: 0.6rem; position: relative; font-size: 0.95rem; }
+    .timeline-item strong { color: #2563eb; }
+    
+    /* Sizden Gelenler Formu */
+    .user-submission { background: #faf5ff; border: 1px dashed #a855f7; padding: 1.5rem; border-radius: 12px; margin-top: 1.5rem; }
+    .user-submission h3 { color: #6b21a8; margin-bottom: 0.3rem; }
+    .user-submission p.subtitle { color: #7e22ce; font-style: italic; font-size: 0.95rem; margin-bottom: 1rem; }
+    .form-group { margin-bottom: 0.8rem; }
+    .form-group input, .form-group textarea { width: 100%; padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem; outline: none; }
+    .form-group textarea { resize: vertical; height: 100px; }
+    .submit-btn { background: #9333ea; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: bold; cursor: pointer; transition: background 0.3s; }
+    .submit-btn:hover { background: #7e22ce; }
+
+    /* Manzara Galerisi */
+    .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; }
+    .gallery-item { overflow: hidden; border-radius: 12px; height: 180px; position: relative; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; border-radius: 12px; }
+    .gallery-item:hover img { transform: scale(1.1); }
+    .gallery-caption { position: absolute; bottom: 0; background: rgba(0,0,0,0.6); color: white; width: 100%; padding: 6px; text-align: center; font-size: 0.85rem; }
+
+    /* Sub-titles */
+    .sub-title { font-size: 1.1rem; color: #475569; margin: 1.2rem 0 0.6rem 0; font-weight: 600; border-left: 3px solid #3b82f6; padding-left: 8px; }
+
+    /* Spor Sekme Yapısı */
+    .sports-nav { display: flex; gap: 10px; margin-bottom: 1rem; flex-wrap: wrap; }
+    .tab-btn { background: #e2e8f0; border: none; padding: 0.6rem 1.2rem; cursor: pointer; border-radius: 8px; font-weight: bold; transition: all 0.2s; }
+    .tab-btn.active { background: #2563eb; color: white; }
+    .sport-content { display: none; }
+    .sport-content.active { display: block; }
+
+    footer { text-align: center; padding: 1.5rem; background: #0f172a; color: #94a3b8; font-size: 0.9rem; margin-top: 3rem; border-top: 1px solid rgba(255,255,255,0.05); }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Hayatın İçinden</h1>
+    <p>Duygu, Eğlence, Karaoke, Haber & Yaşam Portalı</p>
+  </header>
+
+  <!-- Ana Menü -->
+  <nav>
+    <a href="#karaoke">🎤 Türkçe Karaoke & Yarışma</a>
+    <a href="#ekonomi-sosyal">Vergiler & Maaşlar</a>
+    <a href="#yemek-tarifleri">Yemek Tarifleri</a>
+    <a href="#pratik-cozumler">Pratik Çözümler</a>
+    <a href="#acil-numaralar">Önemli Numaralar</a>
+    <a href="#ne-izlesem">Ne İzlesem?</a>
+    <a href="#siir">Günün Şiiri & Anatomisi</a>
+    <a href="#manzara">Manzaralar</a>
+    <a href="#gazeteler">Gazeteler</a>
+    <a href="#oyunlar">Oyunlar</a>
+    <a href="#burclar">Burçlar</a>
+    <a href="#muzik">Müzik & Canlı Radyo</a>
+    <a href="#eczaneler">Eczaneler</a>
+    <a href="#spor">Spor</a>
+  </nav>
+
+  <div class="container">
+
+    <!-- KARAOKE & YARIŞMA SAYFASI -->
+    <section id="karaoke" class="card" style="border: 2px solid #c084fc;">
+      <h2>🎤 Türkçe Karaoke & Ses Yarışması</h2>
+      <p style="color: #64748b; margin-bottom: 1.2rem;">En sevilen Türkçe şarkıların altyapılarıyla şarkını söyle, yarışmaya katıl ve büyük ödülü kazan!</p>
+
+      <!-- YARIŞMA DUYURUSU VE İNDİRME ÖDÜLÜ -->
+      <div style="background: linear-gradient(135deg, #f3e8ff 0%, #fae8ff 100%); border: 2px dashed #a855f7; padding: 1.5rem; border-radius: 12px; margin-bottom: 1.8rem;">
+        <h3 style="color: #7e22ce; margin-bottom: 0.6rem; font-size: 1.3rem;">🏆 Ayın Karaoke Yıldızı Yarışması & İndirme Ödülü!</h3>
+        <p style="color: #581c87; line-height: 1.6; font-size: 0.98rem; margin-bottom: 0.8rem;">
+          Şarkını söyle, performans kaydını bize gönder! Jüri ve ziyaretçi oylarıyla <strong>1. seçilen ses stüdyo kalitesinde işlenecektir.</strong>
+        </p>
+        <div style="background: #ffffff; padding: 1rem; border-radius: 8px; border-left: 4px solid #9333ea; color: #3b0764; font-size: 0.95rem;">
+          <strong>🎁 BİRİNCİLİK ÖDÜLÜ:</strong><br>
+          Karaoke yarışmasında 1. olan şarkıcımıza özel profesyonel kapaklı Master MP3/Video kayıt hediye edilir!
+          Birinci olan ses hem <strong>sitemizde baş köşede yayınlanır</strong> hem de şampiyona <strong>kendi web sayfasında, Instagram/TikTok hesabında veya dilediği her yerde paylaşabilmesi için Özel İndirme Bağlantısı (İndirme Ödülü)</strong> verilmektedir!
+        </div>
+      </div>
+
+      <!-- POPÜLER TÜRKÇE KARAOKE ŞARKILARI -->
+      <div class="sub-title">🎶 Popüler Türkçe Karaoke Şarkıları</div>
+      <div class="karaoke-grid">
+
+        <div class="karaoke-card">
+          <h3><span>🎵 Gözlerinin Doğduğu Yer</span> <span style="font-size:0.75rem; background:#f3e8ff; padding:2px 6px; border-radius:4px;">Klasik</span></h3>
+          <p><strong>Sanatçı:</strong> Barış Manço</p>
+          <div class="karaoke-btns">
+            <a href="https://www.youtube.com/results?search_query=baris+manco+karaoke" target="_blank" class="k-btn" style="background:#c026d3;">▶️ Karaoke Altyapı</a>
+            <a href="https://www.google.com/search?q=baris+manco+sarki+sozleri" target="_blank" class="k-btn" style="background:#0284c7;">📜 Şarkı Sözleri</a>
+          </div>
+        </div>
+
+        <div class="karaoke-card">
+          <h3><span>🎵 Şımarık / Dudu</span> <span style="font-size:0.75rem; background:#f3e8ff; padding:2px 6px; border-radius:4px;">Pop</span></h3>
+          <p><strong>Sanatçı:</strong> Tarkan</p>
+          <div class="karaoke-btns">
+            <a href="https://www.youtube.com/results?search_query=tarkan+karaoke" target="_blank" class="k-btn" style="background:#c026d3;">▶️ Karaoke Altyapı</a>
+            <a href="https://www.google.com/search?q=tarkan+sarki+sozleri" target="_blank" class="k-btn" style="background:#0284c7;">📜 Şarkı Sözleri</a>
+          </div>
+        </div>
+
+        <div class="karaoke-card">
+          <h3><span>🎵 Seni Yazdım Kalbime</span> <span style="font-size:0.75rem; background:#f3e8ff; padding:2px 6px; border-radius:4px;">Arabesk</span></h3>
+          <p><strong>Sanatçı:</strong> Müslüm Gürses</p>
+          <div class="karaoke-btns">
+            <a href="https://www.youtube.com/results?search_query=muslum+gurses+karaoke" target="_blank" class="k-btn" style="background:#c026d3;">▶️ Karaoke Altyapı</a>
+            <a href="https://www.google.com/search?q=muslum+gurses+sarki+sozleri" target="_blank" class="k-btn" style="background:#0284c7;">📜 Şarkı Sözleri</a>
+          </div>
+        </div>
+
+        <div class="karaoke-card">
+          <h3><span>🎵 Hal Hal / Gülpembe</span> <span style="font-size:0.75rem; background:#f3e8ff; padding:2px 6px; border-radius:4px;">Rock</span></h3>
+          <p><strong>Sanatçı:</strong> Barış Manço / Anadolu Rock</p>
+          <div class="karaoke-btns">
+            <a href="https://www.youtube.com/results?search_query=anadolu+rock+karaoke" target="_blank" class="k-btn" style="background:#c026d3;">▶️ Karaoke Altyapı</a>
+            <a href="https://www.google.com/search?q=anadolu+rock+sarki+sozleri" target="_blank" class="k-btn" style="background:#0284c7;">📜 Şarkı Sözleri</a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- YARIŞMA KATILIM FORMU -->
+      <div class="user-submission" style="background:#faf5ff; border-color:#a855f7; margin-top:2rem;">
+        <h3 style="color:#6b21a8;">🎙️ Yarışmaya Katıl & Ses Kaydını Gönder</h3>
+        <p class="subtitle" style="color:#7e22ce;">("Performansını yukle, 1. ol, şarkını indirme ödülüyle birlikte dilediğin yerde paylaş!")</p>
+        
+        <form onsubmit="alert('Karaoke performansınız başarıyla yarışma jürimize ulaştı! Oylama sonucunda 1. olmanız halinde indirme linkiniz e-posta / telefonunuza iletilecektir.'); return false;">
+          <div class="form-group">
+            <input type="text" placeholder="Adınız Soyadınız / Sahne Adınız" required>
+          </div>
+          <div class="form-group">
+            <input type="email" placeholder="E-posta Adresiniz (Ödül İndirme Linki İçin)" required>
+          </div>
+          <div class="form-group">
+            <input type="text" placeholder="Seslendirdiğiniz Şarkı ve Sanatçı Adı" required>
+          </div>
+          <div class="form-group">
+            <input type="url" placeholder="YouTube, Drive veya Ses Kaydı Linkiniz (Örn: Drive/Dropbox linki)" required>
+          </div>
+          <button type="submit" class="submit-btn" style="background:#a855f7;">🌟 Yarışmaya Katıl & Gönder</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- EKONOMİ & SOSYAL BİLGİLER SAYFASI -->
+    <section id="ekonomi-sosyal" class="card">
+      <h2>📊 Ekonomi & Sosyal Bilgiler (Güncel Vergiler & Maaşlar)</h2>
+      <p style="color: #64748b; margin-bottom: 1.2rem;">Güncel asgari ücretler, işveren maliyetleri, vergi dilimleri, KDV, ÖTV ve MTV oranları:</p>
+
+      <!-- Asgari Ücret Tablosu -->
+      <div class="sub-title">💵 Güncel Asgari Ücret ve İşverene Maliyeti</div>
+      <table class="eco-table">
+        <thead>
+          <tr>
+            <th>Kalem</th>
+            <th>Tutar (TL)</th>
+            <th>Açıklama</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Brüt Asgari Ücret</strong></td>
+            <td>33.030,00 TL</td>
+            <td>Yasal taban brüt ücret</td>
+          </tr>
+          <tr>
+            <td><strong>Net Asgari Ücret</strong></td>
+            <td><strong>28.075,50 TL</strong></td>
+            <td>Çalışanın eline geçen net tutar</td>
+          </tr>
+          <tr>
+            <td>SGK Primi İşçi Payı (%14)</td>
+            <td>4.624,20 TL</td>
+            <td>Sosyal Güvenlik Kesintisi</td>
+          </tr>
+          <tr>
+            <td>İşsizlik Sigortası İşçi Payı (%1)</td>
+            <td>330,30 TL</td>
+            <td>İşsizlik Fonu Kesintisi</td>
+          </tr>
+          <tr>
+            <td>SGK İşveren Payı (%15,5)</td>
+            <td>5.119,65 TL</td>
+            <td>İşveren SGK primi teşvikli</td>
+          </tr>
+          <tr>
+            <td><strong>İşverene Toplam Maliyet</strong></td>
+            <td><strong>38.810,25 TL</strong></td>
+            <td>Bir işçinin işverene toplam aylık maliyeti</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Gelir Vergisi Dilimleri -->
+      <div class="sub-title" style="margin-top: 1.8rem;">📈 Güncel Gelir Vergisi Dilimleri (Ücretliler)</div>
+      <table class="eco-table">
+        <thead>
+          <tr>
+            <th>Gelir Matrahı Dilimi</th>
+            <th>Vergi Oranı</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>190.000 TL'ye kadar</td>
+            <td>% 15</td>
+          </tr>
+          <tr>
+            <td>190.000 TL - 400.000 TL arası</td>
+            <td>% 20</td>
+          </tr>
+          <tr>
+            <td>400.000 TL - 1.500.000 TL arası</td>
+            <td>% 27</td>
+          </tr>
+          <tr>
+            <td>1.500.000 TL - 5.300.000 TL arası</td>
+            <td>% 35</td>
+          </tr>
+          <tr>
+            <td>5.300.000 TL üzeri</td>
+            <td>% 40</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- ÖTV, KDV & MTV Harç Bilgileri -->
+      <div class="sub-title" style="margin-top: 1.8rem;">🚗 MTV, ÖTV, KDV ve Harç Oranları</div>
+      <div class="grid" style="margin-top: 0.8rem;">
+        <div class="fix-item" style="border-left-color: #2563eb; margin:0;">
+          <h3 style="color:#1d4ed8;">🏎️ Araç ÖTV Oranları</h3>
+          <ul>
+            <li><strong>1600 cc Altı:</strong> %45 - %80 arası</li>
+            <li><strong>1600 cc - 2000 cc:</strong> %130 - %150</li>
+            <li><strong>2000 cc Üstü:</strong> %220</li>
+            <li><strong>Elektrikli Araçlar:</strong> %10 - %60</li>
+          </ul>
+        </div>
+
+        <div class="fix-item" style="border-left-color: #16a34a; margin:0;">
+          <h3 style="color:#15803d;">🛍️ Güncel KDV Oranları</h3>
+          <ul>
+            <li><strong>% 1:</strong> Temel gıda maddeleri, ekmek vb.</li>
+            <li><strong>% 10:</strong> Tekstil, konaklama, yeme-içme sektörü.</li>
+            <li><strong>% 20:</strong> Genel Standart KDV (Elektronik, araç, eşya vb.).</li>
+          </ul>
+        </div>
+
+        <div class="fix-item" style="border-left-color: #dc2626; margin:0;">
+          <h3 style="color:#b91c1c;">📋 MTV & Resmi Harçlar</h3>
+          <ul>
+            <li><strong>MTV / Harç Zam Oranı:</strong> Yeniden Değerleme Oranı %18.95</li>
+            <li><strong>Tapu Harcı:</strong> %4 (%2 Alıcı + %2 Satıcı)</li>
+            <li><strong>Pasaport / Ehliyet Harçları:</strong> Süreye ve sınıfa göre güncel tarife uygulanır.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- YEMEK TARİFLERİ SAYFASI -->
+    <section id="yemek-tarifleri" class="card">
+      <h2>🍳 Nefis Yemek Tarifleri & Mutfak Köşesi</h2>
+      <p style="color: #64748b; margin-bottom: 1.2rem;">Evde kolayca hazırlayabileceğiniz nefis yemek, çorba ve tatlı tarifleri:</p>
+
+      <div class="recipe-grid">
+        <div class="recipe-card">
+          <h3><span>🍲 Geleneksel Mercimek Çorbası</span> <span class="recipe-meta">25 Dk</span></h3>
+          <p><strong>Malzemeler:</strong> 1 su bardağı kırmızı mercimek, 1 soğan, 1 patates, 1 havuç, 1 yk tereyağı, zeytinyağı, tuz, karabiber, nane.</p>
+          <p><strong>Hazırlanışı:</strong> Sebzeleri doğrayıp zeytinyağında soteleyin. Yıkanmış mercimeği ekleyin. Üzerine 5-6 su bardağı sıcak su koyup pişmeye bırakın. Yumuşayınca blenderdan geçirin. Tereyağında nane yakıp üzerine gezdirin.</p>
+        </div>
+
+        <div class="recipe-card">
+          <h3><span>🍆 Efsane Karnıyarık</span> <span class="recipe-meta">45 Dk</span></h3>
+          <p><strong>Malzemeler:</strong> 6 adet patlıcan, 300g kıyma, 1 soğan, 2 biber, 2 domates, sarımsak, salça, sıvı yağ, tuz, karabiber.</p>
+          <p><strong>Hazırlanışı:</strong> Patlıcanları alacalı soyup kızartın. Kıymayı soğan, 

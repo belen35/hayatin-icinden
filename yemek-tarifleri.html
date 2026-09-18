@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Yemek Tarifleri - Hayatın İçinden</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h2>Yemek Tarifleri Arama Engine</h2>
+  <div class="search-box">
+    <input type="text" id="yemekInput" placeholder="Yemek adı yazın...">
+    <button onclick="yemekAra()">Tarif Bul</button>
+  </div>
+
+  <script>
+    function yemekAra() {
+      const yemek = document.getElementById('yemekInput').value;
+      if (yemek) {
+        window.open(`https://www.google.com/search?q=${encodeURIComponent(yemek + ' tarifi')}`, '_blank');
+      }
+    }
+  </script>
+</body>
+</html>

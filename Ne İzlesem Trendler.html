@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hayatın İçinden</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); color: #333; min-height: 100vh; }
+    
+    /* Header & Navigation */
+    header { background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(8px); color: white; text-align: center; padding: 2rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    header h1 { font-size: 2.2rem; background: linear-gradient(to right, #38bdf8, #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    header p { color: #94a3b8; font-size: 1rem; margin-top: 0.3rem; }
+    
+    nav { background: #0f172a; overflow-x: auto; white-space: nowrap; padding: 0.75rem; text-align: center; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    nav a { color: #cbd5e1; text-decoration: none; padding: 0.6rem 1.2rem; display: inline-block; font-weight: 600; border-radius: 20px; transition: all 0.3s ease; }
+    nav a:hover { background: #3b82f6; color: #fff; transform: translateY(-2px); }
+    
+    /* Main Layout */
+    .container { max-width: 1050px; margin: 2rem auto; padding: 0 1rem; }
+    .card { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); padding: 1.8rem; margin-bottom: 2rem; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(0,0,0,0.3); }
+    .card h2 { color: #0f172a; margin-bottom: 1.2rem; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.5rem; display: flex; align-items: center; gap: 8px; }
+    
+    /* Grid Helpers */
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+    .btn { display: block; background: #2563eb; color: white; text-align: center; padding: 0.85rem; text-decoration: none; border-radius: 10px; font-weight: bold; transition: background 0.3s ease, transform 0.2s; }
+    .btn:hover { background: #1d4ed8; transform: scale(1.02); }
+    
+    /* Şiir & Edebiyat Köşesi */
+    .poem-box { background: #f8fafc; border-left: 4px solid #818cf8; padding: 1.2rem; border-radius: 8px; font-style: italic; line-height: 1.8; color: #334155; margin-bottom: 1.5rem; }
+    .poem-author { text-align: right; font-weight: bold; font-style: normal; margin-top: 0.5rem; color: #4f46e5; }
+    
+    /* Şair/Ozan Anatomisi */
+    .author-card { background: #f1f5f9; padding: 1.2rem; border-radius: 12px; margin-top: 1rem; border: 1px solid #e2e8f0; }
+    .author-card h3 { color: #1e293b; margin-bottom: 0.5rem; }
+    .timeline { margin-top: 0.8rem; padding-left: 1rem; border-left: 2px solid #3b82f6; }
+    .timeline-item { margin-bottom: 0.6rem; position: relative; font-size: 0.95rem; }
+    .timeline-item strong { color: #2563eb; }
+    
+    /* Sizden Gelenler Formu */
+    .user-submission { background: #faf5ff; border: 1px dashed #a855f7; padding: 1.5rem; border-radius: 12px; margin-top: 1.5rem; }
+    .user-submission h3 { color: #6b21a8; margin-bottom: 0.3rem; }
+    .user-submission p.subtitle { color: #7e22ce; font-style: italic; font-size: 0.95rem; margin-bottom: 1rem; }
+    .form-group { margin-bottom: 0.8rem; }
+    .form-group input, .form-group textarea { width: 100%; padding: 0.75rem; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 0.95rem; outline: none; }
+    .form-group textarea { resize: vertical; height: 100px; }
+    .submit-btn { background: #9333ea; color: white; border: none; padding: 0.75rem 1.5rem; border-radius: 8px; font-weight: bold; cursor: pointer; transition: background 0.3s; }
+    .submit-btn:hover { background: #7e22ce; }
+
+    /* Manzara Galerisi */
+    .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; }
+    .gallery-item { overflow: hidden; border-radius: 12px; height: 180px; position: relative; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; border-radius: 12px; }
+    .gallery-item:hover img { transform: scale(1.1); }
+    .gallery-caption { position: absolute; bottom: 0; background: rgba(0,0,0,0.6); color: white; width: 100%; padding: 6px; text-align: center; font-size: 0.85rem; }
+
+    /* Sub-titles */
+    .sub-title { font-size: 1.1rem; color: #475569; margin: 1.2rem 0 0.6rem 0; font-weight: 600; border-left: 3px solid #3b82f6; padding-left: 8px; }
+
+    /* Spor Sekme Yapısı */
+    .sports-nav { display: flex; gap: 10px; margin-bottom: 1rem; flex-wrap: wrap; }
+    .tab-btn { background: #e2e8f0; border: none; padding: 0.6rem 1.2rem; cursor: pointer; border-radius: 8px; font-weight: bold; transition: all 0.2s; }
+    .tab-btn.active { background: #2563eb; color: white; }
+    .sport-content { display: none; }
+    .sport-content.active { display: block; }
+
+    footer { text-align: center; padding: 1.5rem; background: #0f172a; color: #94a3b8; font-size: 0.9rem; margin-top: 3rem; border-top: 1px solid rgba(255,255,255,0.05); }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Hayatın İçinden</h1>
+    <p>Duygu, Haber, Eğlence, Müzik ve Sinema Tek Bir Yerde</p>
+  </header>
+
+  <!-- Ana Menü -->
+  <nav>
+    <a href="#ne-izlesem">Ne İzlesem?</a>
+    <a href="#siir">Günün Şiiri & Anatomisi</a>
+    <a href="#manzara">Manzaralar</a>
+    <a href="#gazeteler">Gazeteler</a>
+    <a href="#oyunlar">Oyunlar</a>
+    <a href="#burclar">Burçlar</a>
+    <a href="#muzik">Müzik & Canlı Radyo</a>
+    <a href="#eczaneler">Eczaneler</a>
+    <a href="#spor">Spor</a>
+  </nav>
+
+  <div class="container">
+
+    <!-- NE İZLESEM? (DİZİ FRAGMANLARI VE REKORTMEN FİLMLER) -->
+    <section id="ne-izlesem" class="card">
+      <h2>🎬 Ne İzlesem?</h2>
+      <p style="color: #64748b;">Güncel dizi fragmanları, son bölümler ve izlenme rekoru kırmış başyapıt filmler:</p>
+
+      <div class="sub-title">📺 Güncel Dizi Fragmanları & Son Bölümler</div>
+      <div class="grid">
+        <a href="https://www.youtube.com/feed/trending?bp=4gINGgt5dE1hY2hpbmVz" target="_blank" class="btn" style="background:#dc2626;">🎬 YouTube Trend Fragmanlar</a>
+        <a href="https://puhutv.com" target="_blank" class="btn" style="background:#0284c7;">📺 PuhuTV Ücretsiz Diziler</a>
+        <a href="https://www.youtube.com/@DiziFragmanlari/videos" target="_blank" class="btn" style="background:#e11d48;">🔥 Yerli Dizi Fragmanları</a>
+      </div>
+
+      <div class="sub-title">🏆 Rekor Kıran Efsane Filmler (Tavsiyeler)</div>
+      <div class="grid">
+        <a href="https://www.imdb.com/chart/top/" target="_blank" class="btn" style="background:#d97706;">⭐ IMDb Top 250 Film Listesi</a>
+        <a href="https://www.google.com/search?q=Avatar+1" target="_blank" class="btn" style="background:#059669;">🌊 Avatar (Tüm Zamanlar #1)</a>
+        <a href="https://www.google.com/search?q=Avengers+Endgame" target="_blank" class="btn" style="background:#7c3aed;">🛡️ Avengers: Endgame</a>
+        <a href="https://www.google.com/search?q=Titanic+film" target="_blank" class="btn" style="background:#4f46e5;">🚢 Titanic</a>
+        <a href="https://www.google.com/search?q=Interstellar+film" target="_blank" class="btn" style="background:#2563eb;">🚀 Yıldızlararası (Interstellar)</a>
+      </div>
+    </section>
+
+    <!-- Günün Şiiri, Yazar Anatomisi ve Sizden Gelenler -->
+    <section id="siir" class="card">
+      <h2>📜 Günün Duygusal Şiiri & Edebiyat Köşesi</h2>
+      
+      <div class="poem-box">
+        <p>"Ayrılık da sevdaya dahil,<br>
+        Çünkü ayrılanlar hala sevgili...<br>
+        Bitebilir bir aşk, ama bitmez sızısı,<br>
+        Gözlerinin buğusunda kalır anısı."</p>
+        <div class="poem-author">— Attilâ İlhan</div>
+      </div>
+
+      <!-- Şair / Ozan Anatomisi Bölümü -->
+      <h2>✒️ Usta Şair & Ozan Anatomisi</h2>
+      
+      <div class="author-card">
+        <h3>Attilâ İlhan (1925 - 2005)</h3>
+        <p>Türk edebiyatının toplumcu gerçekçi ve romantik akımının en önemli temsilcilerindendir. Şiirlerinde yalnızlık, sevda, varoluş ve kent yaşamının hüzünlü dokusu derinlemesine işlenir.</p>
+        
+        <h4 style="margin-top:0.8rem; color:#1e293b;">Tarih Bazlı Önemli Eserleri:</h4>
+        <div class="timeline">
+          <div class="timeline-item"><strong>1948:</strong> Duvar <i>(İlk Şiir Kitabı)</i></div>
+          <div class="timeline-item"><strong>1954:</strong> Sisler Bulvarı</div>
+          <div class="timeline-item"><strong>1959:</strong> Yağmur Kaçağı</div>
+          <div class="timeline-item"><strong>1968:</strong> Yasak Sevişmek</div>
+          <div class="timeline-item"><strong>1973:</strong> Tutuklunun Günlüğü</div>
+          <div class="timeline-item"><strong>1982:</strong> Elde Var Hüzün</div>
+        </div>
+      </div>
+
+      <div class="author-card" style="margin-top:1rem;">
+        <h3>Aşık Veysel Şatıroğlu (1894 - 1973)</h3>
+        <p>Anadolu halk ozanlığı geleneğinin en büyük üstatlarındandır. Küçük yaşta gözlerini kaybetmesine rağmen sazıyla doğaya, insana, aşka ve toprağa dair en derin felsefeleri dile getirmiştir.</p>
+        
+        <h4 style="margin-top:0.8rem; color:#1e293b;">Öne Çıkan Eserleri ve Tarihçesi:</h4>
+        <div class="timeline">
+          <div class="timeline-item"><strong>1933:</strong> "Atatürk'e Ağıt" <i>(Tanınmasını sağlayan ilk şiir)</i></div>
+          <div class="timeline-item"><strong>1944:</strong> Deyişler <i>(İlk Derleme Kitabı)</i></div>
+          <div class="timeline-item"><strong>1950:</strong> Sazımdan Sesler</div>
+          <div class="timeline-item"><strong>1970:</strong> Dostlar Beni Hatırlasın <i>(Tüm Eserlerinin Toplandığı Kült Eser)</i></div>
+        </div>
+      </div>
+
+      <!-- Sizden Gelenler Bölümü -->
+      <div class="user-submission">
+        <h3>✍️ Sizden Gelenler</h3>
+        <p class="subtitle">("bırakın ruhunuz konuşsun")</p>
+        
+        <form onsubmit="alert('Şiiriniz/sözünüz incelenmek üzere başarıyla iletildi. Teşekkür ederiz!'); return false;">
+          <div class="form-group">
+            <input type="text" placeholder="Adınız / Mahlasınız" required>
+          </div>
+          <div class="form-group">
+            <textarea placeholder="Ruhunuzdan dökülen şiir veya duygusal sözleri buraya yazabilirsiniz..." required></textarea>
+          </div>
+          <button type="submit" class="submit-btn">Gönder & Paylaş</button>
+        </form>
+      </div>
+
+    </section>
+
+    <!-- Manzara Resimleri / Görsel Galeri -->
+    <section id="manzara" class="card">
+      <h2>🖼️ Huzur Veren Manzaralar</h2>
+      <p style="margin-bottom: 1rem; color: #64748b;">Ruhunuzu dinlendirecek yüksek çözünürlüklü doğa manzaraları:</p>
+      <div class="gallery">
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80" alt="Deniz ve Gün Batımı">
+          <div class="gallery-caption">Huzurlu Gün Batımı</div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=600&q=80" alt="Sisli Orman">
+          <div class="gallery-caption">Yeşilin Huzuru</div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=600&q=80" alt="Yıldızlı Gökyüzü">
+          <div class="gallery-caption">Gece & Yıldızlar</div>
+        </div>
+        <div class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=600&q=80" alt="Karlı Dağlar">
+          <div class="gallery-caption">Sonsuz Zirveler</div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Gazeteler -->
+    <section id="gazeteler" class="card">
+      <h2>📰 Gazeteler & Haber Portalları</h2>
+      <div class="grid">
+        <a href="https://www.hurriyet.com.tr" target="_blank" class="btn">Hürriyet</a>
+        <a href="https://www.sozcu.com.tr" target="_blank" class="btn">Sözcü</a>
+        <a href="https://www.milliyet.com.tr" target="_blank" class="btn">Milliyet</a>
+        <a href="https://www.sabah.com.tr" target="_blank" class="btn">Sabah</a>
+        <a href="https://www.mynet.com" target="_blank" class="btn">Mynet</a>
+        <a href="https://www.ensonhaber.com" target="_blank" class="btn">En Son Haber</a>
+        <a href="https://www.haberler.com" target="_blank" class="btn">Haberler.com</a>
+        <a href="https://www.yeniasir.com.tr" target="_blank" class="btn">Yeni Asır</a>
+      </div>
+    </section>
+
+    <!-- Oyunlar -->
+    <section id="oyunlar" class="card">
+      <h2>🎮 Eğlenceli Oyunlar</h2>
+      <div class="grid">
+        <a href="https://www.mynet.com/oyun/tavla" target="_blank" class="btn" style="background:#059669;">🎲 Online Tavla</a>
+        <a href="https://www.okeyy.net" target="_blank" class="btn" style="background:#d97706;">🀄 Online Okey</a>
+        <a href="https://www.oyunskor.com/pisti.html" target="_blank" class="btn" style="background:#7c3aed;">🃏 Pişti</a>
+        <a href="https://www.oyunkolu.com/zeka-oyunlari/adam-asmaca.html" target="_blank" class="btn" style="background:#dc2626;">✏️ Adam Asmaca</a>
+        <a href="https://www.oyunskor.com/bil-bakalim.html" target="_blank" class="btn" style="background:#2563eb;">❓ Bil Bakalım</a>
+      </div>
+    </section>
+
+    <!-- Burç Yorumları -->
+    <section id="burclar" class="card">
+      <h2>✨ Günlük Burç Yorumları</h2>
+      <p>Astroloji dünyasındaki son gelişmeleri ve günlük burç yorumunuzu okuyun:</p>
+      <br>
+      <a href="https://www.elele.com.tr/astroloji/burclar" target="_blank" class="btn" style="display:inline-block; background:#8b5cf6;">Burçları Oku</a>
+    </section>
+
+    <!-- Müzik & Canlı Radyo Yayınları -->
+    <section id="muzik" class="card">
+      <h2>🎵 Güncel Müzikler & Canlı Radyolar</h2>
+      <p style="color: #64748b;">Sitede vakit geçirirken dinleyebileceğiniz canlı radyolar ve playlist'ler:</p>
+
+      <div class="sub-title">📻 Canlı Radyo Kanalları</div>
+      <div class="grid">
+        <a href="https://www.kralmuzik.com.tr/radyo/kral-fm" target="_blank" class="btn" style="background:#e11d48;">📻 Kral FM</a>
+        <a href="https://www.powerapp.com.tr/powerturk" target="_blank" class="btn" style="background:#0284c7;">📻 PowerTürk</a>
+        <a href="https://www.powerapp.com.tr/joyfm" target="_blank" class="btn" style="background:#4f46e5;">📻 Joy FM (Slow/Yabancı)</a>
+        <a href="https://www.radyofenomen.com" target="_blank" class="btn" style="background:#7c3aed;">📻 Radyo Fenomen</a>
+        <a href="https://www.superfm.com.tr" target="_blank" class="btn" style="background:#d97706;">📻 Süper FM</a>
+        <a href="https://radyo.trt.net.tr/Listen.aspx?KanalID=1" target="_blank" class="btn" style="background:#059669;">📻 TRT FM</a>
+      </div>
+
+      <div class="sub-title">🎧 Müzik Listeleri (Spotify)</div>
+      <div class="grid">
+        <a href="https://open.spotify.com/playlist/37i9dQZF1DXarR24o2yoqM" target="_blank" class="btn" style="background:#1db954;">🎧 Türkçe Pop Top 50</a>
+        <a href="https://open.spotify.com/playlist/37i9dQZF1DX0SM0LFiM1A4" target="_blank" class="btn" style="background:#0284c7;">🌧️ Akustik & Slow Müzikler</a>
+      </div>
+    </section>
+
+    <!-- Nöbetçi Eczaneler -->
+    <section id="eczaneler" class="card">
+      <h2>🏥 Nöbetçi Eczaneler</h2>
+      <p>Aileni veya kendin için hızlıca nöbetçi eczane sorgulama:</p>
+      <br>
+      <a href="https://www.eczaneler.gen.tr" target="_blank" class="btn" style="display:inline-block; background:#dc2626;">Nöbetçi Eczane Bul</a>
+    </section>
+
+    <!-- SPOR SAYFASI -->
+    <section id="spor" class="card">
+      <h2>🏆 Spor Dünyası</h2>
+      
+      <div class="sports-nav">
+        <button class="tab-btn active" onclick="openSport('futbol')">⚽ Futbol</button>
+        <button class="tab-btn" onclick="openSport('basketbol')">🏀 Basketbol</button>
+        <button class="tab-btn" onclick="openSport('voleybol')">🏐 Voleybol</button>
+      </div>
+
+      <div id="futbol" class="sport-content active">
+        <h3 style="margin-bottom:0.8rem;">Futbol</h3>
+        <div class="grid">
+          <a href="https://beinsports.com.tr/mac-ozetleri" target="_blank" class="btn">Maç Özetleri</a>
+          <a href="https://www.tff.org/default.aspx?pageID=198" target="_blank" class="btn">Fikstür & Maçlar</a>
+          <a href="https://www.mackolik.com/puan-durumu" target="_blank" class="btn">Puan Durumu</a>
+        </div>
+      </div>
+
+      <div id="basketbol" class="sport-content">
+        <h3 style="margin-bottom:0.8rem;">Basketbol</h3>
+        <div class="grid">
+          <a href="https://www.tbf.org.tr/ligler/bsl-2025-2026/puan-durumu" target="_blank" class="btn">BSL Puan Durumu</a>
+          <a href="https://www.tbf.org.tr/ligler/bsl-2025-2026/fikstur-maclar" target="_blank" class="btn">Fikstür & Sonuçlar</a>
+          <a href="https://www.euroleague.net" target="_blank" class="btn">EuroLeague</a>
+        </div>
+      </div>
+
+      <div id="voleybol" class="sport-content">
+        <h3 style="margin-bottom:0.8rem;">Voleybol</h3>
+        <div class="grid">
+          <a href="https://tvf.org.tr" target="_blank" class="btn">Sultanlar / Efeler Ligi</a>
+          <a href="https://www.tvf.org.tr/mac-merkezi/" target="_blank" class="btn">Canlı Skorlar</a>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Hayatın İçinden - Sevgi ve Huzur Portalı</p>
+  </footer>
+
+  <script>
+    function openSport(sportName) {
+      const contents = document.querySelectorAll('.sport-content');
+      contents.forEach(content => content.classList.remove('active'));
+      
+      const buttons = document.querySelectorAll('.tab-btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      
+      document.getElementById(sportName).classList.add('active');
+      event.currentTarget.classList.add('active');
+    }
+  </script>
+
+</body>
+</html>
