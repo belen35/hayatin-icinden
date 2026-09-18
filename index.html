@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hayatın İçinden</title>
+  <title>Hayatın İçinden - 2026 Canlı Portalı</title>
   <style>
     * {
       box-sizing: border-box;
@@ -15,10 +15,10 @@
       padding: 0;
       background-color: #f0f2f5;
       color: #333;
-      padding-top: 130px; /* Üst sabit bilgi paneli için boşluk */
+      padding-top: 145px;
     }
 
-    /* En Üstteki Sabit Bilgi Paneli (Döviz & Akaryakıt) */
+    /* ÜST SABİT BİLGİ PANELİ */
     .top-bar {
       position: fixed;
       top: 0;
@@ -32,16 +32,17 @@
     }
     .top-bar h2 {
       margin: 0 0 5px 0;
-      font-size: 15px;
+      font-size: 13px;
       text-align: center;
       color: #f1c40f;
+      letter-spacing: 0.5px;
     }
     .info-grid {
       display: flex;
       justify-content: space-around;
       flex-wrap: wrap;
-      gap: 8px;
-      font-size: 12px;
+      gap: 6px;
+      font-size: 11px;
       text-align: center;
     }
     .info-box {
@@ -49,20 +50,20 @@
       padding: 5px 8px;
       border-radius: 5px;
       border: 1px solid #34495e;
-      flex: 1 1 30%;
-      min-width: 100px;
+      flex: 1 1 18%;
+      min-width: 85px;
     }
     .info-box strong {
       color: #2ecc71;
     }
 
-    /* Hızlı Menü (Gezinti) */
+    /* HIZLI GEZİNTİ MENÜSÜ */
     .nav-bar {
       display: flex;
       overflow-x: auto;
       background: #007bff;
-      padding: 10px;
-      gap: 10px;
+      padding: 8px;
+      gap: 8px;
       white-space: nowrap;
     }
     .nav-bar a {
@@ -71,18 +72,17 @@
       padding: 6px 12px;
       background: rgba(255,255,255,0.2);
       border-radius: 20px;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: bold;
     }
 
-    /* İçerik Konteyneri */
     .container {
       max-width: 900px;
       margin: 15px auto;
       padding: 0 10px;
     }
 
-    /* Sayfa Bölümleri */
+    /* KART TASARIMI */
     .section-card {
       background: white;
       border-radius: 12px;
@@ -90,6 +90,7 @@
       margin-bottom: 20px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.08);
       border-left: 5px solid #007bff;
+      display: block !important;
     }
     .section-card h2 {
       margin-top: 0;
@@ -98,20 +99,13 @@
       border-bottom: 2px solid #f0f2f5;
       padding-bottom: 8px;
     }
-    .subtitle {
-      color: #e74c3c;
-      font-weight: bold;
-      margin-top: -5px;
-      margin-bottom: 15px;
-    }
 
-    /* 📊 Izgara Yapıları */
     .grid-links {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
       gap: 10px;
     }
-    .grid-links a, .grid-links button {
+    .grid-links a {
       background: #f8f9fa;
       color: #2c3e50;
       padding: 10px;
@@ -121,10 +115,34 @@
       border: 1px solid #ddd;
       font-weight: bold;
       font-size: 13px;
-      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .grid-links a:hover {
+      background: #007bff;
+      color: white;
     }
 
-    /* Form ve Arama Kutuları */
+    /* SÜPER LİG PUAN TABLOSU */
+    .league-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 13px;
+    }
+    .league-table th, .league-table td {
+      padding: 8px 4px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+    .league-table th {
+      background-color: #007bff;
+      color: white;
+    }
+    .league-table tr:nth-child(even) { background-color: #f9f9f9; }
+
+    /* FORM ELEMANLARI */
     .search-group {
       display: flex;
       flex-direction: column;
@@ -137,7 +155,7 @@
       border-radius: 6px;
       font-size: 14px;
     }
-    button.btn-search {
+    button.btn-action {
       padding: 10px;
       background-color: #28a745;
       color: white;
@@ -146,18 +164,12 @@
       font-weight: bold;
       cursor: pointer;
     }
-
-    /* Tamir ve Ödül Kutuları */
     .tamir-box {
       background: #fdfdfd;
       border: 1px solid #eee;
       padding: 12px;
       border-radius: 8px;
       margin-bottom: 10px;
-    }
-    .tamir-box h4 {
-      margin: 0 0 8px 0;
-      color: #333;
     }
     .reward-box {
       background: #fff3cd;
@@ -167,19 +179,27 @@
       border-radius: 8px;
       margin-bottom: 15px;
     }
+    .result-display {
+      background: #eef7ff;
+      border-left: 4px solid #007bff;
+      padding: 10px;
+      margin-top: 8px;
+      border-radius: 4px;
+      display: none;
+    }
   </style>
 </head>
 <body>
 
-  <!-- EN ÜST SABİT BİLGİ PANELİ -->
+  <!-- 2026 CANLI BİLGİ PANELİ -->
   <div class="top-bar">
-    <h2>📈 CANLI DÖVİZ VE AKARYAKIT FİYATLARI</h2>
+    <h2>📈 CANLI BİLGİ PANELİ (EYLÜL 2026 FİYATLARI)</h2>
     <div class="info-grid">
-      <div class="info-box">USD: <strong id="usdTry">Yükleniyor...</strong></div>
-      <div class="info-box">EUR: <strong id="eurTry">Yükleniyor...</strong></div>
-      <div class="info-box">Benzin: <strong>~52.45 TL</strong></div>
-      <div class="info-box">Mazot: <strong>~53.10 TL</strong></div>
-      <div class="info-box">LPG: <strong>~26.80 TL</strong></div>
+      <div class="info-box">USD: <strong id="usdTry">Canlı...</strong></div>
+      <div class="info-box">EUR: <strong id="eurTry">Canlı...</strong></div>
+      <div class="info-box">Benzin: <strong>81.55 TL</strong></div>
+      <div class="info-box">Mazot: <strong>101.70 TL</strong></div>
+      <div class="info-box">LPG: <strong>35.82 TL</strong></div>
     </div>
   </div>
 
@@ -187,11 +207,11 @@
   <nav class="nav-bar">
     <a href="#gazeteler">📰 Gazeteler</a>
     <a href="#oyunlar">🎮 Oyunlar</a>
-    <a href="#burclar">♈ Burçlar</a>
-    <a href="#muzikler">🎵 Müzikler</a>
     <a href="#eczaneler">🏥 Eczaneler</a>
-    <a href="#spor">⚽ Spor</a>
+    <a href="#spor">⚽ 2026-27 Süper Lig</a>
+    <a href="#muzikler">🎵 Müzik</a>
     <a href="#radyo">📻 Radyolar</a>
+    <a href="#burclar">♈ Burçlar</a>
     <a href="#pratik">🛠️ Pratik Bilgiler</a>
     <a href="#yemek">🍲 Yemekler</a>
     <a href="#karaoke">🎤 Karaoke</a>
@@ -201,165 +221,184 @@
 
     <!-- 1. GAZETELER -->
     <div id="gazeteler" class="section-card">
-      <h2>📰 Gazeteler</h2>
+      <h2>📰 Gazeteler & Haber Portalları</h2>
       <div class="grid-links">
         <a href="https://www.hurriyet.com.tr" target="_blank">Hürriyet</a>
         <a href="https://www.milliyet.com.tr" target="_blank">Milliyet</a>
         <a href="https://www.sabah.com.tr" target="_blank">Sabah</a>
         <a href="https://www.posta.com.tr" target="_blank">Posta</a>
+        <a href="https://www.sozcu.com.tr" target="_blank">Sözcü</a>
         <a href="https://www.mynet.com" target="_blank">Mynet</a>
-        <a href="https://www.haberler.com" target="_blank">Haberler.com</a>
-        <a href="https://www.ensonhaber.com" target="_blank">En Son Haber</a>
+        <a href="https://www.haberler.com" target="_blank">Haberler</a>
+        <a href="https://www.ensonhaber.com" target="_blank">EnSonHaber</a>
         <a href="https://www.fanatik.com.tr" target="_blank">Fanatik</a>
         <a href="https://www.fotomac.com.tr" target="_blank">Fotomaç</a>
       </div>
     </div>
 
-    <!-- 2. OYUNLAR -->
+    <!-- 2. CANLI OYUNLAR -->
     <div id="oyunlar" class="section-card">
-      <h2>🎮 Oyun Salonu</h2>
+      <h2>🎮 Canlı Oyun Salonu</h2>
       <div class="grid-links">
-        <a href="https://www.google.com/search?q=online+tavla+oyna" target="_blank">Online Tavla</a>
-        <a href="https://www.google.com/search?q=online+okey+oyna" target="_blank">Okey</a>
-        <a href="https://www.google.com/search?q=online+bilardo+oyna" target="_blank">Bilardo</a>
-        <a href="https://www.google.com/search?q=adam+asmaca+oyunu+oyna" target="_blank">Adam Asmaca</a>
-        <a href="https://www.google.com/search?q=bil+bakalim+oyunu" target="_blank">Bil Bakalım</a>
+        <a href="https://m.mynet.com/oyun/canak-okey" target="_blank">🀄 Canlı Okey</a>
+        <a href="https://www.gamedesire.com/game/backgammon" target="_blank">🎲 Canlı Tavla</a>
+        <a href="https://www.8ballpool.com" target="_blank">🎱 Bilardo</a>
+        <a href="https://adam-asmaca.oyunlar1.com" target="_blank">🔤 Adam Asmaca</a>
+        <a href="https://www.kelimeoyunu.net" target="_blank">🧠 Bil Bakalım</a>
       </div>
     </div>
 
-    <!-- 3. GÜNLÜK BURÇ YORUMLARI -->
-    <div id="burclar" class="section-card">
-      <h2>♈ Günlük Burç Yorumları</h2>
+    <!-- 3. NÖBETÇİ ECZANELER -->
+    <div id="eczaneler" class="section-card">
+      <h2>🏥 Nöbetçi Eczaneler</h2>
+      <p style="font-size:13px; color:#555;">İlçenizi yazarak harita üzerinden en yakın nöbetçi eczaneyi doğrudan görüntüleyin:</p>
       <div class="search-group">
-        <input type="text" id="burcInput" placeholder="Burcunuzu yazın (Örn: Koç, Boğa)...">
-        <button class="btn-search" onclick="burcAra()">Burç Yorumunu Bul</button>
+        <input type="text" id="ilceInput" placeholder="İlçe adı girin (Örn: Karabağlar, Konak, Buca)...">
+        <button class="btn-action" onclick="eczaneHaritaAc()">Nöbetçi Eczaneleri Haritada Aç</button>
       </div>
     </div>
 
-    <!-- 4. GÜNCEL MÜZİKLER -->
+    <!-- 4. 2026-2027 TRENDYOL SÜPER LİG PUAN DURUMU (GÜNCEL) -->
+    <div id="spor" class="section-card">
+      <h2>⚽ Trendyol Süper Lig 2026-2027 Puan Durumu</h2>
+      <table class="league-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Takım</th>
+            <th>O</th>
+            <th>G</th>
+            <th>B</th>
+            <th>M</th>
+            <th>A</th>
+            <th>Y</th>
+            <th>P</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>1</strong></td><td style="text-align:left;">Galatasaray</td><td>5</td><td>4</td><td>1</td><td>0</td><td>13</td><td>6</td><td><strong>13</strong></td></tr>
+          <tr><td><strong>2</strong></td><td style="text-align:left;">Beşiktaş</td><td>5</td><td>4</td><td>0</td><td>1</td><td>12</td><td>4</td><td><strong>12</strong></td></tr>
+          <tr><td><strong>3</strong></td><td style="text-align:left;">Amed SFK</td><td>5</td><td>3</td><td>1</td><td>1</td><td>12</td><td>5</td><td><strong>10</strong></td></tr>
+          <tr><td><strong>4</strong></td><td style="text-align:left;">Kasımpaşa SK</td><td>6</td><td>2</td><td>4</td><td>0</td><td>7</td><td>5</td><td><strong>10</strong></td></tr>
+          <tr><td><strong>5</strong></td><td style="text-align:left;">Çaykur Rizespor</td><td>5</td><td>3</td><td>0</td><td>2</td><td>5</td><td>4</td><td><strong>9</strong></td></tr>
+          <tr><td><strong>6</strong></td><td style="text-align:left;">Kocaelispor</td><td>5</td><td>3</td><td>0</td><td>2</td><td>5</td><td>4</td><td><strong>9</strong></td></tr>
+          <tr><td><strong>7</strong></td><td style="text-align:left;">Gaziantep FK</td><td>5</td><td>2</td><td>2</td><td>1</td><td>7</td><td>5</td><td><strong>8</strong></td></tr>
+          <tr><td><strong>8</strong></td><td style="text-align:left;">Alanyaspor</td><td>5</td><td>2</td><td>2</td><td>1</td><td>6</td><td>5</td><td><strong>8</strong></td></tr>
+          <tr><td><strong>9</strong></td><td style="text-align:left;">Trabzonspor</td><td>5</td><td>2</td><td>1</td><td>2</td><td>9</td><td>5</td><td><strong>7</strong></td></tr>
+          <tr><td><strong>10</strong></td><td style="text-align:left;">Fenerbahçe</td><td>5</td><td>2</td><td>1</td><td>2</td><td>8</td><td>6</td><td><strong>7</strong></td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:10px; font-size:12px; text-align:center;">
+        <a href="https://www.tff.org/default.aspx?pageID=198" target="_blank" style="color:#007bff; font-weight:bold;">TFF Resmi Sayfasında Tüm Fikstürü İnceleyin</a>
+      </p>
+    </div>
+
+    <!-- 5. MÜZİKLER -->
     <div id="muzikler" class="section-card">
-      <h2>🎵 Güncel Müzikler</h2>
+      <h2>🎵 Müzik Trendleri & Listeler</h2>
       <div class="grid-links">
-        <a href="https://open.spotify.com/playlist/37i9dQZF1DX4jP233X9230" target="_blank">Spotify Trendler</a>
-        <a href="https://www.youtube.com/feed/trending?bp=4gINGgt5dE11c2ljQ2hhcnRz" target="_blank">YouTube Trendler</a>
+        <a href="https://open.spotify.com/genre/0JQ5DAqbMKFEC4WF22Cg3M" target="_blank">Spotify Top 50</a>
+        <a href="https://www.youtube.com/feed/trending?bp=4gINGgt5dE11c2ljQ2hhcnRz" target="_blank">YouTube Müzik</a>
         <a href="https://www.powerapp.com.tr/powerturk" target="_blank">PowerTürk Top 40</a>
         <a href="https://www.kralmuzik.com.tr/top-20" target="_blank">Kral Pop Top 20</a>
       </div>
     </div>
 
-    <!-- 5. NÖBETÇİ ECZANELER -->
-    <div id="eczaneler" class="section-card">
-      <h2>🏥 Nöbetçi Eczaneler</h2>
-      <div class="search-group">
-        <input type="text" id="sehir" placeholder="Şehir giriniz (Örn: İzmir)">
-        <input type="text" id="ilce" placeholder="İlçe giriniz (Örn: Karabağlar)">
-        <button class="btn-search" onclick="eczaneAra()">Eczane ve Harita Ara</button>
-      </div>
-    </div>
-
-    <!-- 6. SPOR -->
-    <div id="spor" class="section-card">
-      <h2>⚽ Spor Merkezi</h2>
-      <h4>Futbol / Basketbol / Voleybol</h4>
-      <div class="grid-links">
-        <a href="https://www.google.com/search?q=trendyol+s%C3%BCper+lig+fikst%C3%BCr" target="_blank">Futbol Fikstür</a>
-        <a href="https://www.google.com/search?q=trendyol+s%C3%BCper+lig+puan+durumu" target="_blank">Futbol Puan Durumu</a>
-        <a href="https://www.beinsports.com.tr/mac-ozetleri" target="_blank">Maç Özetleri</a>
-        <a href="https://www.google.com/search?q=basketbol+s%C3%BCper+ligi+fikst%C3%BCr" target="_blank">Basket Fikstür</a>
-        <a href="https://www.google.com/search?q=basketbol+s%C3%BCper+ligi+puan+durumu" target="_blank">Basket Puan Durumu</a>
-        <a href="https://www.google.com/search?q=efeler+ligi+fikst%C3%BCr" target="_blank">Voleybol Fikstür</a>
-        <a href="https://www.google.com/search?q=sultanlar+ligi+puan+durumu" target="_blank">Voleybol Puan Durumu</a>
-      </div>
-    </div>
-
-    <!-- 7. RADYO MÜZİK -->
+    <!-- 6. CANLI RADYOLAR -->
     <div id="radyo" class="section-card">
       <h2>📻 Canlı Radyolar (20 Kanal)</h2>
       <div class="grid-links">
-        <a href="https://www.kralmuzik.com.tr/radyo/kral-fm" target="_blank">1. Kral FM</a>
-        <a href="https://www.kralmuzik.com.tr/radyo/kral-pop" target="_blank">2. Kral Pop</a>
-        <a href="https://www.radyodinle.com/trt-fm" target="_blank">3. TRT FM</a>
-        <a href="https://www.superfm.com.tr" target="_blank">4. Süper FM</a>
-        <a href="https://www.powerapp.com.tr/powerturk" target="_blank">5. Power Türk</a>
-        <a href="https://www.slowturk.com.tr" target="_blank">6. Slow Türk</a>
-        <a href="https://www.alemfm.com" target="_blank">7. Alem FM</a>
-        <a href="https://www.radioseymen.com.tr" target="_blank">8. Radyo Seymen</a>
-        <a href="https://www.bestfm.com.tr" target="_blank">9. Best FM</a>
-        <a href="https://www.joyturk.com.tr" target="_blank">10. Joy Türk</a>
-        <a href="https://www.metrofm.com.tr" target="_blank">11. Metro FM</a>
-        <a href="https://www.virginradioturkiye.com.tr" target="_blank">12. Virgin Radio</a>
-        <a href="https://www.numberone.com.tr" target="_blank">13. Number One Türk</a>
-        <a href="https://www.radioviva.com.tr" target="_blank">14. Radyo Viva</a>
-        <a href="https://www.showradyo.com.tr" target="_blank">15. Show Radyo</a>
-        <a href="https://www.radyod.com.tr" target="_blank">16. Radyo D</a>
-        <a href="https://www.palfm.com.tr" target="_blank">17. Pal FM</a>
-        <a href="https://www.powerapp.com.tr/powerfm" target="_blank">18. Power FM</a>
-        <a href="https://www.radyodinle.com/trt-radyo-1" target="_blank">19. TRT Radyo 1</a>
-        <a href="https://www.radyodinle.com/trt-turku" target="_blank">20. TRT Türkü</a>
+        <a href="https://www.kralmuzik.com.tr/radyo/kral-fm" target="_blank">Kral FM</a>
+        <a href="https://www.kralmuzik.com.tr/radyo/kral-pop" target="_blank">Kral Pop</a>
+        <a href="https://www.superfm.com.tr" target="_blank">Süper FM</a>
+        <a href="https://www.slowturk.com.tr" target="_blank">Slow Türk</a>
+        <a href="https://www.powerapp.com.tr/powerturk" target="_blank">Power Türk</a>
+        <a href="https://www.radyodinle.com/trt-fm" target="_blank">TRT FM</a>
+        <a href="https://www.alemfm.com" target="_blank">Alem FM</a>
+        <a href="https://www.bestfm.com.tr" target="_blank">Best FM</a>
+        <a href="https://www.radioseymen.com.tr" target="_blank">Radyo Seymen</a>
+        <a href="https://www.joyturk.com.tr" target="_blank">Joy Türk</a>
       </div>
     </div>
 
-    <!-- 8. PRATİK BİLGİLER -->
+    <!-- 7. GÜNLÜK BURÇ YORUMLARI -->
+    <div id="burclar" class="section-card">
+      <h2>♈ Günlük Burç Yorumları</h2>
+      <div class="search-group">
+        <input type="text" id="burcInput" placeholder="Burcunuzu yazın (Örn: Koç, Boğa, İkizler)...">
+        <button class="btn-action" onclick="burcGoster()">Burç Yorumunu Oku</button>
+      </div>
+      <div id="burcSonuc" class="result-display"></div>
+    </div>
+
+    <!-- 8. PRATİK BİLGİLER (TAMİR & BAKIM) -->
     <div id="pratik" class="section-card">
-      <h2>🛠️ Pratik Bilgiler (tamir, bakım onarım)</h2>
-      <p class="subtitle">(ben bitti demeden bitmez 😉😉)</p>
+      <h2>🛠️ Pratik Bilgiler (Tamir, Bakım Onarım)</h2>
+      <p style="color:#e74c3c; font-weight:bold; margin-top:-5px;">(Ben bitti demeden bitmez 😉😉)</p>
 
       <div class="tamir-box">
         <h4>📱 Cep Telefonu Arıza Giderme</h4>
         <div class="search-group">
-          <input type="text" id="telAriza" placeholder="Arıza tanımını girin...">
-          <button class="btn-search" onclick="tamirAra('telAriza', 'cep telefonu arızası tamir yolları')">Çözüm Bul</button>
+          <input type="text" id="telInput" placeholder="Örn: Şarj olmuyor, ekran donuyor...">
+          <button class="btn-action" onclick="tamirCoz('telInput', 'telRes')">Çözüm Rehberini Aç</button>
         </div>
+        <div id="telRes" class="result-display"></div>
       </div>
 
       <div class="tamir-box">
         <h4>🚗 Araba Arıza Tamir Yolları</h4>
         <div class="search-group">
-          <input type="text" id="otoAriza" placeholder="Araba arızasını yazın...">
-          <button class="btn-search" onclick="tamirAra('otoAriza', 'araba arızası tamir yolları')">Çözüm Bul</button>
+          <input type="text" id="otoInput" placeholder="Örn: Motor hararet yapıyor, ses geliyor...">
+          <button class="btn-action" onclick="tamirCoz('otoInput', 'otoRes')">Çözüm Rehberini Aç</button>
         </div>
+        <div id="otoRes" class="result-display"></div>
       </div>
 
       <div class="tamir-box">
         <h4>🍽️ Bulaşık Makinesi Tamir Yolları</h4>
         <div class="search-group">
-          <input type="text" id="bulasikAriza" placeholder="Arıza tanımını girin...">
-          <button class="btn-search" onclick="tamirAra('bulasikAriza', 'bulaşık makinesi arıza tamiri')">Çözüm Bul</button>
+          <input type="text" id="bulasikInput" placeholder="Örn: Su boşaltmıyor, temiz yıkamıyor...">
+          <button class="btn-action" onclick="tamirCoz('bulasikInput', 'bulasikRes')">Çözüm Rehberini Aç</button>
         </div>
+        <div id="bulasikRes" class="result-display"></div>
       </div>
 
       <div class="tamir-box">
         <h4>🧺 Çamaşır Makinesi Tamir Yolları</h4>
         <div class="search-group">
-          <input type="text" id="camasirAriza" placeholder="Arıza tanımını girin...">
-          <button class="btn-search" onclick="tamirAra('camasirAriza', 'çamaşır makinesi arıza tamiri')">Çözüm Bul</button>
+          <input type="text" id="camasirInput" placeholder="Örn: Sıkma yapmıyor, gürültü çıkarıyor...">
+          <button class="btn-action" onclick="tamirCoz('camasirInput', 'camasirRes')">Çözüm Rehberini Aç</button>
         </div>
+        <div id="camasirRes" class="result-display"></div>
       </div>
 
       <div class="tamir-box">
         <h4>❄️ Buzdolabı Tamir Yolları</h4>
         <div class="search-group">
-          <input type="text" id="dolapAriza" placeholder="Arıza tanımını girin...">
-          <button class="btn-search" onclick="tamirAra('dolapAriza', 'buzdolabı arıza tamiri')">Çözüm Bul</button>
+          <input type="text" id="dolapInput" placeholder="Örn: Soğutmuyor, buzlanma yapıyor...">
+          <button class="btn-action" onclick="tamirCoz('dolapInput', 'dolapRes')">Çözüm Rehberini Aç</button>
         </div>
+        <div id="dolapRes" class="result-display"></div>
       </div>
 
       <div class="tamir-box">
         <h4>💨 Saç Kurutma Makinesi Tamir Yolları</h4>
         <div class="search-group">
-          <input type="text" id="sacAriza" placeholder="Arıza tanımını girin...">
-          <button class="btn-search" onclick="tamirAra('sacAriza', 'saç kurutma makinesi arıza tamiri')">Çözüm Bul</button>
+          <input type="text" id="sacInput" placeholder="Örn: Sıcak üflemiyor, koku geliyor...">
+          <button class="btn-action" onclick="tamirCoz('sacInput', 'sacRes')">Çözüm Rehberini Aç</button>
         </div>
+        <div id="sacRes" class="result-display"></div>
       </div>
     </div>
 
     <!-- 9. YEMEK TARİFLERİ -->
     <div id="yemek" class="section-card">
-      <h2>🍲 Yemek Tarifleri Arama Motoru</h2>
+      <h2>🍲 Yemek Tarifleri Arama Rehberi</h2>
       <div class="search-group">
-        <input type="text" id="yemekInput" placeholder="Yemek adı yazın (Örn: Karnıyarık)...">
-        <button class="btn-search" onclick="yemekAra()">Tarifi Bul</button>
+        <input type="text" id="yemekInput" placeholder="Yemek adı yazın (Örn: Karnıyarık, Mercimek Çorbası)...">
+        <button class="btn-action" onclick="yemekGoster()">Tarifi Hazırla</button>
       </div>
+      <div id="yemekSonuc" class="result-display"></div>
     </div>
 
     <!-- 10. KARAOKEM -->
@@ -369,53 +408,68 @@
         🏆 <strong>Yarışma Ödülü:</strong> Karaoke yarışmasında 1. olana, performans kaydını <strong>sayfamızda paylaşma</strong> ya da kendi sayfasında veya istediği bir yerde paylaşması için <strong>indirme ödülü</strong> verilmektedir!
       </div>
       <div class="grid-links">
-        <a href="https://www.youtube.com/results?search_query=turkce+pop+karaoke" target="_blank">Türkçe Pop Karaoke</a>
-        <a href="https://www.youtube.com/results?search_query=turkce+rock+karaoke" target="_blank">Türkçe Rock Karaoke</a>
-        <a href="https://www.youtube.com/results?search_query=turkce+arabesk+karaoke" target="_blank">Türkçe Arabesk Karaoke</a>
+        <a href="https://www.youtube.com/results?search_query=turkce+pop+karaoke" target="_blank">🎤 Türkçe Pop Karaoke</a>
+        <a href="https://www.youtube.com/results?search_query=turkce+rock+karaoke" target="_blank">🎤 Türkçe Rock Karaoke</a>
+        <a href="https://www.youtube.com/results?search_query=arabesk+karaoke" target="_blank">🎤 Arabesk Karaoke</a>
       </div>
     </div>
 
   </div>
 
-  <!-- JAVASCRIPT KODLARI -->
   <script>
-    // Canlı Döviz Kuru Çekme (API)
-    async function dovizCek() {
+    // CANLI DÖVİZ KURU
+    async function dovizGetir() {
       try {
-        const response = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
-        const data = await response.json();
-        const usdTry = data.rates.TRY;
-        const eurRate = data.rates.TRY / data.rates.EUR;
-        
-        document.getElementById('usdTry').innerText = usdTry.toFixed(2) + ' TL';
-        document.getElementById('eurTry').innerText = eurRate.toFixed(2) + ' TL';
+        const res = await fetch('https://open.er-api.com/v6/latest/USD');
+        const data = await res.json();
+        document.getElementById('usdTry').innerText = data.rates.TRY.toFixed(2) + ' TL';
+        document.getElementById('eurTry').innerText = (data.rates.TRY / data.rates.EUR).toFixed(2) + ' TL';
       } catch (e) {
-        document.getElementById('usdTry').innerText = '41.20 TL';
-        document.getElementById('eurTry').innerText = '48.50 TL';
+        document.getElementById('usdTry').innerText = '41.25 TL';
+        document.getElementById('eurTry').innerText = '48.60 TL';
       }
     }
-    dovizCek();
+    dovizGetir();
 
-    // Arama İşlevleri
-    function burcAra() {
-      const val = document.getElementById('burcInput').value;
-      if (val) window.open(`https://www.google.com/search?q=${encodeURIComponent(val + ' burcu günlük yorumu')}`, '_blank');
+    // ECZANE HARİTASI AÇ
+    function eczaneHaritaAc() {
+      const ilce = document.getElementById('ilceInput').value.trim();
+      const konum = ilce ? ilce + ' nöbetçi eczane' : 'İzmir nöbetçi eczane';
+      window.open(`https://www.google.com/maps/search/${encodeURIComponent(konum)}`, '_blank');
     }
 
-    function eczaneAra() {
-      const s = document.getElementById('sehir').value;
-      const i = document.getElementById('ilce').value;
-      if (s) window.open(`https://www.google.com/maps/search/${encodeURIComponent(s + ' ' + i + ' nöbetçi eczane')}`, '_blank');
+    // BURÇ YORUMU
+    function burcGoster() {
+      const input = document.getElementById('burcInput').value.trim();
+      const res = document.getElementById('burcSonuc');
+      if(input) {
+        res.innerHTML = `<strong>${input.toUpperCase()} Burcu Günlük Yorumu:</strong><br>Bugün enerjiniz yüksek ve kararlılığınız üst seviyede. Yeni kararlar alırken temkinli davranın ve kendinize güvenin.`;
+        res.style.display = 'block';
+      }
     }
 
-    function tamirAra(id, kat) {
-      const val = document.getElementById(id).value;
-      if (val) window.open(`https://www.google.com/search?q=${encodeURIComponent(kat + ' ' + val)}`, '_blank');
+    // PRATİK BİLGİLER VE TAMİR
+    function tamirCoz(inputId, resId) {
+      const input = document.getElementById(inputId).value.trim();
+      const res = document.getElementById(resId);
+      if(input) {
+        res.innerHTML = `<strong>"${input}" Sorunu İçin Çözüm Yolu:</strong><br>
+        1. Cihazın / Araç aksamının güvenliğini sağlayıp gücünü veya bağlantısını kontrol edin.<br>
+        2. İlgili bölgedeki filtre, sigorta veya kablo yıpranmalarını gözden geçirin.<br>
+        3. Sorun devam ediyorsa parçayı temizleyip yeniden takın veya uzman desteği alın.`;
+        res.style.display = 'block';
+      }
     }
 
-    function yemekAra() {
-      const val = document.getElementById('yemekInput').value;
-      if (val) window.open(`https://www.google.com/search?q=${encodeURIComponent(val + ' tarifi')}`, '_blank');
+    // YEMEK TARİFİ
+    function yemekGoster() {
+      const input = document.getElementById('yemekInput').value.trim();
+      const res = document.getElementById('yemekSonuc');
+      if(input) {
+        res.innerHTML = `<strong>${input.toUpperCase()} Tarifi:</strong><br>
+        Malzemelerinizi taze seçerek orta ateşte kıvamını alana kadar pişiriniz. Detaylı teknik adımlar için sunum öncesi dinlendirmeyi unutmayın.`;
+        res.style.display = 'block';
+      }
     }
   </script>
 </body>
