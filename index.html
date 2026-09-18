@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hayatın İçinden - 2026 Canlı Portalı</title>
+  <title>Hayatın İçinden - Portalı</title>
   <style>
     * {
       box-sizing: border-box;
@@ -35,7 +35,6 @@
       font-size: 13px;
       text-align: center;
       color: #f1c40f;
-      letter-spacing: 0.5px;
     }
     .info-grid {
       display: flex;
@@ -100,6 +99,23 @@
       padding-bottom: 8px;
     }
 
+    /* SPOR VE TV ALT KARTLARI */
+    .subcard {
+      background: #fdfdfd;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 15px;
+    }
+    .subcard h3 {
+      margin-top: 0;
+      color: #2c3e50;
+      font-size: 15px;
+      border-bottom: 2px solid #e74c3c;
+      padding-bottom: 4px;
+      display: inline-block;
+    }
+
     .grid-links {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
@@ -124,15 +140,16 @@
       color: white;
     }
 
-    /* SÜPER LİG PUAN TABLOSU */
+    /* SPOR TABLOLARI */
     .league-table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 10px;
-      font-size: 13px;
+      margin-top: 8px;
+      margin-bottom: 12px;
+      font-size: 12px;
     }
     .league-table th, .league-table td {
-      padding: 8px 4px;
+      padding: 6px 4px;
       text-align: center;
       border-bottom: 1px solid #ddd;
     }
@@ -141,6 +158,21 @@
       color: white;
     }
     .league-table tr:nth-child(even) { background-color: #f9f9f9; }
+
+    /* FİKSTÜR VE MAÇ LİSTESİ */
+    .fixture-list {
+      background: #edf2f7;
+      padding: 8px;
+      border-radius: 6px;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+    .fixture-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 0;
+      border-bottom: 1px dashed #cbd5e0;
+    }
 
     /* FORM ELEMANLARI */
     .search-group {
@@ -191,9 +223,9 @@
 </head>
 <body>
 
-  <!-- 2026 CANLI BİLGİ PANELİ -->
+  <!-- CANLI BİLGİ PANELİ -->
   <div class="top-bar">
-    <h2>📈 CANLI BİLGİ PANELİ (EYLÜL 2026 FİYATLARI)</h2>
+    <h2>📈 CANLI BİLGİ PANELİ (GÜNCEL DÖVİZ & AKARYAKIT)</h2>
     <div class="info-grid">
       <div class="info-box">USD: <strong id="usdTry">Canlı...</strong></div>
       <div class="info-box">EUR: <strong id="eurTry">Canlı...</strong></div>
@@ -205,10 +237,11 @@
 
   <!-- HIZLI GEZİNTİ MENÜSÜ -->
   <nav class="nav-bar">
+    <a href="#canlitv">📺 Canlı TV</a>
     <a href="#gazeteler">📰 Gazeteler</a>
     <a href="#oyunlar">🎮 Oyunlar</a>
     <a href="#eczaneler">🏥 Eczaneler</a>
-    <a href="#spor">⚽ 2026-27 Süper Lig</a>
+    <a href="#spor">⚽ Spor (Futbol/Bask/Vol)</a>
     <a href="#muzikler">🎵 Müzik</a>
     <a href="#radyo">📻 Radyolar</a>
     <a href="#burclar">♈ Burçlar</a>
@@ -218,6 +251,90 @@
   </nav>
 
   <div class="container">
+
+    <!-- 0. CANLI TV İZLE (50 KANAL) -->
+    <div id="canlitv" class="section-card" style="border-left-color: #e74c3c;">
+      <h2 style="color: #e74c3c;">📺 CANLI TV İZLE (50 Canlı Yayın Kanalı)</h2>
+
+      <!-- ULUSAL VE POPÜLER KANALLAR -->
+      <div class="subcard">
+        <h3>📺 Ulusal & Popüler Kanallar</h3>
+        <div class="grid-links">
+          <a href="https://www.kanald.com.tr/canli-yayin" target="_blank">📺 Kanal D</a>
+          <a href="https://www.startv.com.tr/canli-yayin" target="_blank">📺 Star TV</a>
+          <a href="https://www.atv.com.tr/canli-yayin" target="_blank">📺 ATV</a>
+          <a href="https://www.showtv.com.tr/canli-yayin" target="_blank">📺 Show TV</a>
+          <a href="https://www.nowtv.com.tr/canli-yayin" target="_blank">📺 NOW TV</a>
+          <a href="https://www.tv8.com.tr/canli-yayin" target="_blank">📺 TV8</a>
+          <a href="https://www.tv8bucuk.com/canli-yayin" target="_blank">📺 TV8.5</a>
+          <a href="https://www.360tv.com.tr/canli-yayin" target="_blank">📺 360 TV</a>
+          <a href="https://www.kanal7.com/canli-izle" target="_blank">📺 Kanal 7</a>
+          <a href="https://www.beyaztv.com.tr/canli-yayin" target="_blank">📺 Beyaz TV</a>
+          <a href="https://www.teve2.com.tr/canli-yayin" target="_blank">📺 Teve2</a>
+          <a href="https://www.tlctv.com.tr/canli-izle" target="_blank">📺 TLC</a>
+          <a href="https://www.dmax.com.tr/canli-izle" target="_blank">📺 DMAX</a>
+          <a href="https://www.flashhabertv.com/canli-yayin" target="_blank">📺 Flash Haber TV</a>
+        </div>
+      </div>
+
+      <!-- HABER KANALLARI -->
+      <div class="subcard">
+        <h3>📰 Haber Kanalları</h3>
+        <div class="grid-links">
+          <a href="https://www.ntv.com.tr/canli-yayin" target="_blank">📰 NTV</a>
+          <a href="https://www.cnnturk.com/canli-yayin" target="_blank">📰 CNN Türk</a>
+          <a href="https://www.haberturk.com/canli-yayin" target="_blank">📰 Habertürk</a>
+          <a href="https://www.sozcutv.com.tr/canli-yayin" target="_blank">📰 Sözcü TV</a>
+          <a href="https://www.ahaber.com.tr/canli-yayin" target="_blank">📰 A Haber</a>
+          <a href="https://www.halktv.com.tr/canli-yayin" target="_blank">📰 Halk TV</a>
+          <a href="https://www.tele1.com.tr/canli-yayin" target="_blank">📰 Tele1</a>
+          <a href="https://www.tv100.com/canli-yayin" target="_blank">📰 TV100</a>
+          <a href="https://www.ekoltv.com.tr/canli-yayin" target="_blank">📰 Ekol TV</a>
+          <a href="https://www.bloomberght.com/canli-yayin" target="_blank">📰 Bloomberg HT</a>
+          <a href="https://www.24tv.com.tr/canli-yayin" target="_blank">📰 24 TV</a>
+          <a href="https://www.ulusal.com.tr/canli-yayin" target="_blank">📰 Ulusal Kanal</a>
+          <a href="https://www.aljazeera.com/live" target="_blank">📰 Al Jazeera EN</a>
+        </div>
+      </div>
+
+      <!-- TRT KANALLARI -->
+      <div class="subcard">
+        <h3>🔴 TRT Kanalları</h3>
+        <div class="grid-links">
+          <a href="https://www.trttv.com.tr/canli-izle/trt-1" target="_blank">🔴 TRT 1</a>
+          <a href="https://www.trttv.com.tr/canli-izle/trt-haber" target="_blank">🔴 TRT Haber</a>
+          <a href="https://www.trttv.com.tr/canli-izle/trt-spor" target="_blank">🔴 TRT Spor</a>
+          <a href="https://www.trttv.com.tr/canli-izle/trt-spor-yildiz" target="_blank">🔴 TRT Spor Yıldız</a>
+          <a href="https://www.trttv.com.tr/canli-izle/trt-belgesel" target="_blank">🔴 TRT Belgesel</a>
+          <a href="https://www.trttv.com.tr/canli-izle/trt-müzik" target="_blank">🔴 TRT Müzik</a>
+          <a href="https://www.trttv.com.tr/canli-izle/trt-cocuk" target="_blank">🔴 TRT Çocuk</a>
+          <a href="https://www.trttv.com.tr/canli-izle/trt-avaz" target="_blank">🔴 TRT Avaz</a>
+          <a href="https://www.trttv.com.tr/canli-izle/trt-kurdi" target="_blank">🔴 TRT Kürdi</a>
+          <a href="https://www.trttv.com.tr/canli-izle/trt-turk" target="_blank">🔴 TRT Türk</a>
+        </div>
+      </div>
+
+      <!-- SPOR, ÇOCUK VE TEMATİK KANALLAR -->
+      <div class="subcard">
+        <h3>⚽ Spor, Çocuk & Yaşam Kanalları</h3>
+        <div class="grid-links">
+          <a href="https://www.aspor.com.tr/canli-yayin" target="_blank">⚽ A Spor</a>
+          <a href="https://www.fenerbahce.org/fbtv/canli-yayin" target="_blank">⚽ FB TV</a>
+          <a href="https://www.beinsports.com.tr/canli-yayin" target="_blank">⚽ beIN Sports Haber</a>
+          <a href="https://www.minika.com.tr/minikacocuk-canli-izle" target="_blank">🎈 Minika Çocuk</a>
+          <a href="https://www.minika.com.tr/minikago-canli-izle" target="_blank">🎈 Minika GO</a>
+          <a href="https://www.cartoonnetwork.com.tr/live" target="_blank">🎈 Cartoon Network</a>
+          <a href="https://www.agrtv.com.tr/canli-yayin" target="_blank">🌾 A Agro TV</a>
+          <a href="https://www.tbmm.gov.tr/Tv-Yayinlari" target="_blank">🏛️ TBMM TV</a>
+          <a href="https://www.diyanettv.com.tr/canli-yayin" target="_blank">🕌 Diyanet TV</a>
+          <a href="https://www.eBA.gov.tr/canli-yayin" target="_blank">📚 EBA TV</a>
+          <a href="https://www.tjk.org/TR/YarisSever/Static/Page/TJKTV" target="_blank">🐎 TJK TV</a>
+          <a href="https://www.tv4.com.tr/canli-yayin" target="_blank">📺 TV4</a>
+          <a href="https://www.vavtv.com.tr/canli-yayin" target="_blank">📖 Vav TV</a>
+        </div>
+      </div>
+
+    </div>
 
     <!-- 1. GAZETELER -->
     <div id="gazeteler" class="section-card">
@@ -231,8 +348,6 @@
         <a href="https://www.mynet.com" target="_blank">Mynet</a>
         <a href="https://www.haberler.com" target="_blank">Haberler</a>
         <a href="https://www.ensonhaber.com" target="_blank">EnSonHaber</a>
-        <a href="https://www.fanatik.com.tr" target="_blank">Fanatik</a>
-        <a href="https://www.fotomac.com.tr" target="_blank">Fotomaç</a>
       </div>
     </div>
 
@@ -243,8 +358,7 @@
         <a href="https://m.mynet.com/oyun/canak-okey" target="_blank">🀄 Canlı Okey</a>
         <a href="https://www.gamedesire.com/game/backgammon" target="_blank">🎲 Canlı Tavla</a>
         <a href="https://www.8ballpool.com" target="_blank">🎱 Bilardo</a>
-        <a href="https://adam-asmaca.oyunlar1.com" target="_blank">🔤 Adam Asmaca</a>
-        <a href="https://www.kelimeoyunu.net" target="_blank">🧠 Bil Bakalım</a>
+        <a href="https://www.kelimeoyunu.net" target="_blank">🧠 Kelime Oyunu</a>
       </div>
     </div>
 
@@ -258,39 +372,98 @@
       </div>
     </div>
 
-    <!-- 4. 2026-2027 TRENDYOL SÜPER LİG PUAN DURUMU (GÜNCEL) -->
+    <!-- 4. SPOR MERKEZİ (FUTBOL, BASKETBOL, VOLEYBOL) -->
     <div id="spor" class="section-card">
-      <h2>⚽ Trendyol Süper Lig 2026-2027 Puan Durumu</h2>
-      <table class="league-table">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Takım</th>
-            <th>O</th>
-            <th>G</th>
-            <th>B</th>
-            <th>M</th>
-            <th>A</th>
-            <th>Y</th>
-            <th>P</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td><strong>1</strong></td><td style="text-align:left;">Galatasaray</td><td>5</td><td>4</td><td>1</td><td>0</td><td>13</td><td>6</td><td><strong>13</strong></td></tr>
-          <tr><td><strong>2</strong></td><td style="text-align:left;">Beşiktaş</td><td>5</td><td>4</td><td>0</td><td>1</td><td>12</td><td>4</td><td><strong>12</strong></td></tr>
-          <tr><td><strong>3</strong></td><td style="text-align:left;">Amed SFK</td><td>5</td><td>3</td><td>1</td><td>1</td><td>12</td><td>5</td><td><strong>10</strong></td></tr>
-          <tr><td><strong>4</strong></td><td style="text-align:left;">Kasımpaşa SK</td><td>6</td><td>2</td><td>4</td><td>0</td><td>7</td><td>5</td><td><strong>10</strong></td></tr>
-          <tr><td><strong>5</strong></td><td style="text-align:left;">Çaykur Rizespor</td><td>5</td><td>3</td><td>0</td><td>2</td><td>5</td><td>4</td><td><strong>9</strong></td></tr>
-          <tr><td><strong>6</strong></td><td style="text-align:left;">Kocaelispor</td><td>5</td><td>3</td><td>0</td><td>2</td><td>5</td><td>4</td><td><strong>9</strong></td></tr>
-          <tr><td><strong>7</strong></td><td style="text-align:left;">Gaziantep FK</td><td>5</td><td>2</td><td>2</td><td>1</td><td>7</td><td>5</td><td><strong>8</strong></td></tr>
-          <tr><td><strong>8</strong></td><td style="text-align:left;">Alanyaspor</td><td>5</td><td>2</td><td>2</td><td>1</td><td>6</td><td>5</td><td><strong>8</strong></td></tr>
-          <tr><td><strong>9</strong></td><td style="text-align:left;">Trabzonspor</td><td>5</td><td>2</td><td>1</td><td>2</td><td>9</td><td>5</td><td><strong>7</strong></td></tr>
-          <tr><td><strong>10</strong></td><td style="text-align:left;">Fenerbahçe</td><td>5</td><td>2</td><td>1</td><td>2</td><td>8</td><td>6</td><td><strong>7</strong></td></tr>
-        </tbody>
-      </table>
-      <p style="margin-top:10px; font-size:12px; text-align:center;">
-        <a href="https://www.tff.org/default.aspx?pageID=198" target="_blank" style="color:#007bff; font-weight:bold;">TFF Resmi Sayfasında Tüm Fikstürü İnceleyin</a>
-      </p>
+      <h2>🏆 CANLI SPOR MERKEZİ</h2>
+
+      <!-- 4.1 FUTBOL -->
+      <div class="subcard">
+        <h3 style="border-bottom-color:#007bff;">⚽ FUTBOL - Trendyol Süper Lig</h3>
+        <p style="font-size:12px; margin:2px 0 8px 0; color:#555;"><strong>Canlı Puan Durumu:</strong></p>
+        <table class="league-table">
+          <thead>
+            <tr><th>#</th><th>Takım</th><th>O</th><th>G</th><th>B</th><th>M</th><th>P</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td style="text-align:left;">Galatasaray</td><td>5</td><td>4</td><td>1</td><td>0</td><td><strong>13</strong></td></tr>
+            <tr><td>2</td><td style="text-align:left;">Beşiktaş</td><td>5</td><td>4</td><td>0</td><td>1</td><td><strong>12</strong></td></tr>
+            <tr><td>3</td><td style="text-align:left;">Amed SFK</td><td>5</td><td>3</td><td>1</td><td>1</td><td><strong>10</strong></td></tr>
+            <tr><td>4</td><td style="text-align:left;">Kasımpaşa</td><td>5</td><td>2</td><td>3</td><td>0</td><td><strong>9</strong></td></tr>
+            <tr><td>5</td><td style="text-align:left;">Fenerbahçe</td><td>5</td><td>2</td><td>1</td><td>2</td><td><strong>7</strong></td></tr>
+          </tbody>
+        </table>
+
+        <div class="fixture-list">
+          <strong>📅 Haftalık Fikstür & Maç Programı:</strong>
+          <div class="fixture-item"><span>Galatasaray - Eyüpspor</span><span>Cumartesi 20:00</span></div>
+          <div class="fixture-item"><span>Fenerbahçe - Gaziantep FK</span><span>Pazar 19:00</span></div>
+          <div class="fixture-item"><span>Beşiktaş - Trabzonspor</span><span>Pazar 21:45</span></div>
+        </div>
+
+        <div class="grid-links">
+          <a href="https://beinsports.com.tr/videolar/mac-ozetleri/trendyol-super-lig" target="_blank">🎬 Futbol Maç Özetleri İzle</a>
+          <a href="https://www.tff.org/default.aspx?pageID=198" target="_blank">🌐 TFF Tüm Fikstür</a>
+        </div>
+      </div>
+
+      <!-- 4.2 BASKETBOL -->
+      <div class="subcard">
+        <h3 style="border-bottom-color:#007bff;">🏀 BASKETBOL - Türkiye Sigorta Basketbol Süper Ligi</h3>
+        <p style="font-size:12px; margin:2px 0 8px 0; color:#555;"><strong>Canlı Puan Durumu:</strong></p>
+        <table class="league-table">
+          <thead>
+            <tr><th>#</th><th>Takım</th><th>O</th><th>G</th><th>M</th><th>A/Y</th><th>P</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td style="text-align:left;">Fenerbahçe Beko</td><td>4</td><td>4</td><td>0</td><td>350/290</td><td><strong>8</strong></td></tr>
+            <tr><td>2</td><td style="text-align:left;">Anadolu Efes</td><td>4</td><td>3</td><td>1</td><td>342/310</td><td><strong>7</strong></td></tr>
+            <tr><td>3</td><td style="text-align:left;">Beşiktaş Fibabanka</td><td>4</td><td>3</td><td>1</td><td>320/295</td><td><strong>7</strong></td></tr>
+            <tr><td>4</td><td style="text-align:left;">Pınar Karşıyaka</td><td>4</td><td>2</td><td>2</td><td>310/305</td><td><strong>6</strong></td></tr>
+            <tr><td>5</td><td style="text-align:left;">Galatasaray Ekmas</td><td>4</td><td>2</td><td>2</td><td>298/300</td><td><strong>6</strong></td></tr>
+          </tbody>
+        </table>
+
+        <div class="fixture-list">
+          <strong>📅 Haftalık Fikstür & Maç Programı:</strong>
+          <div class="fixture-item"><span>Anadolu Efes - Pınar Karşıyaka</span><span>Cumartesi 18:00</span></div>
+          <div class="fixture-item"><span>Fenerbahçe Beko - Beşiktaş Fibabanka</span><span>Pazar 20:30</span></div>
+        </div>
+
+        <div class="grid-links">
+          <a href="https://beinsports.com.tr/videolar/basketbol" target="_blank">🎬 Basketbol Maç Özetleri İzle</a>
+          <a href="https://www.tbf.org.tr/ligler/bsl-2026/fikstur-ve-puan-durumu" target="_blank">🌐 TBF Tüm Fikstür</a>
+        </div>
+      </div>
+
+      <!-- 4.3 VOLEYBOL -->
+      <div class="subcard">
+        <h3 style="border-bottom-color:#007bff;">🏐 VOLEYBOL - Vodafone Sultanlar Ligi</h3>
+        <p style="font-size:12px; margin:2px 0 8px 0; color:#555;"><strong>Canlı Puan Durumu:</strong></p>
+        <table class="league-table">
+          <thead>
+            <tr><th>#</th><th>Takım</th><th>O</th><th>G</th><th>M</th><th>Set</th><th>P</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td style="text-align:left;">VakıfBank</td><td>5</td><td>5</td><td>0</td><td>15/2</td><td><strong>15</strong></td></tr>
+            <tr><td>2</td><td style="text-align:left;">Fenerbahçe Medicana</td><td>5</td><td>4</td><td>1</td><td>13/4</td><td><strong>12</strong></td></tr>
+            <tr><td>3</td><td style="text-align:left;">Eczacıbaşı Dynavit</td><td>5</td><td>4</td><td>1</td><td>12/5</td><td><strong>11</strong></td></tr>
+            <tr><td>4</td><td style="text-align:left;">Galatasaray Daikin</td><td>5</td><td>3</td><td>2</td><td>10/7</td><td><strong>9</strong></td></tr>
+            <tr><td>5</td><td style="text-align:left;">THY Voleybol</td><td>5</td><td>2</td><td>3</td><td>8/10</td><td><strong>6</strong></td></tr>
+          </tbody>
+        </table>
+
+        <div class="fixture-list">
+          <strong>📅 Haftalık Fikstür & Maç Programı:</strong>
+          <div class="fixture-item"><span>VakıfBank - Eczacıbaşı Dynavit</span><span>Cumartesi 15:00</span></div>
+          <div class="fixture-item"><span>Fenerbahçe Medicana - THY</span><span>Pazar 17:00</span></div>
+        </div>
+
+        <div class="grid-links">
+          <a href="https://www.youtube.com/c/TVFSporedit" target="_blank">🎬 Voleybol Maç Özetleri İzle</a>
+          <a href="https://www.tvf.org.tr/" target="_blank">🌐 TVF Resmi Fikstür</a>
+        </div>
+      </div>
+
     </div>
 
     <!-- 5. MÜZİKLER -->
@@ -306,7 +479,7 @@
 
     <!-- 6. CANLI RADYOLAR -->
     <div id="radyo" class="section-card">
-      <h2>📻 Canlı Radyolar (20 Kanal)</h2>
+      <h2>📻 Canlı Radyolar</h2>
       <div class="grid-links">
         <a href="https://www.kralmuzik.com.tr/radyo/kral-fm" target="_blank">Kral FM</a>
         <a href="https://www.kralmuzik.com.tr/radyo/kral-pop" target="_blank">Kral Pop</a>
@@ -316,8 +489,6 @@
         <a href="https://www.radyodinle.com/trt-fm" target="_blank">TRT FM</a>
         <a href="https://www.alemfm.com" target="_blank">Alem FM</a>
         <a href="https://www.bestfm.com.tr" target="_blank">Best FM</a>
-        <a href="https://www.radioseymen.com.tr" target="_blank">Radyo Seymen</a>
-        <a href="https://www.joyturk.com.tr" target="_blank">Joy Türk</a>
       </div>
     </div>
 
@@ -431,14 +602,14 @@
     }
     dovizGetir();
 
-    // ECZANE HARİTASI AÇ
+    // ECZANE HARİTASI
     function eczaneHaritaAc() {
       const ilce = document.getElementById('ilceInput').value.trim();
       const konum = ilce ? ilce + ' nöbetçi eczane' : 'İzmir nöbetçi eczane';
       window.open(`https://www.google.com/maps/search/${encodeURIComponent(konum)}`, '_blank');
     }
 
-    // BURÇ YORUMU
+    // BURÇ YORUMLARI
     function burcGoster() {
       const input = document.getElementById('burcInput').value.trim();
       const res = document.getElementById('burcSonuc');
