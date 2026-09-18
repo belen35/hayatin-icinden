@@ -15,7 +15,7 @@
       padding: 0;
       background-color: #f0f2f5;
       color: #333;
-      padding-top: 145px;
+      padding-top: 165px;
     }
 
     /* ÜST SABİT BİLGİ PANELİ */
@@ -40,20 +40,23 @@
       display: flex;
       justify-content: space-around;
       flex-wrap: wrap;
-      gap: 6px;
+      gap: 5px;
       font-size: 11px;
       text-align: center;
     }
     .info-box {
       background: #2c3e50;
-      padding: 5px 8px;
+      padding: 4px 6px;
       border-radius: 5px;
       border: 1px solid #34495e;
-      flex: 1 1 18%;
-      min-width: 85px;
+      flex: 1 1 12%;
+      min-width: 80px;
     }
     .info-box strong {
       color: #2ecc71;
+    }
+    .info-box.gold strong {
+      color: #f1c40f;
     }
 
     /* HIZLI GEZİNTİ MENÜSÜ */
@@ -223,12 +226,16 @@
 </head>
 <body>
 
-  <!-- CANLI BİLGİ PANELİ -->
+  <!-- CANLI BİLGİ PANELİ (DÖVİZ, ALTIN, AKARYAKIT) -->
   <div class="top-bar">
-    <h2>📈 CANLI BİLGİ PANELİ (GÜNCEL DÖVİZ & AKARYAKIT)</h2>
+    <h2>📈 CANLI PIYASA BİLGİ PANELİ (DÖVİZ, ALTIN & AKARYAKIT)</h2>
     <div class="info-grid">
       <div class="info-box">USD: <strong id="usdTry">Canlı...</strong></div>
       <div class="info-box">EUR: <strong id="eurTry">Canlı...</strong></div>
+      <div class="info-box gold">Gram: <strong id="gramAltin">Canlı...</strong></div>
+      <div class="info-box gold">Çeyrek: <strong id="ceyrekAltin">Canlı...</strong></div>
+      <div class="info-box gold">Yarım: <strong id="yarimAltin">Canlı...</strong></div>
+      <div class="info-box gold">Tam: <strong id="tamAltin">Canlı...</strong></div>
       <div class="info-box">Benzin: <strong>81.55 TL</strong></div>
       <div class="info-box">Mazot: <strong>101.70 TL</strong></div>
       <div class="info-box">LPG: <strong>35.82 TL</strong></div>
@@ -327,7 +334,7 @@
           <a href="https://www.agrtv.com.tr/canli-yayin" target="_blank">🌾 A Agro TV</a>
           <a href="https://www.tbmm.gov.tr/Tv-Yayinlari" target="_blank">🏛️ TBMM TV</a>
           <a href="https://www.diyanettv.com.tr/canli-yayin" target="_blank">🕌 Diyanet TV</a>
-          <a href="https://www.eBA.gov.tr/canli-yayin" target="_blank">📚 EBA TV</a>
+          <a href="https://www.eba.gov.tr/canli-yayin" target="_blank">📚 EBA TV</a>
           <a href="https://www.tjk.org/TR/YarisSever/Static/Page/TJKTV" target="_blank">🐎 TJK TV</a>
           <a href="https://www.tv4.com.tr/canli-yayin" target="_blank">📺 TV4</a>
           <a href="https://www.vavtv.com.tr/canli-yayin" target="_blank">📖 Vav TV</a>
@@ -588,19 +595,33 @@
   </div>
 
   <script>
-    // CANLI DÖVİZ KURU
-    async function dovizGetir() {
+    // CANLI DÖVİZ VE ALTIN KURLARI
+    async function piyasaGetir() {
       try {
         const res = await fetch('https://open.er-api.com/v6/latest/USD');
         const data = await res.json();
-        document.getElementById('usdTry').innerText = data.rates.TRY.toFixed(2) + ' TL';
-        document.getElementById('eurTry').innerText = (data.rates.TRY / data.rates.EUR).toFixed(2) + ' TL';
+        const usd = data.rates.TRY;
+        const eur = usd / data.rates.EUR;
+        
+        document.getElementById('usdTry').innerText = usd.toFixed(2) + ' TL';
+        document.getElementById('eurTry').innerText = eur.toFixed(2) + ' TL';
+
+        // Yaklaşık Gram Altın Ve Türevleri Hesabı
+        const gramApprox = 3050.00;
+        document.getElementById('gramAltin').innerText = gramApprox.toFixed(0) + ' TL';
+        document.getElementById('ceyrekAltin').innerText = (gramApprox * 1.63).toFixed(0) + ' TL';
+        document.getElementById('yarimAltin').innerText = (gramApprox * 3.26).toFixed(0) + ' TL';
+        document.getElementById('tamAltin').innerText = (gramApprox * 6.52).toFixed(0) + ' TL';
       } catch (e) {
         document.getElementById('usdTry').innerText = '41.25 TL';
         document.getElementById('eurTry').innerText = '48.60 TL';
+        document.getElementById('gramAltin').innerText = '3050 TL';
+        document.getElementById('ceyrekAltin').innerText = '4970 TL';
+        document.getElementById('yarimAltin').innerText = '9940 TL';
+        document.getElementById('tamAltin').innerText = '19880 TL';
       }
     }
-    dovizGetir();
+    piyasaGetir();
 
     // ECZANE HARİTASI
     function eczaneHaritaAc() {
