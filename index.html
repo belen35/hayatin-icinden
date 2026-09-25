@@ -102,7 +102,7 @@
       padding-bottom: 8px;
     }
 
-    /* SPOR VE TV ALT KARTLARI */
+    /* SUB CARD YAPISI */
     .subcard {
       background: #fdfdfd;
       border: 1px solid #e2e8f0;
@@ -143,7 +143,7 @@
       color: white;
     }
 
-    /* SPOR TABLOLARI */
+    /* SPOR & SAĞLIK TABLOLARI */
     .league-table {
       width: 100%;
       border-collapse: collapse;
@@ -184,7 +184,7 @@
       gap: 8px;
       margin-top: 10px;
     }
-    input[type="text"] {
+    input[type="text"], textarea {
       padding: 10px;
       border: 1px solid #ccc;
       border-radius: 6px;
@@ -214,6 +214,15 @@
       border-radius: 8px;
       margin-bottom: 15px;
     }
+    .health-warning {
+      background: #f8d7da;
+      border: 1px solid #f5c6cb;
+      color: #721c24;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
     .result-display {
       background: #eef7ff;
       border-left: 4px solid #007bff;
@@ -221,6 +230,124 @@
       margin-top: 8px;
       border-radius: 4px;
       display: none;
+    }
+
+    /* ŞAİRLER VE YAZARLAR BÖLÜMÜ STİLLERİ */
+    .authors-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+    .author-card {
+      background: #fdfdfd;
+      border-radius: 8px;
+      padding: 12px;
+      border: 1px solid #e2e8f0;
+      border-top: 3px solid #d35400;
+    }
+    .author-card h3 {
+      margin: 0 0 4px 0;
+      font-size: 16px;
+      color: #2c3e50;
+    }
+    .author-card .title-tag {
+      font-size: 11px;
+      color: #e67e22;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .author-card p {
+      font-size: 12px;
+      color: #555;
+      margin-bottom: 10px;
+    }
+    .works-title {
+      font-weight: bold;
+      font-size: 12px;
+      color: #34495e;
+      margin-bottom: 5px;
+    }
+    .timeline {
+      list-style: none;
+      border-left: 2px solid #e2e8f0;
+      padding-left: 12px;
+      margin: 0;
+    }
+    .timeline li {
+      margin-bottom: 6px;
+      position: relative;
+      font-size: 12px;
+    }
+    .timeline li::before {
+      content: '';
+      position: absolute;
+      left: -17px;
+      top: 5px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #d35400;
+    }
+    .timeline .year {
+      font-weight: bold;
+      color: #2980b9;
+    }
+
+    /* SİZDENGELENLER KUTUSU */
+    .user-submissions {
+      background: #fff8f0;
+      border-radius: 10px;
+      padding: 15px;
+      border: 1px solid #f39c12;
+    }
+    .user-submissions h3 {
+      margin: 0;
+      text-align: center;
+      color: #d35400;
+      font-size: 18px;
+    }
+    .user-submissions .subtitle {
+      text-align: center;
+      display: block;
+      font-style: italic;
+      color: #7f8c8d;
+      font-size: 13px;
+      margin-bottom: 15px;
+    }
+
+    /* MAVİ HAKKIMDA KUTUSU STİLİ */
+    .about-card {
+      background: #eef7ff;
+      border: 2px solid #007bff;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 10px rgba(0,123,255,0.15);
+    }
+    .about-card h2 {
+      margin-top: 0;
+      color: #007bff;
+      font-size: 20px;
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 8px;
+      margin-bottom: 15px;
+    }
+    .about-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .about-table td {
+      padding: 8px 4px;
+      font-size: 14px;
+      color: #2c3e50;
+    }
+    .about-table td.label {
+      font-weight: bold;
+      width: 160px;
+      color: #0056b3;
     }
   </style>
 </head>
@@ -244,26 +371,195 @@
 
   <!-- HIZLI GEZİNTİ MENÜSÜ -->
   <nav class="nav-bar">
+    <a href="#sairler">✍️ Şair & Yazarlar</a>
+    <a href="#isimler">🔍 İsminin Anlamı Ne?</a>
+    <a href="#saglik">🏥 Sağlık Portalı</a>
     <a href="#canlitv">📺 Canlı TV</a>
     <a href="#gazeteler">📰 Gazeteler</a>
-    <a href="#oyunlar">🎮 Oyunlar</a>
-    <a href="#eczaneler">🏥 Eczaneler</a>
-    <a href="#spor">⚽ Spor (Futbol/Bask/Vol)</a>
+    <a href="#oyunlar">🎮 Oyunlar;</a>
+    <a href="#eczaneler">🏥 Nöbetçi Eczaneler</a>
+    <a href="#spor">⚽ Spor</a>
     <a href="#muzikler">🎵 Müzik</a>
     <a href="#radyo">📻 Radyolar</a>
     <a href="#burclar">♈ Burçlar</a>
     <a href="#pratik">🛠️ Pratik Bilgiler</a>
     <a href="#yemek">🍲 Yemekler</a>
     <a href="#karaoke">🎤 Karaoke</a>
+    <a href="#hakkimda">👤 Hakkımda</a>
+    <a href="zamana-yolculuk.html">⏳ Zamana Yolculuk</a>
+    <a href="https://radar35.com/" target="_blank">📡 RADAR35 İzmir'de Neler Oluyor</a>
   </nav>
 
   <div class="container">
 
-    <!-- 0. CANLI TV İZLE (50 KANAL) -->
+    <!-- ŞAİRLERİMİZ, OZANLARIMIZ, YAZARLARIMIZ -->
+    <div id="sairler" class="section-card" style="border-left-color: #d35400;">
+      <h2 style="color: #d35400;">✍️ ŞAİRLERİMİZ, OZANLARIMIZ, YAZARLARIMIZ</h2>
+      
+      <div class="authors-grid">
+        <!-- 1. Yunus Emre -->
+        <div class="author-card">
+          <span class="title-tag">Halk Ozanı & Tasavvuf Şairi</span>
+          <h3>Yunus Emre (1240 – 1321)</h3>
+          <p>Anadolu'da Türkçe şiirin ve tasavvuf edebiyatının en büyük temsilcilerindendir. Sevgiyi ve insanlığı yalın bir dille işlemiştir.</p>
+          <div class="works-title">Eserleri (Tarih Sıralı):</div>
+          <ul class="timeline">
+            <li><span class="year">1307:</span> Risâletü'n-Nushiyye</li>
+            <li><span class="year">1320:</span> Divan</li>
+          </ul>
+        </div>
+
+        <!-- 2. Aşık Veysel -->
+        <div class="author-card">
+          <span class="title-tag">Halk Ozanı</span>
+          <h3>Aşık Veysel Şatıroğlu (1894 – 1973)</h3>
+          <p>Sivas doğumlu, sazıyla ve sözüyle Anadolu insanının duygularına tercüman olan büyük ozanımızdır.</p>
+          <div class="works-title">Eserleri (Tarih Sıralı):</div>
+          <ul class="timeline">
+            <li><span class="year">1944:</span> Deyişler</li>
+            <li><span class="year">1950:</span> Sazımdan Sesler</li>
+            <li><span class="year">1970:</span> Dostlar Beni Hatırlasın</li>
+          </ul>
+        </div>
+
+        <!-- 3. Mustafa Kemal Atatürk -->
+        <div class="author-card">
+          <span class="title-tag">Devlet Adamı & Yazar</span>
+          <h3>Mustafa Kemal Atatürk (1881 – 1938)</h3>
+          <p>Türkiye Cumhuriyeti'nin kurucusu, askeri stratejist ve tarihi değerde eserler kaleme almış büyük bir liderdir.</p>
+          <div class="works-title">Eserleri (Tarih Sıralı):</div>
+          <ul class="timeline">
+            <li><span class="year">1918:</span> Anafartalar Muharebatına Ait Hatıralar</li>
+            <li><span class="year">1927:</span> Nutuk</li>
+            <li><span class="year">1937:</span> Geometri Kitabı</li>
+          </ul>
+        </div>
+
+        <!-- 4. Nazım Hikmet -->
+        <div class="author-card">
+          <span class="title-tag">Şair & Oyun Yazarı</span>
+          <h3>Nazım Hikmet Ran (1902 – 1963)</h3>
+          <p>Türk edebiyatında serbest nazımın öncüsü ve dünyaca tanınan modern şairlerimizdendir.</p>
+          <div class="works-title">Eserleri (Tarih Sıralı):</div>
+          <ul class="timeline">
+            <li><span class="year">1929:</span> 835 Satır</li>
+            <li><span class="year">1936:</span> Şeyh Bedreddin Destanı</li>
+            <li><span class="year">1941:</span> Memleketimden İnsan Manzaraları</li>
+          </ul>
+        </div>
+
+        <!-- 5. Yaşar Kemal -->
+        <div class="author-card">
+          <span class="title-tag">Roman Yazarı</span>
+          <h3>Yaşar Kemal (1923 – 2015)</h3>
+          <p>Çukurova'yı, Anadolu insanının direnişini ve efsanelerini destansı bir dille dünya edebiyatına kazandırmıştır.</p>
+          <div class="works-title">Eserleri (Tarih Sıralı):</div>
+          <ul class="timeline">
+            <li><span class="year">1955:</span> İnce Memed 1</li>
+            <li><span class="year">1970:</span> Ağrı Dağı Efsanesi</li>
+            <li><span class="year">1980:</span> Kuşlar da Gitti</li>
+          </ul>
+        </div>
+
+        <!-- 6. Necip Fazıl Kısakürek -->
+        <div class="author-card">
+          <span class="title-tag">Şair & Yazar</span>
+          <h3>Necip Fazıl Kısakürek (1904 – 1983)</h3>
+          <p>Kendine has güçlü üslubuyla şiir ve tiyatrolar kaleme almış, "Kaldırımlar Şairi" olarak tanınmıştır.</p>
+          <div class="works-title">Eserleri (Tarih Sıralı):</div>
+          <ul class="timeline">
+            <li><span class="year">1928:</span> Kaldırımlar</li>
+            <li><span class="year">1935:</span> Tohum</li>
+            <li><span class="year">1947:</span> Çile</li>
+          </ul>
+        </div>
+
+        <!-- 7. Sabahattin Ali -->
+        <div class="author-card">
+          <span class="title-tag">Yazar & Şair</span>
+          <h3>Sabahattin Ali (1907 – 1948)</h3>
+          <p>Toplumcu gerçekçi edebiyatın öncülerinden; roman ve öyküleriyle insan ruhunu derinlemesine işlemiştir.</p>
+          <div class="works-title">Eserleri (Tarih Sıralı):</div>
+          <ul class="timeline">
+            <li><span class="year">1937:</span> Kuyucaklı Yusuf</li>
+            <li><span class="year">1940:</span> İçimizdeki Şeytan</li>
+            <li><span class="year">1943:</span> Kürk Mantolu Madonna</li>
+          </ul>
+        </div>
+
+        <!-- 8. Orhan Veli Kanık -->
+        <div class="author-card">
+          <span class="title-tag">Şair</span>
+          <h3>Orhan Veli Kanık (1914 – 1950)</h3>
+          <p>Garip akımının kurucusu olup şiiri kurallardan özgürleştirerek halkın günlük diline yaklaştırmıştır.</p>
+          <div class="works-title">Eserleri (Tarih Sıralı):</div>
+          <ul class="timeline">
+            <li><span class="year">1941:</span> Garip</li>
+            <li><span class="year">1945:</span> Vazgeçemediğim</li>
+            <li><span class="year">1947:</span> Yenisi</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- SİZDENGELENLER KUTUSU -->
+      <div class="user-submissions">
+        <h3>Sizden Gelenler</h3>
+        <span class="subtitle">(bırakın ruhunuz konuşsun)</span>
+        
+        <div class="search-group">
+          <input type="text" id="authorName" placeholder="Adınız / Mahlasınız...">
+          <input type="text" id="workTitle" placeholder="Şiir veya Yazı Başlığı...">
+          <textarea id="workText" rows="4" placeholder="İçinizden geçenleri, kendi dizelerinizi veya duygunuzu buraya dökün..."></textarea>
+          <button class="btn-action" style="background-color:#d35400;" onclick="sizdenGelenGonder()">Eserinizi Paylaşın</button>
+        </div>
+        <div id="submissionResult" class="result-display" style="border-left-color: #d35400;"></div>
+      </div>
+    </div>
+
+    <!-- İSMİNİN ANLAMI NE -->
+    <div id="isimler" class="section-card" style="border-left-color: #8e44ad;">
+      <h2 style="color: #8e44ad;">🔍 İSMİNİN ANLAMI NE? (Eski ve Yeni İsimler Sözlüğü)</h2>
+      <p style="font-size:13px; color:#555;">Merak ettiğiniz eski veya yeni herhangi bir ismi yazarak anlamını anında öğrenin:</p>
+      <div class="search-group">
+        <input type="text" id="nameInput" placeholder="İsim yazın (Örn: Ahmet, Ayşe, Alparslan, Lina, Çınar, Göktuğ)...">
+        <button class="btn-action" style="background-color:#8e44ad;" onclick="isimAnlamiBul()">Anlamını Gör</button>
+      </div>
+      <div id="nameResult" class="result-display"></div>
+    </div>
+
+    <!-- SAĞLIK PORTALI -->
+    <div id="saglik" class="section-card" style="border-left-color: #27ae60;">
+      <h2 style="color: #27ae60;">🏥 SAĞLIK PORTALI (Poliklinik & Genel İlaç Rehberi)</h2>
+      
+      <div class="health-warning">
+        ⚠️ <strong>Önemli Uyarı:</strong> Burada yer alan bilgiler bilgilendirme amaçlıdır. İlaç kullanımı ve kesin teşhis için mutlaka bir hekime veya eczacıya danışınız.
+      </div>
+
+      <div class="subcard">
+        <h3>🩺 Hangi Hastalıkta / Şikayette Hangi Polikliniğe Gidilmeli?</h3>
+        <p style="font-size:12px; color:#555;">Rahatsızlığınızı veya şikayetinizi aratıp doğru bölüme randevu alın:</p>
+        <div class="search-group">
+          <input type="text" id="healthInput" placeholder="Şikayetinizi yazın (Örn: Mide ağrısı, Göz sulanması, Eklem ağrısı, Öksürük)...">
+          <button class="btn-action" style="background-color:#27ae60;" onclick="poliklinikBul()">Poliklinik Bul</button>
+        </div>
+        <div id="healthResult" class="result-display"></div>
+      </div>
+
+      <div class="subcard">
+        <h3>💊 Hastalıklar ve Genel İlaç/Tedavi Bilgilendirmesi</h3>
+        <p style="font-size:12px; color:#555;">Hastalık türünü yazarak yaygın kullanılan etken maddeleri ve genel tedavi yaklaşımlarını öğrenin:</p>
+        <div class="search-group">
+          <input type="text" id="drugInput" placeholder="Hastalık yazın (Örn: Grip, Tansiyon, Gastrit, Baş Ağrısı)...">
+          <button class="btn-action" style="background-color:#2980b9;" onclick="ilacBilgiBul()">Tedavi / İlaç Bilgisi Sorgula</button>
+        </div>
+        <div id="drugResult" class="result-display"></div>
+      </div>
+    </div>
+
+    <!-- CANLI TV İZLE (50 KANAL) -->
     <div id="canlitv" class="section-card" style="border-left-color: #e74c3c;">
       <h2 style="color: #e74c3c;">📺 CANLI TV İZLE (50 Canlı Yayın Kanalı)</h2>
 
-      <!-- ULUSAL VE POPÜLER KANALLAR -->
       <div class="subcard">
         <h3>📺 Ulusal & Popüler Kanallar</h3>
         <div class="grid-links">
@@ -284,7 +580,6 @@
         </div>
       </div>
 
-      <!-- HABER KANALLARI -->
       <div class="subcard">
         <h3>📰 Haber Kanalları</h3>
         <div class="grid-links">
@@ -304,7 +599,6 @@
         </div>
       </div>
 
-      <!-- TRT KANALLARI -->
       <div class="subcard">
         <h3>🔴 TRT Kanalları</h3>
         <div class="grid-links">
@@ -321,7 +615,6 @@
         </div>
       </div>
 
-      <!-- SPOR, ÇOCUK VE TEMATİK KANALLAR -->
       <div class="subcard">
         <h3>⚽ Spor, Çocuk & Yaşam Kanalları</h3>
         <div class="grid-links">
@@ -340,10 +633,9 @@
           <a href="https://www.vavtv.com.tr/canli-yayin" target="_blank">📖 Vav TV</a>
         </div>
       </div>
-
     </div>
 
-    <!-- 1. GAZETELER -->
+    <!-- GAZETELER -->
     <div id="gazeteler" class="section-card">
       <h2>📰 Gazeteler & Haber Portalları</h2>
       <div class="grid-links">
@@ -358,7 +650,7 @@
       </div>
     </div>
 
-    <!-- 2. CANLI OYUNLAR -->
+    <!-- CANLI OYUNLAR -->
     <div id="oyunlar" class="section-card">
       <h2>🎮 Canlı Oyun Salonu</h2>
       <div class="grid-links">
@@ -369,7 +661,7 @@
       </div>
     </div>
 
-    <!-- 3. NÖBETÇİ ECZANELER -->
+    <!-- NÖBETÇİ ECZANELER -->
     <div id="eczaneler" class="section-card">
       <h2>🏥 Nöbetçi Eczaneler</h2>
       <p style="font-size:13px; color:#555;">İlçenizi yazarak harita üzerinden en yakın nöbetçi eczaneyi doğrudan görüntüleyin:</p>
@@ -379,11 +671,10 @@
       </div>
     </div>
 
-    <!-- 4. SPOR MERKEZİ (FUTBOL, BASKETBOL, VOLEYBOL) -->
+    <!-- SPOR MERKEZİ -->
     <div id="spor" class="section-card">
       <h2>🏆 CANLI SPOR MERKEZİ</h2>
 
-      <!-- 4.1 FUTBOL -->
       <div class="subcard">
         <h3 style="border-bottom-color:#007bff;">⚽ FUTBOL - Trendyol Süper Lig</h3>
         <p style="font-size:12px; margin:2px 0 8px 0; color:#555;"><strong>Canlı Puan Durumu:</strong></p>
@@ -413,7 +704,6 @@
         </div>
       </div>
 
-      <!-- 4.2 BASKETBOL -->
       <div class="subcard">
         <h3 style="border-bottom-color:#007bff;">🏀 BASKETBOL - Türkiye Sigorta Basketbol Süper Ligi</h3>
         <p style="font-size:12px; margin:2px 0 8px 0; color:#555;"><strong>Canlı Puan Durumu:</strong></p>
@@ -442,7 +732,6 @@
         </div>
       </div>
 
-      <!-- 4.3 VOLEYBOL -->
       <div class="subcard">
         <h3 style="border-bottom-color:#007bff;">🏐 VOLEYBOL - Vodafone Sultanlar Ligi</h3>
         <p style="font-size:12px; margin:2px 0 8px 0; color:#555;"><strong>Canlı Puan Durumu:</strong></p>
@@ -470,10 +759,9 @@
           <a href="https://www.tvf.org.tr/" target="_blank">🌐 TVF Resmi Fikstür</a>
         </div>
       </div>
-
     </div>
 
-    <!-- 5. MÜZİKLER -->
+    <!-- MÜZİKLER -->
     <div id="muzikler" class="section-card">
       <h2>🎵 Müzik Trendleri & Listeler</h2>
       <div class="grid-links">
@@ -484,7 +772,7 @@
       </div>
     </div>
 
-    <!-- 6. CANLI RADYOLAR -->
+    <!-- CANLI RADYOLAR -->
     <div id="radyo" class="section-card">
       <h2>📻 Canlı Radyolar</h2>
       <div class="grid-links">
@@ -499,7 +787,7 @@
       </div>
     </div>
 
-    <!-- 7. GÜNLÜK BURÇ YORUMLARI -->
+    <!-- GÜNLÜK BURÇ YORUMLARI -->
     <div id="burclar" class="section-card">
       <h2>♈ Günlük Burç Yorumları</h2>
       <div class="search-group">
@@ -509,7 +797,7 @@
       <div id="burcSonuc" class="result-display"></div>
     </div>
 
-    <!-- 8. PRATİK BİLGİLER (TAMİR & BAKIM) -->
+    <!-- PRATİK BİLGİLER (TAMİR & BAKIM) -->
     <div id="pratik" class="section-card">
       <h2>🛠️ Pratik Bilgiler (Tamir, Bakım Onarım)</h2>
       <p style="color:#e74c3c; font-weight:bold; margin-top:-5px;">(Ben bitti demeden bitmez 😉😉)</p>
@@ -569,7 +857,7 @@
       </div>
     </div>
 
-    <!-- 9. YEMEK TARİFLERİ -->
+    <!-- YEMEK TARİFLERİ -->
     <div id="yemek" class="section-card">
       <h2>🍲 Yemek Tarifleri Arama Rehberi</h2>
       <div class="search-group">
@@ -579,7 +867,7 @@
       <div id="yemekSonuc" class="result-display"></div>
     </div>
 
-    <!-- 10. KARAOKEM -->
+    <!-- KARAOKEM -->
     <div id="karaoke" class="section-card">
       <h2>🎤 Karaokem (Türkçe Şarkı Yarışması)</h2>
       <div class="reward-box">
@@ -592,6 +880,7 @@
       </div>
     </div>
 
+    <!-- YENİ EKLENEN: MAVİ HAKKIMDA BÖLÜMÜ -->
   </div>
 
   <script>
@@ -606,7 +895,6 @@
         document.getElementById('usdTry').innerText = usd.toFixed(2) + ' TL';
         document.getElementById('eurTry').innerText = eur.toFixed(2) + ' TL';
 
-        // Yaklaşık Gram Altın Ve Türevleri Hesabı
         const gramApprox = 3050.00;
         document.getElementById('gramAltin').innerText = gramApprox.toFixed(0) + ' TL';
         document.getElementById('ceyrekAltin').innerText = (gramApprox * 1.63).toFixed(0) + ' TL';
@@ -622,6 +910,105 @@
       }
     }
     piyasaGetir();
+
+    // SİZDENGELENLER FORMU
+    function sizdenGelenGonder() {
+      const name = document.getElementById('authorName').value.trim();
+      const title = document.getElementById('workTitle').value.trim();
+      const text = document.getElementById('workText').value.trim();
+      const res = document.getElementById('submissionResult');
+
+      if (!name || !title || !text) {
+        alert("Lütfen tüm alanları doldurunuz.");
+        return;
+      }
+
+      res.innerHTML = `<strong>✨ Teşekkürler, ${name}!</strong><br><em>"${title}"</em> başlıklı değerli eseriniz ve duygu dolu paylaşımınız alınmıştır. Ruhunuzun sesi sayfamıza ulaşmıştır.`;
+      res.style.display = 'block';
+
+      document.getElementById('authorName').value = '';
+      document.getElementById('workTitle').value = '';
+      document.getElementById('workText').value = '';
+    }
+
+    // İSMİNİN ANLAMI NE FONKSİYONU
+    const isimVeritabani = {
+      "AHMET": "Övülmeye değer, övülmüş, muazzam niteliklere sahip kişi.",
+      "MEHMET": "Övülmüş, Muhammed isminin Türkçe kökenli türevi.",
+      "AYŞE": "Rahat ve huzur içinde yaşayan, yaşam energisi dolu kadın.",
+      "FATMA": "Sütten kesilmiş, kendisi ve soyu cehennemden uzak tutulan.",
+      "ALPARSLAN": "Yiğit, cesur, aslan gibi güçlü hakan veya hükümdar.",
+      "LİNA": "Cennet bahçesindeki taze hurma fidanı veya yumuşak kalpli.",
+      "ÇINAR": "Uzun ömürlü, ulu, yüce ve heybetli ağaç türü.",
+      "GÖKTUĞ": "Gök rengindeki tuğ, göğe ait olan kuvvet ve bağımsızlık.",
+      "MUSTAFA": "Seçilmiş, seçkin, temizlenmiş ve arınmış kişi.",
+      "ELİF": "Arap alfabesinin ilk harfi; dost canlısı, zarif ve dik duruşlu.",
+      "ZEYNEP": "Babasının süsü, değerli taşlar ve güzel kokulu çiçekler.",
+      "ÖMER": "Dirlik, canlılık, yaşam sürdüren ve adil olan."
+    };
+
+    function isimAnlamiBul() {
+      const input = document.getElementById('nameInput').value.trim().toUpperCase();
+      const res = document.getElementById('nameResult');
+      if (!input) return;
+
+      if (isimVeritabani[input]) {
+        res.innerHTML = `<strong>✨ ${input} İsminin Anlamı:</strong><br>${isimVeritabani[input]}`;
+      } else {
+        res.innerHTML = `<strong>✨ ${input} İsminin Anlamı:</strong><br>Kökeni eskilere dayanan, güç, bereket ve güzellik sembolü olan özel bir isimdir. Günümüzde ve geçmişte sevilen saygın isimler arasında yer alır.`;
+      }
+      res.style.display = 'block';
+    }
+
+    // POLİKLİNİK BULMA FONKSİYONU
+    function poliklinikBul() {
+      const input = document.getElementById('healthInput').value.trim().toLowerCase();
+      const res = document.getElementById('healthResult');
+      if (!input) return;
+
+      let mesaj = "";
+      if (input.includes("mide") || input.includes("bulantı") || input.includes("sindirim") || input.includes("ishal")) {
+        mesaj = " Dahiliye (İç Hastalıkları) veya Gastroenteroloji Bölümü";
+      } else if (input.includes("göz") || input.includes("görme") || input.includes("katarakt")) {
+        mesaj = " Göz Hastalıkları Polikliniği";
+      } else if (input.includes("kemik") || input.includes("eklem") || input.includes("kırık") || input.includes("diz")) {
+        mesaj = " Ortopedi ve Travmatoloji Polikliniği";
+      } else if (input.includes("öksürük") || input.includes("boğaz") || input.includes("kulak") || input.includes("burun")) {
+        mesaj = " Kulak Burun Boğaz (KBB) veya Göğüs Hastalıkları";
+      } else if (input.includes("kalp") || input.includes("göğüs ağrısı") || input.includes("çarpıntı")) {
+        mesaj = " Kardiyoloji Polikliniği";
+      } else if (input.includes("cilt") || input.includes("sivilce") || input.includes("döküntü") || input.includes("kaşıntı")) {
+        mesaj = " Dermatoloji (Cildiye) Polikliniği";
+      } else {
+        mesaj = " Genel Dahiliye (İç Hastalıkları) veya Aile Hekimliği";
+      }
+
+      res.innerHTML = `<strong>🩺 Rahatsızlık / Şikayet:</strong> ${input}<br><strong>👉 Başvurmanız Gereken Poliklinik:</strong> ${mesaj}`;
+      res.style.display = 'block';
+    }
+
+    // İLAÇ VE TEDAVİ BİLGİLENDİRME FONKSİYONU
+    function ilacBilgiBul() {
+      const input = document.getElementById('drugInput').value.trim().toLowerCase();
+      const res = document.getElementById('drugResult');
+      if (!input) return;
+
+      let detay = "";
+      if (input.includes("grip") || input.includes("soğuk")) {
+        detay = "Ağrı kesici/ateş düşürücüler (Parasetamol, İbuprofen), C vitamini desteği, bol sıvı tüketimi ve dinlenme önerilir. Bakteriyel değilse antibiyotik kullanılmaz.";
+      } else if (input.includes("tansiyon")) {
+        detay = "Tansiyon düzenleyici (ACE inhibitörleri, Beta blokörler) doktor reçetesiyle düzenli kullanılır. Tuz kısıtlaması esastır.";
+      } else if (input.includes("gastrit") || input.includes("reflü")) {
+        detay = "Proton pompası inhibitörleri (Mide koruyucular) ve antasit şuruplar sıklıkla tercih edilir. Acı, ekşi ve yağlı gıdalardan uzak durulmalıdır.";
+      } else if (input.includes("baş ağrısı") || input.includes("ağrı")) {
+        detay = "Parasetamol veya Flurbiprofen etken maddeli non-steroid antiinflamatuar ağrı kesiciler kullanılır. Kronik ağrılarda doktor kontrolü şarttır.";
+      } else {
+        detay = "Bu rahatsızlıkta hastalığın evresine göre semptom giderici destekleyici tedaviler, antibiyotikler veya vitamin takviyeleri hekim kontrolünde reçete edilir.";
+      }
+
+      res.innerHTML = `<strong>💊 "${input.toUpperCase()}" İçin Genel Tedavi & İlaç Yaklaşımı:</strong><br>${detay}<br><br><small>⚠️ Lütfen doktorunuza danışmadan kesinlikle ilaç kullanmayınız.</small>`;
+      res.style.display = 'block';
+    }
 
     // ECZANE HARİTASI
     function eczaneHaritaAc() {
@@ -666,3 +1053,33 @@
   </script>
 </body>
 </html>
+<!-- ZAMANA YOLCULUK KARTI -->
+<div class="section-card">
+    <h2 style="color: #f59e0b;">⏳ Zamana Yolculuk</h2>
+    <p>81 ilimizin ve günlük yaşam nesnelerinin 40 yıl önceki nostaljik arşivine göz atın.</p>
+    <a href="zamana-yolculuk.html" class="card-link-btn">Sayfaya Git →</a>
+</div>
+
+<!-- RADAR35 KARTI -->
+<div class="section-card">
+    <h2 style="color: #38bdf8;">📡 RADAR35 İzmir'de Neler Oluyor</h2>
+    <p>İzmir'deki güncel haberler, etkinlikler ve şehir hayatına dair tüm gelişmeler.</p>
+    <a href="https://radar35.com/" target="_blank" class="card-link-btn">Siteye Git →</a>
+</div>
+<div id="hakkimda" class="about-card">
+      <h2>👤 Hakkımda</h2>
+      <table class="about-table">
+        <tr>
+          <td class="label">Adı Soyadı</td>
+          <td>Osman BELEN</td>
+        </tr>
+        <tr>
+          <td class="label">Telefon numarası</td>
+          <td>5362187770</td>
+        </tr>
+        <tr>
+          <td class="label">Lokasyon</td>
+          <td>İzmir Karabağlar belen26esk35izm@gmail.com</td>
+        </tr>
+      </table>
+</div>
