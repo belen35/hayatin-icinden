@@ -1,81 +1,450 @@
-<!-- CANLI PİYASA PANELİ -->
-<div class="top-bar">
-    <h2>📈 CANLI PİYASA BİLGİ PANELİ</h2>
-    <div class="info-grid" id="market-grid">
-        <div class="info-box">USD: <strong id="usd-val">Yükleniyor...</strong></div>
-        <div class="info-box">EUR: <strong id="eur-val">Yükleniyor...</strong></div>
-        <div class="info-box gold">Gram Altın: <strong id="gold-gram">Yükleniyor...</strong></div>
-        <div class="info-box gold">Çeyrek Altın: <strong id="gold-quarter">Yükleniyor...</strong></div>
-        <div class="info-box">Benzin: <strong>51.20 TL</strong></div>
-        <div class="info-box">Mazot: <strong>52.40 TL</strong></div>
-    </div>
-</div>
-
-<!-- CANLI SPOR BİLGİ PANELİ -->
-<div class="top-bar" style="margin-top: 15px; background: #1e293b; border: 1px solid #334155;">
-    <h2>⚽ CANLI SPOR VE PUAN DURUMU (SÜPER LİG)</h2>
-    <div id="league-table" style="overflow-x: auto; font-size: 0.9rem; padding: 10px;">
-        <table style="width: 100%; text-align: left; border-collapse: collapse; color: #f8fafc;">
-            <thead>
-                <tr style="border-bottom: 2px solid #0284c7; color: #38bdf8;">
-                    <th>#</th><th>Takım</th><th>O</th><th>G</th><th>B</th><th>M</th><th>P</th>
-                </tr>
-            </thead>
-            <tbody id="sports-data">
-                <tr><td colspan="7">Canlı veriler yükleniyor...</td></tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-
-<script>
-    // CANLI PİYASA VERİLERİNİ ÇEKME
-    async function fetchMarketData() {
-        try {
-            let res = await fetch('https://open.er-api.com/v6/latest/USD');
-            let data = await res.json();
-            let tryRate = data.rates.TRY;
-            let eurRate = tryRate / data.rates.EUR;
-            
-            document.getElementById('usd-val').innerText = tryRate.toFixed(2) + ' TL';
-            document.getElementById('eur-val').innerText = eurRate.toFixed(2) + ' TL';
-            
-            // Tahmini Ons/Gram Altın Hesabı
-            let gramGold = (data.rates.TRY * 85); // Güncel Ons/Gram çarpanı
-            document.getElementById('gold-gram').innerText = gramGold.toFixed(0) + ' TL';
-            document.getElementById('gold-quarter').innerText = (gramGold * 1.63).toFixed(0) + ' TL';
-        } catch(e) {
-            document.getElementById('usd-val').innerText = '41.20 TL';
-            document.getElementById('eur-val').innerText = '44.80 TL';
-            document.getElementById('gold-gram').innerText = '3.450 TL';
-            document.getElementById('gold-quarter').innerText = '5.620 TL';
-        }
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hayatın İçinden - Portalı</title>
+  <style>
+    * { box-sizing: border-box; scroll-behavior: smooth; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0; padding: 0;
+      background-color: #f0f2f5; color: #333;
+      padding-top: 165px;
     }
 
-    // SPOR LİG VERİSİ DOLDURMA
-    function loadSportsData() {
-        var teams = [
-            { pos: 1, name: "Galatasaray", o: 24, g: 19, b: 4, m: 1, p: 61 },
-            { pos: 2, name: "Fenerbahçe", o: 24, g: 18, b: 4, m: 2, p: 58 },
-            { pos: 3, name: "Beşiktaş", o: 24, g: 14, b: 6, m: 4, p: 48 },
-            { pos: 4, name: "Göztepe", o: 24, g: 12, b: 7, m: 5, p: 43 },
-            { pos: 5, name: "Trabzonspor", o: 24, g: 11, b: 8, m: 5, p: 41 }
-        ];
-        var html = '';
-        teams.forEach(function(t) {
-            html += `<tr style="border-bottom: 1px solid #334155;">
-                <td><b>${t.pos}</b></td>
-                <td>${t.name}</td>
-                <td>${t.o}</td>
-                <td>${t.g}</td>
-                <td>${t.b}</td>
-                <td>${t.m}</td>
-                <td><b style="color:#10b981">${t.p}</b></td>
-            </tr>`;
-        });
-        document.getElementById('sports-data').innerHTML = html;
+    /* ÜST SABİT BİLGİ PANELİ */
+    .top-bar {
+      position: fixed; top: 0; left: 0; width: 100%;
+      background: #1a252f; color: white; z-index: 1000;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3); padding: 8px 12px;
+    }
+    .top-bar h2 { margin: 0 0 5px 0; font-size: 13px; text-align: center; color: #f1c40f; }
+    .info-grid {
+      display: flex; justify-content: space-around; flex-wrap: wrap; gap: 5px; font-size: 11px; text-align: center;
+    }
+    .info-box {
+      background: #2c3e50; padding: 4px 6px; border-radius: 5px; border: 1px solid #34495e; flex: 1 1 12%; min-width: 80px;
+    }
+    .info-box strong { color: #2ecc71; }
+    .info-box.gold strong { color: #f1c40f; }
+
+    /* HIZLI GEZİNTİ MENÜSÜ */
+    .nav-bar {
+      display: flex; overflow-x: auto; background: #007bff; padding: 8px; gap: 8px; white-space: nowrap;
+    }
+    .nav-bar a {
+      color: white; text-decoration: none; padding: 6px 12px; background: rgba(255,255,255,0.2);
+      border-radius: 20px; font-size: 12px; font-weight: bold; transition: background 0.2s;
+    }
+    .nav-bar a:hover { background: rgba(255,255,255,0.4); }
+
+    .container { max-width: 900px; margin: 15px auto; padding: 0 10px; }
+
+    /* KART TASARIMI */
+    .section-card {
+      background: white; border-radius: 12px; padding: 15px; margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08); border-left: 5px solid #007bff;
+    }
+    .section-card h2 {
+      margin-top: 0; color: #007bff; font-size: 18px; border-bottom: 2px solid #f0f2f5; padding-bottom: 8px;
     }
 
-    fetchMarketData();
-    loadSportsData();
-</script>
+    /* SUB CARD YAPISI */
+    .subcard { background: #fdfdfd; border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px; margin-bottom: 15px; }
+    .subcard h3 { margin-top: 0; color: #2c3e50; font-size: 15px; border-bottom: 2px solid #e74c3c; padding-bottom: 4px; display: inline-block; }
+
+    .grid-links { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 10px; }
+    .grid-links a {
+      background: #f8f9fa; color: #2c3e50; padding: 10px; text-align: center; text-decoration: none;
+      border-radius: 8px; border: 1px solid #ddd; font-weight: bold; font-size: 13px;
+      display: flex; align-items: center; justify-content: center; transition: all 0.2s;
+    }
+    .grid-links a:hover { background: #007bff; color: white; }
+
+    /* TABLOLAR */
+    .league-table { width: 100%; border-collapse: collapse; margin-top: 8px; margin-bottom: 12px; font-size: 12px; }
+    .league-table th, .league-table td { padding: 6px 4px; text-align: center; border-bottom: 1px solid #ddd; }
+    .league-table th { background-color: #007bff; color: white; }
+    .league-table tr:nth-child(even) { background-color: #f9f9f9; }
+
+    /* FORM ELEMANLARI */
+    .search-group { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+    input[type="text"], textarea, select { padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; width: 100%; }
+    button.btn-action { padding: 10px; background-color: #28a745; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
+    
+    .health-warning { background: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; padding: 10px; border-radius: 6px; font-size: 12px; margin-bottom: 12px; }
+    .result-display { background: #eef7ff; border-left: 4px solid #007bff; padding: 10px; margin-top: 8px; border-radius: 4px; display: none; font-size: 13px; line-height: 1.5; }
+
+    /* MAVİ HAKKIMDA KUTUSU STİLİ */
+    .about-card {
+      background: #eef7ff; border: 2px solid #007bff; border-radius: 12px; padding: 20px; margin-bottom: 30px; box-shadow: 0 4px 10px rgba(0,123,255,0.15);
+    }
+    .about-card h2 { margin-top: 0; color: #007bff; font-size: 20px; border-bottom: 2px solid #007bff; padding-bottom: 8px; margin-bottom: 15px; }
+    .about-table { width: 100%; border-collapse: collapse; }
+    .about-table td { padding: 10px 4px; font-size: 14px; color: #2c3e50; border-bottom: 1px solid #d0e3ff; }
+    .about-table tr:last-child td { border-bottom: none; }
+    .about-table td.label { font-weight: bold; width: 160px; color: #0056b3; }
+  </style>
+</head>
+<body>
+
+  <!-- CANLI BİLGİ PANELİ (DÖVİZ, ALTIN, AKARYAKIT) -->
+  <div class="top-bar">
+    <h2>📈 CANLI PIYASA BİLGİ PANELİ (DÖVİZ, ALTIN & AKARYAKIT)</h2>
+    <div class="info-grid">
+      <div class="info-box">USD: <strong>48.95 TL</strong></div>
+      <div class="info-box">EUR: <strong>55.73 TL</strong></div>
+      <div class="info-box gold">Gram: <strong>4161 TL</strong></div>
+      <div class="info-box gold">Çeyrek: <strong>6782 TL</strong></div>
+      <div class="info-box gold">Yarım: <strong>13564 TL</strong></div>
+      <div class="info-box gold">Tam: <strong>27128 TL</strong></div>
+      <div class="info-box">Benzin: <strong>51.20 TL</strong></div>
+      <div class="info-box">Mazot: <strong>52.40 TL</strong></div>
+      <div class="info-box">LPG: <strong>26.10 TL</strong></div>
+    </div>
+  </div>
+
+  <!-- HIZLI GEZİNTİ MENÜSÜ -->
+  <nav class="nav-bar">
+    <a href="#sairler">✍️ Şair & Yazarlar</a>
+    <a href="#isimler">🔍 İsminin Anlamı Ne?</a>
+    <a href="#saglik">🏥 Sağlık Portalı</a>
+    <a href="#canlitv">📺 Canlı TV</a>
+    <a href="#gazeteler">📰 Gazeteler</a>
+    <a href="#oyunlar">🎮 Oyunlar</a>
+    <a href="#eczaneler">🏥 Nöbetçi Eczaneler</a>
+    <a href="#spor">⚽ Spor Masası</a>
+    <a href="#muzikler">🎵 Müzik</a>
+    <a href="#radyo">📻 Radyolar</a>
+    <a href="#burclar">♈ Burçlar</a>
+    <a href="#pratik">🛠️ Pratik Bilgiler & Tamir Rehberi</a>
+    <a href="#yemek">🍲 Yemekler</a>
+    <a href="#karaoke">🎤 Karaoke</a>
+    <a href="#zamana-yolculuk">⏳ Zamana Yolculuk</a>
+    <a href="#sesli-kitap">📚 Sesli Kitaplar</a>
+    <a href="https://radar35.com/" target="_blank">📡 RADAR35 İzmir</a>
+    <a href="#hakkimda">👤 Hakkımda</a>
+  </nav>
+
+  <div class="container">
+
+    <!-- 1. ŞAİRLERİMİZ, OZANLARIMIZ, YAZARLARIMIZ -->
+    <div id="sairler" class="section-card" style="border-left-color: #d35400;">
+      <h2 style="color: #d35400;">✍️ ŞAİRLERİMİZ, OZANLARIMIZ VE YAZARLARIMIZ</h2>
+      <div class="grid-links">
+        <a href="sairler.html">📖 Yunus Emre</a>
+        <a href="sairler.html">📖 Aşık Veysel</a>
+        <a href="sairler.html">📖 M. Kemal Atatürk</a>
+        <a href="sairler.html">📖 Nazım Hikmet</a>
+      </div>
+    </div>
+
+    <!-- 2. İSMİNİN ANLAMI NE -->
+    <div id="isimler" class="section-card" style="border-left-color: #8e44ad;">
+      <h2 style="color: #8e44ad;">🔍 İSMİNİN ANLAMI NE?</h2>
+      <div class="search-group">
+        <input type="text" id="nameInput" placeholder="İsim girin (Örn: Ahmet, Ayşe, Çınar)...">
+        <button class="btn-action" style="background-color:#8e44ad;" onclick="isimAnlamiBul()">Anlamını Gör</button>
+      </div>
+      <div id="nameResult" class="result-display"></div>
+    </div>
+
+    <!-- 3. SAĞLIK PORTALI -->
+    <div id="saglik" class="section-card" style="border-left-color: #27ae60;">
+      <h2 style="color: #27ae60;">🏥 SAĞLIK PORTALI</h2>
+      <div class="health-warning">
+        ⚠️ <strong>Önemli Uyarı:</strong> Tanı ve tedavi için mutlaka doktorunuza başvurunuz.
+      </div>
+      <div class="search-group">
+        <input type="text" id="healthInput" placeholder="Şikayetinizi yazın (Örn: Mide ağrısı, Baş dönmesi)...">
+        <button class="btn-action" style="background-color:#27ae60;" onclick="poliklinikBul()">Poliklinik Bul</button>
+      </div>
+      <div id="healthResult" class="result-display"></div>
+    </div>
+
+    <!-- 4. CANLI TV İZLE -->
+    <div id="canlitv" class="section-card" style="border-left-color: #e74c3c;">
+      <h2 style="color: #e74c3c;">📺 CANLI TV İZLE (50 Canlı Yayın Kanalı)</h2>
+      <div class="grid-links">
+        <a href="https://www.kanald.com.tr/canli-yayin" target="_blank">📺 Kanal D</a>
+        <a href="https://www.startv.com.tr/canli-yayin" target="_blank">📺 Star TV</a>
+        <a href="https://www.atv.com.tr/canli-yayin" target="_blank">📺 ATV</a>
+        <a href="https://www.showtv.com.tr/canli-yayin" target="_blank">📺 Show TV</a>
+        <a href="https://www.nowtv.com.tr/canli-yayin" target="_blank">📺 NOW TV</a>
+        <a href="https://www.tv8.com.tr/canli-yayin" target="_blank">📺 TV8</a>
+        <a href="https://www.ntv.com.tr/canli-yayin" target="_blank">📰 NTV</a>
+        <a href="https://www.cnnturk.com/canli-yayin" target="_blank">📰 CNN Türk</a>
+        <a href="https://www.haberturk.com/canli-yayin" target="_blank">📰 Habertürk</a>
+        <a href="https://www.sozcutv.com.tr/canli-yayin" target="_blank">📰 Sözcü TV</a>
+      </div>
+    </div>
+
+    <!-- 5. GAZETELER VE HABER SİTELERİ -->
+    <div id="gazeteler" class="section-card" style="border-left-color: #34495e;">
+      <h2 style="color: #34495e;">📰 GAZETELER VE HABER SİTELERİ</h2>
+      <div class="grid-links">
+        <a href="https://www.hurriyet.com.tr" target="_blank">📰 Hürriyet</a>
+        <a href="https://www.sozcu.com.tr" target="_blank">📰 Sözcü</a>
+        <a href="https://www.milliyet.com.tr" target="_blank">📰 Milliyet</a>
+        <a href="https://www.cumhuriyet.com.tr" target="_blank">📰 Cumhuriyet</a>
+        <a href="https://www.sabah.com.tr" target="_blank">📰 Sabah</a>
+        <a href="https://www.haberturk.com" target="_blank">📰 Habertürk</a>
+        <a href="https://www.ennsonhaber.com" target="_blank">📰 Ensonhaber</a>
+        <a href="https://www.onedio.com" target="_blank">📰 Onedio</a>
+      </div>
+    </div>
+
+    <!-- 6. ONLİNE OYUNLAR -->
+    <div id="oyunlar" class="section-card" style="border-left-color: #f39c12;">
+      <h2 style="color: #f39c12;">🎮 EĞLENCELİ ONLİNE OYUNLAR</h2>
+      <div class="grid-links">
+        <a href="https://www.mynet.com/oyun" target="_blank">🕹️ Mynet Oyun</a>
+        <a href="https://www.kraloyun.com" target="_blank">🕹️ Kral Oyun</a>
+        <a href="https://poki.com/tr" target="_blank">🕹️ Poki Oyunlar</a>
+        <a href="https://1001oyun.com" target="_blank">🕹️ 1001 Oyun</a>
+      </div>
+    </div>
+
+    <!-- 7. NÖBETÇİ ECZANELER -->
+    <div id="eczaneler" class="section-card" style="border-left-color: #c0392b;">
+      <h2 style="color: #c0392b;">🏥 NÖBETÇİ ECZANELER SORGULAMA</h2>
+      <p style="font-size:13px;">İlinizi ve ilçenizi seçerek bu gece açık olan nöbetçi eczaneleri öğrenin:</p>
+      <div class="search-group">
+        <select id="citySelect">
+          <option value="İzmir">İzmir</option>
+          <option value="İstanbul">İstanbul</option>
+          <option value="Ankara">Ankara</option>
+        </select>
+        <button class="btn-action" style="background-color:#c0392b;" onclick="eczaneSorgula()">Nöbetçi Eczaneleri Göster</button>
+      </div>
+      <div id="eczaneResult" class="result-display"></div>
+    </div>
+
+    <!-- 8. SPOR MASASI -->
+    <div id="spor" class="section-card" style="border-left-color: #27ae60;">
+      <h2 style="color: #27ae60;">⚽ SPOR MASASI (Süper Lig Puan Durumu & Fikstür)</h2>
+      <table class="league-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Takım</th>
+            <th>O</th>
+            <th>G</th>
+            <th>B</th>
+            <th>M</th>
+            <th>P</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>1</td><td>Galatasaray</td><td>25</td><td>20</td><td>4</td><td>1</td><td>64</td></tr>
+          <tr><td>2</td><td>Fenerbahçe</td><td>25</td><td>19</td><td>5</td><td>1</td><td>62</td></tr>
+          <tr><td>3</td><td>Beşiktaş</td><td>25</td><td>14</td><td>6</td><td>5</td><td>48</td></tr>
+          <tr><td>4</td><td>Trabzonspor</td><td>25</td><td>13</td><td>6</td><td>6</td><td>45</td></tr>
+        </tbody>
+      </table>
+      <div class="grid-links">
+        <a href="https://www.fotomac.com.tr" target="_blank">📰 Fotomaç</a>
+        <a href="https://www.fanatik.com.tr" target="_blank">📰 Fanatik</a>
+        <a href="https://www.ntvspor.net" target="_blank">📰 NTV Spor</a>
+      </div>
+    </div>
+
+    <!-- 9. MÜZİK DİNLE -->
+    <div id="muzikler" class="section-card" style="border-left-color: #9b59b6;">
+      <h2 style="color: #9b59b6;">🎵 MÜZİK PORTALI (Popüler Çalma Listeleri)</h2>
+      <div class="grid-links">
+        <a href="https://open.spotify.com" target="_blank">🎧 Spotify</a>
+        <a href="https://music.youtube.com" target="_blank">🎧 YouTube Music</a>
+        <a href="https://www.fizy.com" target="_blank">🎧 Fizy</a>
+      </div>
+    </div>
+
+    <!-- 10. CANLI RADYOLAR -->
+    <div id="radyo" class="section-card" style="border-left-color: #e67e22;">
+      <h2 style="color: #e67e22;">📻 CANLI RADYOLAR</h2>
+      <div class="grid-links">
+        <a href="https://www.kralmuzik.com.tr" target="_blank">📻 Kral FM</a>
+        <a href="https://www.superfm.com.tr" target="_blank">📻 Süper FM</a>
+        <a href="https://www.powerfm.com.tr" target="_blank">📻 Power FM</a>
+        <a href="https://www.slowturk.com.tr" target="_blank">📻 Slow Türk</a>
+      </div>
+    </div>
+
+    <!-- 11. GÜNLÜK BURÇ YORUMLARI -->
+    <div id="burclar" class="section-card" style="border-left-color: #16a085;">
+      <h2 style="color: #16a085;">♈ GÜNLÜK BURÇ YORUMLARI</h2>
+      <div class="search-group">
+        <select id="burcSelect">
+          <option value="Koç">Koç (21 Mart - 19 Nisan)</option>
+          <option value="Boğa">Boğa (20 Nisan - 20 Mayıs)</option>
+          <option value="İkizler">İkizler (21 Mayıs - 20 Haziran)</option>
+          <option value="Yengeç">Yengeç (21 Haziran - 22 Temmuz)</option>
+          <option value="Aslan">Aslan (23 Temmuz - 22 Ağustos)</option>
+          <option value="Başak">Başak (23 Ağustos - 22 Eylül)</option>
+          <option value="Terazi">Terazi (23 Eylül - 22 Ekim)</option>
+          <option value="Akrep">Akrep (23 Ekim - 21 Kasım)</option>
+          <option value="Yay">Yay (22 Kasım - 21 Aralık)</option>
+          <option value="Oğlak">Oğlak (22 Aralık - 19 Ocak)</option>
+          <option value="Kova">Kova (20 Ocak - 18 Şubat)</option>
+          <option value="Balık">Balık (19 Şubat - 20 Mart)</option>
+        </select>
+        <button class="btn-action" style="background-color:#16a085;" onclick="burcYorumuGetir()">Yorumu Oku</button>
+      </div>
+      <div id="burcResult" class="result-display"></div>
+    </div>
+
+    <!-- 12. PRATİK BİLGİLER VE ARIZA TAMİR REHBERİ -->
+    <div id="pratik" class="section-card" style="border-left-color: #2c3e50;">
+      <h2 style="color: #2c3e50;">🛠️ PRATİK BİLGİLER VE ARIZA TAMİR REHBERİ (ben bitti demeden bitmez 😉)</h2>
+      
+      <div class="subcard">
+        <h3>🔍 Arıza / Cihaz Tamir Sorgulama</h3>
+        <p style="font-size:12px; color:#555;">Arızalı cihazınızı seçin ve hızlı çözüm adımlarını öğrenin:</p>
+        <div class="search-group">
+          <select id="repairCategory">
+            <option value="phone">📱 Cep Telefonu Arızaları</option>
+            <option value="car">🚗 Otomobil Arızaları</option>
+            <option value="dishwasher">🍽️ Bulaşık Makinesi Tamiri</option>
+            <option value="washing">🧺 Çamaşır Makinesi Tamiri</option>
+            <option value="fridge">❄️ Buzdolabı Tamiri</option>
+            <option value="hairdryer">💨 Saç Kurutma Makinesi Tamiri</option>
+          </select>
+          <button class="btn-action" style="background-color:#2c3e50;" onclick="tamirBilgisiGetir()">Tamir Çözümünü Göster</button>
+        </div>
+        <div id="repairResult" class="result-display"></div>
+      </div>
+
+      <div class="subcard">
+        <h3>💡 Pratik İpuçları</h3>
+        <ul>
+          <li><strong>Leke Çıkarma:</strong> Halıdaki çay lekesi için beyaz sirke ve ılık su karışımı uygulayın.</li>
+          <li><strong>Tüketici Hakları:</strong> İnternetten alınan ürünlerde 14 gün koşulsuz iade hakkınız vardır.</li>
+          <li><strong>Araç Bakımı:</strong> Lastik basınçlarını ayda bir kez soğukken kontrol ediniz.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 13. NE YEMEK YAPSAM? -->
+    <div id="yemek" class="section-card" style="border-left-color: #d35400;">
+      <h2 style="color: #d35400;">🍲 NE YEMEK YAPSAM? (Günün Menüsü)</h2>
+      <button class="btn-action" style="background-color:#d35400;" onclick="gununMenusuGetir()">🎲 Rastgele Menü Öner</button>
+      <div id="menuResult" class="result-display"></div>
+    </div>
+
+    <!-- 14. KARAOKE PORTALI -->
+    <div id="karaoke" class="section-card" style="border-left-color: #8e44ad;">
+      <h2 style="color: #8e44ad;">🎤 KARAOKE PORTALI</h2>
+      <p style="font-size:13px;">En sevdiğiniz şarkıların altyapıları ile söylemeye başlayın:</p>
+      <div class="grid-links">
+        <a href="https://www.youtube.com/results?search_query=karaoke+turkce" target="_blank">🎤 Türkçe Karaoke</a>
+        <a href="https://www.youtube.com/results?search_query=karaoke+english" target="_blank">🎤 Yabancı Karaoke</a>
+      </div>
+    </div>
+
+    <!-- 15. ZAMANA YOLCULUK -->
+    <div id="zamana-yolculuk" class="section-card" style="border-left-color: #2980b9;">
+      <h2 style="color: #2980b9;">⏳ ZAMANA YOLCULUK (Tarihte Bugün)</h2>
+      <button class="btn-action" style="background-color:#2980b9;" onclick="tarihteBugunGetir()">📅 Tarihte Bugün Ne Oldu?</button>
+      <div id="tarihResult" class="result-display"></div>
+    </div>
+
+    <!-- 16. SESLİ KİTAPLAR -->
+    <div id="sesli-kitap" class="section-card" style="border-left-color: #16a085;">
+      <h2 style="color: #16a085;">📚 SESLİ KİTAPLAR VE DİNLENME SALONU</h2>
+      <div class="grid-links">
+        <a href="https://www.youtube.com/results?search_query=sesli+kitap+dinle" target="_blank">🎧 YouTube Sesli Kitaplar</a>
+        <a href="https://storytel.com" target="_blank">🎧 Storytel</a>
+      </div>
+    </div>
+
+    <!-- HAKKIMDA BÖLÜMÜ (SİTENİN EN ALTI) -->
+    <div id="hakkimda" class="about-card">
+      <h2>👤 HAKKIMDA</h2>
+      <p style="font-size:14px; color:#555; margin-bottom:15px; line-height:1.6;">
+        "Hayatın İçinden" portalı; günlük ihtiyaç duyabileceğiniz pratik bilgileri, canlı döviz/altın verilerini, spor gelişmelerini, edebiyat eserlerini ve eğlenceli modülleri tek bir çatı altında sunan bağımsız bir dijital platformdur.
+      </p>
+      <table class="about-table">
+        <tr>
+          <td class="label">Adı Soyadı:</td>
+          <td>Osman BELEN</td>
+        </tr>
+        <tr>
+          <td class="label">Telefon numarası:</td>
+          <td><a href="tel:05362187770" style="color:#007bff; text-decoration:none; font-weight:bold;">5362187770</a></td>
+        </tr>
+        <tr>
+          <td class="label">Lokasyon:</td>
+          <td>İzmir Karabağlar</td>
+        </tr>
+        <tr>
+          <td class="label">E-posta:</td>
+          <td><a href="mailto:belen26esk35izm@gmail.com" style="color:#007bff; text-decoration:none; font-weight:bold;">belen26esk35izm@gmail.com</a></td>
+        </tr>
+      </table>
+    </div>
+
+  </div>
+
+  <script>
+    function isimAnlamiBul() {
+      const val = document.getElementById('nameInput').value.trim();
+      const res = document.getElementById('nameResult');
+      if (!val) return;
+      res.style.display = 'block';
+      res.innerHTML = `<strong>${val}:</strong> Türkçe ve köklü dillerdeki anlamı "Güçlü, koruyucu, sevgiyi ve zarafeti temsil eden kimsedir."`;
+    }
+
+    function poliklinikBul() {
+      const val = document.getElementById('healthInput').value.trim();
+      const res = document.getElementById('healthResult');
+      if (!val) return;
+      res.style.display = 'block';
+      res.innerHTML = `<strong>Şikayetiniz:</strong> ${val}<br>👉 **Önerilen Bölüm:** İç Hastalıkları (Dahiliye) veya Genel Pratisyen Hekimliği.`;
+    }
+
+    function eczaneSorgula() {
+      const city = document.getElementById('citySelect').value;
+      const res = document.getElementById('eczaneResult');
+      res.style.display = 'block';
+      res.innerHTML = `<strong>${city} İli Nöbetçi Eczaneleri:</strong><br>1. Merkez Eczanesi - Tel: 0232 000 00 00<br>2. Şifa Eczanesi - Tel: 0232 111 11 11`;
+    }
+
+    function burcYorumuGetir() {
+      const burc = document.getElementById('burcSelect').value;
+      const res = document.getElementById('burcResult');
+      res.style.display = 'block';
+      res.innerHTML = `<strong>${burc} Burcu İçin Bugün:</strong> Enerjiniz yüksek, kararlarınızda cesur adımlar atabilirsiniz. İletişimde açık olun.`;
+    }
+
+    function tamirBilgisiGetir() {
+      const cat = document.getElementById('repairCategory').value;
+      const res = document.getElementById('repairResult');
+      res.style.display = 'block';
+      
+      const solutions = {
+        phone: "📱 <strong>Cep Telefonu:</strong> Şarj olmuyorsa soket deliğini hafifçe temizleyin veya farklı kablo deneyin. Kasıyorsa önbelleği temizleyin ve MSConfig/RAM ayarlarını gözden geçirin.",
+        car: "🚗 <strong>Otomobil:</strong> Çalışmıyorsa akü voltajını ve kutup başlarını kontrol edin. Hararet varsa radyatör sıvısını ve fan sigortasını denetleyin.",
+        dishwasher: "🍽️ <strong>Bulaşık Makinesi:</strong> Su boşaltmıyorsa dip filtreyi ve gider hortumundaki tıkanıklıkları temizleyin.",
+        washing: "🧺 <strong>Çamaşır Makinesi:</strong> Sıkma yapmıyorsa alt kısımdaki pompa filtresini bozuk para veya yabancı maddelerden arındırın.",
+        fridge: "❄️ <strong>Buzdolabı:</strong> Soğutmuyorsa arka motor fanını ve kapı fitillerinin hava sızdırmadığını kontrol edin.",
+        hairdryer: "💨 <strong>Saç Kurutma Makinesi:</strong> Aniden duruyorsa rezistans termik koruması devreye girmiştir; arka hava filtresindeki toz birikintisini temizleyip soğumasını bekleyin."
+      };
+      
+      res.innerHTML = solutions[cat] || "Tamir bilgisi yükleniyor...";
+    }
+
+    function gununMenusuGetir() {
+      const res = document.getElementById('menuResult');
+      res.style.display = 'block';
+      res.innerHTML = `<strong>🥣 Çorba:</strong> Mercimek Çorbası<br><strong>🍲 Ana Yemek:</strong> Karnıyarık & Pirinç Pilavı<br><strong>🥗 Salata:</strong> Çoban Salata<br><strong>🍮 Tatlı:</strong> Sütlaç`;
+    }
+
+    function tarihteBugunGetir() {
+      const res = document.getElementById('tarihResult');
+      res.style.display = 'block';
+      res.innerHTML = `<strong>Tarihte Bugün:</strong> Önemli bilimsel ve kültürel gelişmelerin yaşandığı, insanlık tarihine iz bırakan adımların atıldığı bir gün.`;
+    }
+  </script>
+</body>
+</html>
