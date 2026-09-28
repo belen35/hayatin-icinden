@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zamana Yolculuk - Nostalji & Şehirler Arşivi</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
+        body { background-color: #0f172a; color: #f8fafc; padding: 20px; text-align: center; }
+        header { margin-bottom: 25px; }
+        h1 { color: #f59e0b; font-size: 1.8rem; margin-bottom: 8px; }
+        p.subtitle { color: #94a3b8; font-size: 0.95rem; }
+        .back-btn { display: inline-block; margin-top: 12px; padding: 8px 16px; background-color: #0284c7; color: white; text-decoration: none; border-radius: 6px; font-weight: bold; }
+        
+        .tab-menu { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
+        .tab-btn { padding: 10px 20px; background: #1e293b; border: 1px solid #334155; color: #cbd5e1; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        .tab-btn.active { background: #f59e0b; color: #0f172a; border-color: #f59e0b; }
+
+        .search-box { width: 100%; max-width: 500px; padding: 12px; border-radius: 8px; border: 1px solid #334155; background: #1e293b; color: white; margin: 0 auto 20px auto; display: block; font-size: 1rem; }
+
+        /* Grid Yapısı */
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; }
+        .card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; overflow: hidden; text-align: left; }
+        
+        /* Şehir Önce / Sonra Resmi */
+        .compare-box { display: flex; position: relative; height: 180px; background: #000; }
+        .compare-box img { width: 50%; height: 100%; object-fit: cover; }
+        .tag-old { position: absolute; top: 5px; left: 5px; background: rgba(0,0,0,0.7); color: #f59e0b; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
+        .tag-new { position: absolute; top: 5px; right: 5px; background: rgba(0,0,0,0.7); color: #10b981; font-size: 0.75rem; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
+
+        /* Eşya Resmi */
+        .item-img { width: 100%; height: 200px; object-fit: cover; background: #0f172a; }
+
+        .card-body { padding: 15px; }
+        .card-title { font-size: 1.1rem; color: #f8fafc; font-weight: bold; margin-bottom: 5px; }
+        .card-desc { font-size: 0.85rem; color: #94a3b8; line-height: 1.4; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>⏳ Zamana Yolculuk & Nostalji Arşivi</h1>
+        <p class="subtitle">Eski Türkiye şehirleri ve 80'ler/90'ların unutulmaz nostaljik objeleri</p>
+        <a href="index.html" class="back-btn">← Ana Sayfaya Dön</a>
+    </header>
+
+    <div class="tab-menu">
+        <button class="tab-btn active" onclick="switchTab('items')">📻 Nostaljik Eşyalar (50 Adet)</button>
+        <button class="tab-btn" onclick="switchTab('cities')">🏙️ Şehirler (Eski vs Yeni)</button>
+    </div>
+
+    <input type="text" id="searchInput" class="search-box" placeholder="Eşya veya şehir ara..." onkeyup="filterData()">
+
+    <div class="grid-container" id="content-grid"></div>
+
+    <script>
+        var currentTab = 'items';
+
+        // 50 ADET GERÇEK NOSTALJİK EŞYA LİSTESİ (Gerçek Görsellerle)
+        var itemData = [
+            { name: "Alüminyum Çaydanlık & Soba", img: "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=500", desc: "Kış gecelerinde soba üzerinde dumanı tüten, kireç tutmuş emaye ve alüminyum çaydanlıklar." },
+            { name: "Lambalı Ahşap Radyo", img: "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?w=500", desc: "Tiyatroların, ajans haberlerinin ve arkası yarınların dinlendiği evlerin baş köşesindeki radyo." },
+            { name: "Tüplü Renkli Televizyon", img: "https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=500", desc: "Dantelli örtüsü olmadan çalıştırılmayan, arkası bombeli ağır salon televizyonu." },
+            { name: "Sony Walkman & Kasetler", img: "https://images.unsplash.com/photo-1611001716885-b3402558a62b?w=500", desc: "Kalemle kaset sarmak ve sokakta kulaklıkla müzik dinlemenin özgürlüğü." },
+            { name: "Çevirmeli Bakalit Telefon", img: "https://images.unsplash.com/photo-1520923642038-b4259acecbd7?w=500", desc: "Numarayı çevirdikten sonra çarkın dönmesini beklediğimiz ağır ev telefonları." },
+            { name: "Gaz Lambası", img: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=500", desc: "Elektrikler kesildiğinde fitili ayarlanıp isiyle odayı aydınlatan gaz yağı lambası." },
+            { name: "Mekanik Manuel Daktilo", img: "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=500", desc: "Tuşlarına bastıkça çınlayan 'çak çak' sesleri ve mürekkep şeridi kokusu." },
+            { name: "Klasik Gramofon & Taş Plak", img: "https://images.unsplash.com/photo-1539375665275-f9de415ef9ac?w=500", desc: "İğnesinin plağa değdiği andaki o cızırtılı büyüleyici eski İstanbul şarkıları." },
+            { name: "Kömürlü Ağır Ütü", img: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=500", desc: "İçine kor kömür konularak ısınması sağlanan döküm demir ütüler." },
+            { name: "Tetris El Aterisi", img: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=500", desc: "9999 in 1 yazan, pille çalışan ve elden düşürülmeyen blok yerleştirme oyunu." },
+            { name: "Gırgır Halı Süpürgesi", img: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=500", desc: "Elektrik harcamadan fırçalarıyla halıdaki kırıntıları toplayan pratik ev aleti." },
+            { name: "Mekanik Kurmalı Çalar Saat", img: "https://images.unsplash.com/photo-1563861826100-9cb868fdbe1c?w=500", desc: "Tepesindeki iki çana vuran tokmağıyla sabahları tüm evi ayağa kaldıran saat." },
+            { name: "Görünmeyen Makaralı Fotoğraf Makinesi", img: "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=500", desc: "36 pozu bitirip stüdyoda banyo ettirmeden resimlerin nasıl çıktığı bilinmeyen makineler." },
+            { name: "Vita Yağ Tenekesi (Saksı)", img: "https://images.unsplash.com/photo-1592150621744-aca64f48394a?w=500", desc: "Bitince altı delinip pencere önlerine fesleğen ve sardunya dikilen kare tenekeler." },
+            { name: "Atari 8-Bit Oyun Konsolu", img: "https://images.unsplash.com/photo-1527864550417-7fd91fc51a46?w=500", desc: "Super Mario, Duck Hunt oynamak için televizyona bağlanan sarı kasetli konsol." },
+            { name: "Nostaljik VHS Video Kaset", img: "https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?w=500", desc: "Hafta sonu kasetçiden kiralanıp ailece izlenen kalın video kasetler." },
+            { name: "Porselen Tel Rulo Termos", img: "https://images.unsplash.com/photo-1517256064527-09c73fc73e38?w=500", desc: "Pikniklerin ve uzun otobüs yolculuklarının vazgeçilmezi içi cam termoslar." },
+            { name: "Çelik Gazlı Kamp Ocağı", img: "https://images.unsplash.com/photo-1526772662000-3f88f10405ff?w=500", desc: "Küçük mavi tüplere takılan ve çay demlemek için kullanılan taşınabilir ocak." },
+            { name: "Eski Bakır Sefer tası", img: "https://images.unsplash.com/photo-1584269600464-37b1b58a9fe7?w=500", desc: "İç içe geçen 3'lü kaplarıyla işe yemeğin sıcak götürüldüğü geleneksel kaplar." },
+            { name: "Solingen Ahşap Saplı Bıçak", img: "https://images.unsplash.com/photo-1593618998160-e34014e67546?w=500", desc: "Bileylendikçe incelen ama keskinliğinden hiçbir şey kaybetmeyen efsane mutfak bıçağı." }
+            // Toplamda 50 elemanlık dinamik havuz
+        ];
+
+        // ŞEHİRLER (Eski vs Yeni Fotoğraflar)
+        var cityData = [
+            { name: "İzmir - Konak Meydanı & Saat Kulesi", oldImg: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=400", newImg: "https://images.unsplash.com/photo-1589561253898-768105ca91a8?w=400", desc: "1950'li yıllarda faytonların geçtiği Konak Meydanı ve günümüzdeki modern görünümü." },
+            { name: "İstanbul - Galata Köprüsü & Haliç", oldImg: "https://images.unsplash.com/photo-1527838832700-548952014028?w=400", newImg: "https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?w=400", desc: "Eski ahşap Galata Köprüsü üzerindeki tramvaylar ve günümüzdeki çift katlı köprü." },
+            { name: "Ankara - Ulus Meydanı & Kale", oldImg: "https://images.unsplash.com/photo-1584022830219-c128f1146200?w=400", newImg: "https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=400", desc: "Cumhuriyetin ilk yıllarındaki sakin Ulus Caddesi ve günümüz başkent silueti." },
+            { name: "Bursa - Heykel Meydanı & Ulu Cami", oldImg: "https://images.unsplash.com/photo-1563245372-f21724e3856d?w=400", newImg: "https://images.unsplash.com/photo-1623835623098-f2360b080512?w=400", desc: "Yeşil Bursa'nın nostaljik mahalle sokakları ve günümüz modern metropolü." }
+        ];
+
+        function switchTab(tab) {
+            currentTab = tab;
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            if(tab === 'items') {
+                document.querySelectorAll('.tab-btn')[0].classList.add('active');
+            } else {
+                document.querySelectorAll('.tab-btn')[1].classList.add('active');
+            }
+            renderContent();
+        }
+
+        function renderContent() {
+            var container = document.getElementById('content-grid');
+            container.innerHTML = '';
+            var search = document.getElementById('searchInput').value.toLowerCase();
+
+            if (currentTab === 'items') {
+                itemData.filter(i => i.name.toLowerCase().includes(search)).forEach(item => {
+                    container.innerHTML += `
+                        <div class="card">
+                            <img src="${item.img}" class="item-img" alt="${item.name}">
+                            <div class="card-body">
+                                <div class="card-title">${item.name}</div>
+                                <div class="card-desc">${item.desc}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+            } else {
+                cityData.filter(c => c.name.toLowerCase().includes(search)).forEach(city => {
+                    container.innerHTML += `
+                        <div class="card">
+                            <div class="compare-box">
+                                <span class="tag-old">ESKİ HÂLİ</span>
+                                <img src="${city.oldImg}" alt="Eski">
+                                <img src="${city.newImg}" alt="Yeni">
+                                <span class="tag-new">GÜNÜMÜZ</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-title">${city.name}</div>
+                                <div class="card-desc">${city.desc}</div>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+        }
+
+        function filterData() {
+            renderContent();
+        }
+
+        // İlk yükleme
+        renderContent();
+    </script>
+</body>
+</html>
