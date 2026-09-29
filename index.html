@@ -72,6 +72,7 @@
       border-radius: 20px; font-size: 12px; font-weight: 600; transition: all 0.2s; display: inline-flex; align-items: center; gap: 6px;
     }
     .nav-bar a:hover { background: rgba(255,255,255,0.35); transform: translateY(-1px); }
+    .nav-bar a.highlight { background: #ef4444; font-weight: bold; }
 
     .container { max-width: 920px; margin: 15px auto; padding: 0 12px; }
 
@@ -165,11 +166,12 @@
 
   <!-- HIZLI GEZİNTİ MENÜSÜ -->
   <nav class="nav-bar">
+    <a href="dunya-tv.html" class="highlight">🌍 Dünyadan TV İzle</a>
     <a href="#arac-rehberi">🚗 Araç & Yakıt</a>
     <a href="#teknoloji-rehberi">💻 Teknoloji & Komutlar</a>
     <a href="#hiz-testi">⚡ Hız Testi</a>
     <a href="#spor">⚽ Spor Masası</a>
-    <a href="#sairler">✍️ Şair & Yazarlar</a>
+    <a href="sairler.html">✍️ Şair & Yazarlar</a>
     <a href="#isimler">🔍 İsminin Anlamı Ne?</a>
     <a href="#saglik">🏥 Sağlık Portalı</a>
     <a href="#canlitv">📺 Canlı TV</a>
@@ -344,7 +346,7 @@
       </div>
     </div>
 
-    <!-- 1. ŞAİRLERİMİZ, OZANLARIMIZ VE YAZARLARIMIZ (GÜNCELLENEN MODÜL) -->
+    <!-- ŞAİRLERİMİZ, OZANLARIMIZ VE YAZARLARIMIZ -->
     <div id="sairler" class="section-card" style="border-left-color: #f97316;">
       <h2 style="color: #f97316;">✍️ ŞAİRLERİMİZ, OZANLARIMIZ VE YAZARLARIMIZ</h2>
       <p style="font-size:13px; color:var(--text-muted); margin-bottom:12px;">Edebiyat dünyamızın önde gelen isimlerinin hayatı ve eserlerini keşfetmek için tıklayın:</p>
@@ -361,7 +363,7 @@
       </div>
     </div>
 
-    <!-- 2. İSMİNİN ANLAMI NE -->
+    <!-- İSMİNİN ANLAMI NE -->
     <div id="isimler" class="section-card" style="border-left-color: #a855f7;">
       <h2 style="color: #a855f7;">🔍 İSMİNİN ANLAMI NE?</h2>
       <div class="search-group">
@@ -371,7 +373,7 @@
       <div id="nameResult" class="result-display"></div>
     </div>
 
-    <!-- 3. SAĞLIK PORTALI -->
+    <!-- SAĞLIK PORTALI -->
     <div id="saglik" class="section-card" style="border-left-color: #22c55e;">
       <h2 style="color: #22c55e;">🏥 SAĞLIK PORTALI</h2>
       <div class="health-warning">
@@ -384,10 +386,11 @@
       <div id="healthResult" class="result-display"></div>
     </div>
 
-    <!-- 4. CANLI TV İZLE -->
+    <!-- CANLI TV İZLE -->
     <div id="canlitv" class="section-card" style="border-left-color: #ef4444;">
       <h2 style="color: #ef4444;">📺 CANLI TV İZLE</h2>
       <div class="grid-links">
+        <a href="dunya-tv.html" style="background:#ef4444; color:white;">🌍 Dünyadan TV İzle</a>
         <a href="https://www.kanald.com.tr/canli-yayin" target="_blank">📺 Kanal D</a>
         <a href="https://www.startv.com.tr/canli-yayin" target="_blank">📺 Star TV</a>
         <a href="https://www.atv.com.tr/canli-yayin" target="_blank">📺 ATV</a>
@@ -401,7 +404,7 @@
       </div>
     </div>
 
-    <!-- 5. GAZETELER VE HABER SİTELERİ -->
+    <!-- GAZETELER VE HABER SİTELERİ -->
     <div id="gazeteler" class="section-card" style="border-left-color: #64748b;">
       <h2 style="color: #64748b;">📰 GAZETELER VE HABER SİTELERİ</h2>
       <div class="grid-links">
@@ -416,7 +419,7 @@
       </div>
     </div>
 
-    <!-- 6. ONLİNE OYUNLAR -->
+    <!-- ONLİNE OYUNLAR -->
     <div id="oyunlar" class="section-card" style="border-left-color: #eab308;">
       <h2 style="color: #eab308;">🎮 EĞLENCELİ ONLİNE OYUNLAR</h2>
       <div class="grid-links">
@@ -427,7 +430,7 @@
       </div>
     </div>
 
-    <!-- 7. NÖBETÇİ ECZANELER -->
+    <!-- NÖBETÇİ ECZANELER -->
     <div id="eczaneler" class="section-card" style="border-left-color: #dc2626;">
       <h2 style="color: #dc2626;">🏥 NÖBETÇİ ECZANELER SORGULAMA</h2>
       <p style="font-size:13px; color:var(--text-muted);">İlinizi seçerek nöbetçi eczaneleri öğrenin:</p>
@@ -442,7 +445,7 @@
       <div id="eczaneResult" class="result-display"></div>
     </div>
 
-    <!-- 9. MÜZİK DİNLE -->
+    <!-- MÜZİK DİNLE -->
     <div id="muzikler" class="section-card" style="border-left-color: #9333ea;">
       <h2 style="color: #9333ea;">🎵 MÜZİK PORTALI</h2>
       <div class="grid-links">
@@ -452,7 +455,7 @@
       </div>
     </div>
 
-    <!-- 10. CANLI RADYOLAR -->
+    <!-- CANLI RADYOLAR -->
     <div id="radyo" class="section-card" style="border-left-color: #ea580c;">
       <h2 style="color: #ea580c;">📻 CANLI RADYOLAR</h2>
       <div class="grid-links">
@@ -463,7 +466,7 @@
       </div>
     </div>
 
-    <!-- 11. GÜNLÜK BURÇ YORUMLARI -->
+    <!-- GÜNLÜK BURÇ YORUMLARI -->
     <div id="burclar" class="section-card" style="border-left-color: #0d9488;">
       <h2 style="color: #0d9488;">♈ GÜNLÜK BURÇ YORUMLARI</h2>
       <div class="search-group">
@@ -486,7 +489,7 @@
       <div id="burcResult" class="result-display"></div>
     </div>
 
-    <!-- 12. PRATİK BİLGİLER VE ARIZA TAMİR REHBERİ -->
+    <!-- PRATİK BİLGİLER VE ARIZA TAMİR REHBERİ -->
     <div id="pratik" class="section-card" style="border-left-color: #334155;">
       <h2 style="color: #334155;">🛠️ PRATİK BİLGİLER VE ARIZA TAMİR REHBERİ</h2>
       
@@ -517,14 +520,14 @@
       </div>
     </div>
 
-    <!-- 13. NE YEMEK YAPSAM? -->
+    <!-- NE YEMEK YAPSAM? -->
     <div id="yemek" class="section-card" style="border-left-color: #ea580c;">
       <h2 style="color: #ea580c;">🍲 NE YEMEK YAPSAM? (Günün Menüsü)</h2>
       <button class="btn-action" style="background-color:#ea580c;" onclick="gununMenusuGetir()">🎲 Rastgele Menü Öner</button>
       <div id="menuResult" class="result-display"></div>
     </div>
 
-    <!-- 14. KARAOKE PORTALI -->
+    <!-- KARAOKE PORTALI -->
     <div id="karaoke" class="section-card" style="border-left-color: #a855f7;">
       <h2 style="color: #a855f7;">🎤 KARAOKE PORTALI</h2>
       <p style="font-size:13px; color:var(--text-muted);">En sevdiğiniz şarkıların altyapıları ile söylemeye başlayın:</p>
@@ -534,14 +537,14 @@
       </div>
     </div>
 
-    <!-- 15. ZAMANA YOLCULUK -->
+    <!-- ZAMANA YOLCULUK -->
     <div id="zamana-yolculuk" class="section-card" style="border-left-color: #0284c7;">
       <h2 style="color: #0284c7;">⏳ ZAMANA YOLCULUK (Tarihte Bugün)</h2>
       <button class="btn-action" style="background-color:#0284c7;" onclick="tarihteBugunGetir()">📅 Tarihte Bugün Ne Oldu?</button>
       <div id="tarihResult" class="result-display"></div>
     </div>
 
-    <!-- 16. SESLİ KİTAPLAR -->
+    <!-- SESLİ KİTAPLAR -->
     <div id="sesli-kitap" class="section-card" style="border-left-color: #0d9488;">
       <h2 style="color: #0d9488;">📚 SESLİ KİTAPLAR VE DİNLENME SALONU</h2>
       <div class="grid-links">
@@ -599,7 +602,7 @@
       document.getElementById('themeBtn').innerHTML = '☀️ Gündüz Modu';
     }
 
-    // 📈 CANLI DÖVİZ VE ALTIN VERİSİ OTOMATİK DÜZELTME
+    // 📈 CANLI DÖVİZ VE ALTIN VERİSİ
     async function fetchLiveCurrency() {
       try {
         const response = await fetch('https://open.er-api.com/v6/latest/USD');
@@ -612,7 +615,7 @@
           document.getElementById('eurVal').innerText = eurTry.toFixed(2) + ' TL';
         }
       } catch (err) {
-        console.log("Canlı döviz verisi çekilirken hata oluştu, sabit güncel değerler gösteriliyor.", err);
+        console.log("Döviz verisi çekilemedi.", err);
       }
     }
     fetchLiveCurrency();
